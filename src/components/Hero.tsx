@@ -20,7 +20,7 @@ export default function Hero() {
       <motion.div style={{ y: textY }} className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 pt-40 lg:px-12 lg:pb-24">
         <div className="max-w-5xl">
           <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="mb-8 flex items-center gap-3 text-[10px] font-semibold tracking-[0.35em] text-white/70 uppercase">
-            <span className="size-1.5 rounded-full bg-white" /> Independent production studio · Est. 2024
+            <span className="size-1.5 rounded-full bg-white" /> Independent production studio · Est. 2025
           </motion.p>
           <h1 className="font-display text-[clamp(3.7rem,10vw,9.7rem)] leading-[0.86] font-bold tracking-[-0.075em] text-white">
             <span className="block overflow-hidden"><motion.span initial={{ y: '110%' }} animate={{ y: 0 }} transition={{ duration: 1, delay: 0.28, ease: [0.22, 1, 0.36, 1] }} className="block">Ideas deserve</motion.span></span>
@@ -30,7 +30,7 @@ export default function Hero() {
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="max-w-xs text-sm leading-relaxed text-white/70 sm:text-base">
               From concept to shoot to final edit. We create work that earns attention and stays with you.
             </motion.p>
-            <motion.a initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.72 }} href="#work" className="group flex w-fit items-center gap-3 rounded-full bg-white px-6 py-4 text-xs font-bold tracking-wide text-black uppercase transition-transform hover:scale-105">
+            <motion.a initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.72 }} href="/portfolio" className="group flex w-fit items-center gap-3 rounded-full bg-white px-6 py-4 text-xs font-bold tracking-wide text-black uppercase transition-transform hover:scale-105">
               Explore our work <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </motion.a>
           </div>
