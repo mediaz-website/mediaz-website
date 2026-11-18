@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
 @import 'tailwindcss';
 
 @theme {
   --font-display: 'Archivo', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-
+  --font-mono: 'DM Mono', monospace;
   --color-ink-950: #050505;
   --color-ink-900: #0a0a0a;
   --color-ink-800: #111111;
@@ -15,50 +15,11 @@
   --color-ink-300: #8a8a8a;
   --color-ink-200: #b5b5b5;
   --color-ink-100: #e5e5e5;
-
-  --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-slow-zoom: slow-zoom 24s ease-out both;
-  --animate-pulse-dot: pulse-dot 2.2s ease-in-out infinite;
-
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(28px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slow-zoom {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.12);
-    }
-  }
-
-  @keyframes pulse-dot {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.35;
-    }
-  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  @apply bg-ink-950 font-body text-ink-100 antialiased;
-}
-
-::selection {
-  @apply bg-white text-black;
-}
+html { scroll-behavior: smooth; background: #050505; }
+body { @apply bg-ink-950 font-body text-ink-100 antialiased; }
+::selection { @apply bg-white text-black; }
+button, a, select { cursor: pointer; }
+@media (pointer: fine) { body { cursor: none; } a, button, select, input, textarea { cursor: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
