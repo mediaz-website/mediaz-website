@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowRight, CircleCheck as CheckCircle2, Loader as Loader2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const serviceOptions = [
