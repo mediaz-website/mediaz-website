@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowUpRight, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowUpRight, CircleCheck as CheckCircle2, Loader as Loader2 } from 'lucide-react'
 import { PageHero, PageMeta } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
 import { images } from '../lib/images'
