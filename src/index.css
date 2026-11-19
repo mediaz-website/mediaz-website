@@ -1,25 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Archivo', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
   --font-mono: 'DM Mono', monospace;
-  --color-ink-950: #050505;
-  --color-ink-900: #0a0a0a;
-  --color-ink-800: #111111;
-  --color-ink-700: #1a1a1a;
-  --color-ink-600: #262626;
-  --color-ink-500: #3d3d3d;
-  --color-ink-400: #5c5c5c;
-  --color-ink-300: #8a8a8a;
-  --color-ink-200: #b5b5b5;
-  --color-ink-100: #e5e5e5;
+
+  /* Light Theme Colour Palette */
+  --color-ink-950: #f7f6f2;
+  --color-ink-900: #ffffff;
+  --color-ink-800: #f1f0ec;
+  --color-ink-700: #e8e7e2;
+  --color-ink-600: #d5d4ce;
+  --color-ink-500: #77766f;
+  --color-ink-400: #66655f;
+  --color-ink-300: #77766f;
+  --color-ink-200: #45443f;
+  --color-ink-100: #24231f;
 }
 
-html { scroll-behavior: smooth; background: #050505; }
-body { @apply bg-ink-950 font-body text-ink-100 antialiased; }
-::selection { @apply bg-white text-black; }
-button, a, select { cursor: pointer; }
-@media (pointer: fine) { body { cursor: none; } a, button, select, input, textarea { cursor: none; } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+html {
+  scroll-behavior: smooth;
+  background: #f7f6f2;
+}
+
+body {
+  background: #f7f6f2;
+  color: #24231f;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Professional Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
+  color: #171717;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+/* Readable Paragraphs */
+p {
+  line-height: 1.75;
+}
+
+/* Normal Mouse Cursor */
+html, body, a, button, select, input, textarea {
+  cursor: auto;
+}
+
+button, a, select {
+  cursor: pointer;
+}
+
+::selection {
+  background: #171717;
+  color: #ffffff;
+}
+
+/* Form Elements */
+input, textarea, select {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+}
+
+/* Smooth Transitions */
+a, button {
+  transition-duration: 200ms;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

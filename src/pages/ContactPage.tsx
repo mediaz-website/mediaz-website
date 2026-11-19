@@ -1,32 +1,296 @@
+
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowUpRight, CircleCheck as CheckCircle2, Loader as Loader2 } from 'lucide-react'
-import { PageHero, PageMeta } from '../components/PageFrame'
-import { Reveal } from '../components/Motion'
-import { images } from '../lib/images'
+import { PageMeta } from '../components/PageFrame'
+import { supabase } from '../lib/supabase'
 
-const services = ['Commercial Shoot', 'Product Photography & Videography', 'Brand Shoot', 'Reels Production', 'Corporate Video Production', 'Advertising Shoot', 'Professional Photography', 'Creative Strategy & Concept Planning']
-const budgets = ['Below ₹10,000', '₹10,000–₹25,000', '₹25,000–₹50,000', '₹50,000–₹1,00,000', '₹1,00,000+', 'Not sure yet']
-const whatsappUrl = 'https://wa.me/918358063254'
-type Status = 'idle' | 'sending' | 'success'
+const services = [
+  'Commercial Shoot',
+  'Product Photography & Videography',
+  'Brand Shoot',
+  'Reels Production',
+  'Corporate Video Production',
+  'Advertising Shoot',
+  'Professional Photography',
+  'Creative Strategy & Concept Planning',
+]
+
+const budgets = [
+  'Below ₹10,000',
+  '₹10,000–₹25,000',
+  '₹25,000–₹50,000',
+  '₹50,000–₹1,00,000',
+  '₹1,00,000+',
+  'Not sure yet',
+]
+
+type Status = 'idle' | 'sending' | 'success' | 'error'
 
 export default function ContactPage() {
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
     const form = event.currentTarget
     const data = new FormData(form)
-    const required = ['name', 'brand', 'email', 'whatsapp', 'service', 'budget', 'description']
-    if (required.some((field) => !String(data.get(field) ?? '').trim())) { setError('Please complete every field so we can understand the brief.'); return }
-    setError('')
+
+    const name = String(data.get('name') ?? '').trim()
+    const brand = String(data.get('brand') ?? '').trim()
+    const email = String(data.get('email') ?? '').trim()
+    const whatsapp = String(data.get('whatsapp') ?? '').trim()
+    const service = String(data.get('service') ?? '')
+    const budget = String(data.get('budget') ?? '')
+    const description = String(data.get('description') ?? '').trim()
+
+    if (!name || !brand || !email || !whatsapp || !service || !budget || !description) {
+      setStatus('error')
+      setError('Please complete every field so we can understand your project.')
+      return
+    }
+
     setStatus('sending')
-    window.setTimeout(() => { form.reset(); setStatus('success') }, 450)
+    setError('')
+
+    console.log('CONTACT FORM SUBMIT STARTED')
+
+    try {
+      const { error: insertError } = await supabase
+        .from('enquiries')
+        .insert({
+          full_name: name,
+          business_name: brand,
+          email: email,
+          whatsapp: whatsapp,
+          service_required: service,
+          project_budget: budget,
+          project_description: description,
+        })
+
+      console.log('SUPABASE INSERT ERROR:', insertError)
+
+      if (insertError) {
+        console.error('Enquiry submission failed:', insertError)
+        setStatus('error')
+        setError(insertError.message)
+        return
+      }
+
+      console.log('ENQUIRY SAVED SUCCESSFULLY')
+
+      form.reset()
+      setStatus('success')
+    } catch (err) {
+      console.error('Unexpected enquiry error:', err)
+      setStatus('error')
+      setError(
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.'
+      )
+    }
   }
 
-  return <><PageMeta title="Contact" description="Start a project with Mediazz Hub. Share your production brief and connect with our creative team in Indore, serving brands across India." /><PageHero eyebrow="Start a project" title={<>Let&apos;s create<br /><span className="text-white/35">something great.</span></>} description="Tell us what you are building, where you want it to go and what it needs to do. We will take it from there." image={images.creative} /><main className="bg-ink-950"><section className="mx-auto grid max-w-[1440px] gap-16 px-6 py-28 lg:grid-cols-5 lg:gap-24 lg:px-12 lg:py-40"><Reveal className="lg:col-span-2"><p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase">Find us here</p><div className="space-y-8 border-t border-white/15 pt-6"><ContactDetail label="WhatsApp" value="+91 8358063254" href={whatsappUrl} /><ContactDetail label="Email" value="mediazhub@gmail.com" href="mailto:mediazhub@gmail.com" /><ContactDetail label="Location" value="Indore, Madhya Pradesh · Pan India" /><div><p className="mb-3 text-[10px] font-semibold tracking-[0.25em] text-white/35 uppercase">Social</p><div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/70"><a href="https://www.instagram.com/mediazz_hub/" target="_blank" rel="noreferrer" className="transition-colors hover:text-white">Instagram</a><a href="https://www.facebook.com/share/1A3MJows48/" target="_blank" rel="noreferrer" className="transition-colors hover:text-white">Facebook</a></div></div></div><div className="mt-16 overflow-hidden"><img src={images.lifestyle} alt="A quiet creative studio detail" loading="lazy" className="h-64 w-full object-cover grayscale opacity-65" /></div></Reveal><Reveal delay={0.12} className="lg:col-span-3">{status === 'success' ? <div className="flex min-h-[620px] flex-col justify-center border-t border-white/20"><CheckCircle2 size={38} className="text-white" /><h2 className="mt-8 font-display text-5xl leading-[0.9] font-bold tracking-[-0.06em] text-white sm:text-7xl">Thank you.<br /><span className="text-white/35">We got it.</span></h2><p className="mt-7 max-w-sm text-sm leading-relaxed text-white/55">Your project enquiry is ready for a conversation. If you would like to move faster, reach us directly on WhatsApp.</p><a href={whatsappUrl} target="_blank" rel="noreferrer" className="group mt-9 flex w-fit items-center gap-3 rounded-full bg-white px-6 py-4 text-xs font-bold tracking-[0.15em] text-black uppercase transition-transform hover:scale-105">Message on WhatsApp <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></a><button type="button" onClick={() => setStatus('idle')} className="mt-7 w-fit text-[10px] font-semibold tracking-[0.2em] text-white/55 uppercase underline underline-offset-4 hover:text-white">Send another enquiry</button></div> : <form onSubmit={handleSubmit} className="border-t border-white/20 pt-6" noValidate><div className="grid gap-7 sm:grid-cols-2"><Field id="name" label="Full name" placeholder="Your full name" /><Field id="brand" label="Business / brand name" placeholder="Your business or brand" /><Field id="email" label="Email address" type="email" placeholder="you@company.com" /><Field id="whatsapp" label="WhatsApp number" type="tel" placeholder="+91 ..." /></div><SelectField id="service" label="Service required" options={services} placeholder="Choose a service" /><SelectField id="budget" label="Approximate project budget" options={budgets} placeholder="Choose a budget range" /><div className="mt-7"><label htmlFor="description" className="mb-3 block text-[10px] font-semibold tracking-[0.25em] text-white/45 uppercase">Project description</label><textarea id="description" name="description" required rows={5} placeholder="Tell us about the idea, timing and what you want the work to do..." className="w-full resize-none border-b border-white/20 bg-transparent py-3 text-sm text-white placeholder-white/25 outline-none transition-colors focus:border-white" /></div>{error && <p role="alert" className="mt-6 text-sm text-white">{error}</p>}<button type="submit" disabled={status === 'sending'} className="group mt-8 flex items-center gap-3 rounded-full bg-white px-7 py-4 text-xs font-bold tracking-[0.15em] text-black uppercase transition-transform hover:scale-105 disabled:opacity-60">{status === 'sending' ? <>Sending <Loader2 size={15} className="animate-spin" /></> : <>Send project enquiry <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></>}</button></form>}</Reveal></section></main></>
+  return (
+    <>
+      <PageMeta
+        title="Start a Project"
+        description="Share your project brief with Mediazz Hub."
+      />
+
+      <main className="min-h-screen bg-[#f5f3ef] px-5 py-24 text-[#171717] sm:px-8 lg:py-32">
+        <div className="mx-auto max-w-3xl">
+
+          <div className="mb-14 text-center">
+            <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] uppercase text-black/45">
+              MEDIAZZ HUB
+            </p>
+
+            <h1 className="font-display text-5xl font-bold tracking-[-0.06em] sm:text-7xl">
+              Start a Project<span className="text-black/30">.</span>
+            </h1>
+
+            <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-black/55">
+              Tell us about your idea. Share your requirements and our creative
+              team will connect with you.
+            </p>
+          </div>
+
+          {status === 'success' ? (
+            <div className="flex min-h-[420px] flex-col items-center justify-center border border-black/10 bg-white p-8 text-center sm:p-14">
+              <CheckCircle2 size={42} />
+
+              <h2 className="mt-7 font-display text-4xl font-bold tracking-tight">
+                Thank you.
+              </h2>
+
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-black/55">
+                Your enquiry has been successfully submitted. Our team will
+                connect with you soon.
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setStatus('idle')}
+                className="mt-9 text-xs font-semibold uppercase tracking-widest underline underline-offset-4"
+              >
+                Submit another enquiry
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="border border-black/10 bg-white p-6 sm:p-10 lg:p-14"
+              noValidate
+            >
+              <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+                <Field id="name" label="Full name" placeholder="Your full name" />
+                <Field id="brand" label="Business / brand name" placeholder="Your business or brand" />
+                <Field id="email" label="Email address" type="email" placeholder="you@company.com" />
+                <Field id="whatsapp" label="WhatsApp number" type="tel" placeholder="+91 ..." />
+              </div>
+
+              <SelectField
+                id="service"
+                label="Service required"
+                options={services}
+                placeholder="Choose a service"
+              />
+
+              <SelectField
+                id="budget"
+                label="Approximate project budget"
+                options={budgets}
+                placeholder="Choose a budget range"
+              />
+
+              <div className="mt-8">
+                <label
+                  htmlFor="description"
+                  className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.2em] text-black/50"
+                >
+                  Project description
+                </label>
+
+                <textarea
+                  id="description"
+                  name="description"
+                  required
+                  rows={5}
+                  placeholder="Tell us about your idea, requirements and timeline..."
+                  className="w-full resize-none border-b border-black/20 bg-transparent py-4 text-sm text-black outline-none placeholder:text-black/30 focus:border-black"
+                />
+              </div>
+
+              {status === 'error' && (
+                <p role="alert" className="mt-6 text-sm text-red-600">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="mt-9 flex items-center gap-3 rounded-full bg-[#171717] px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-black/75 disabled:opacity-50"
+              >
+                {status === 'sending' ? (
+                  <>
+                    Submitting
+                    <Loader2 size={16} className="animate-spin" />
+                  </>
+                ) : (
+                  <>
+                    Submit project enquiry
+                    <ArrowUpRight size={16} />
+                  </>
+                )}
+              </button>
+            </form>
+          )}
+
+          <p className="mt-8 text-center text-[10px] uppercase tracking-[0.2em] text-black/40">
+            From Concept to Shoot · Mediazz Hub
+          </p>
+        </div>
+      </main>
+    </>
+  )
 }
 
-function Field({ id, label, placeholder, type = 'text' }: { id: string; label: string; placeholder: string; type?: 'text' | 'email' | 'tel' }) { return <div><label htmlFor={id} className="mb-3 block text-[10px] font-semibold tracking-[0.25em] text-white/45 uppercase">{label}</label><input id={id} name={id} type={type} required placeholder={placeholder} className="w-full border-b border-white/20 bg-transparent py-3 text-sm text-white placeholder-white/25 outline-none transition-colors focus:border-white" /></div> }
-function SelectField({ id, label, options, placeholder }: { id: string; label: string; options: readonly string[]; placeholder: string }) { return <div className="mt-7"><label htmlFor={id} className="mb-3 block text-[10px] font-semibold tracking-[0.25em] text-white/45 uppercase">{label}</label><select id={id} name={id} required defaultValue="" className="w-full border-b border-white/20 bg-transparent py-3 text-sm text-white outline-none transition-colors focus:border-white"><option value="" className="bg-ink-900">{placeholder}</option>{options.map((option) => <option key={option} value={option} className="bg-ink-900">{option}</option>)}</select></div> }
-function ContactDetail({ label, value, href }: { label: string; value: string; href?: string }) { return <div><p className="mb-2 text-[10px] font-semibold tracking-[0.25em] text-white/35 uppercase">{label}</p>{href ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined} className="text-base text-white transition-colors hover:text-white/60">{value}</a> : <p className="text-base text-white/75">{value}</p>}</div> }
+function Field({
+  id,
+  label,
+  placeholder,
+  type = 'text',
+}: {
+  id: string
+  label: string
+  placeholder: string
+  type?: 'text' | 'email' | 'tel'
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.2em] text-black/50"
+      >
+        {label}
+      </label>
+
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required
+        placeholder={placeholder}
+        autoComplete={
+          id === 'name' ? 'name' :
+          id === 'email' ? 'email' :
+          id === 'whatsapp' ? 'tel' : 'organization'
+        }
+        className="w-full border-b border-black/20 bg-transparent py-4 text-sm text-black outline-none placeholder:text-black/30 focus:border-black"
+      />
+    </div>
+  )
+}
+
+function SelectField({
+  id,
+  label,
+  options,
+  placeholder,
+}: {
+  id: string
+  label: string
+  options: readonly string[]
+  placeholder: string
+}) {
+  return (
+    <div className="mt-8">
+      <label
+        htmlFor={id}
+        className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.2em] text-black/50"
+      >
+        {label}
+      </label>
+
+      <select
+        id={id}
+        name={id}
+        required
+        defaultValue=""
+        className="w-full border-b border-black/20 bg-transparent py-4 text-sm text-black outline-none focus:border-black"
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
