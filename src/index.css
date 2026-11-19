@@ -8,27 +8,27 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'DM Mono', monospace;
 
-  /* Light Theme Colour Palette */
-  --color-ink-950: #f7f6f2;
-  --color-ink-900: #ffffff;
-  --color-ink-800: #f1f0ec;
-  --color-ink-700: #e8e7e2;
-  --color-ink-600: #d5d4ce;
-  --color-ink-500: #77766f;
-  --color-ink-400: #66655f;
-  --color-ink-300: #77766f;
-  --color-ink-200: #45443f;
-  --color-ink-100: #24231f;
+  /* Premium Dark Theme Palette */
+  --color-ink-950: #171512;
+  --color-ink-900: #211e19;
+  --color-ink-800: #29251e;
+  --color-ink-700: #39342c;
+  --color-ink-600: #575047;
+  --color-ink-500: #a49b8e;
+  --color-ink-400: #c0b8ac;
+  --color-ink-300: #d6cfc4;
+  --color-ink-200: #e8e3da;
+  --color-ink-100: #f5f2ec;
 }
 
 html {
   scroll-behavior: smooth;
-  background: #f7f6f2;
+  background: #171512;
 }
 
 body {
-  background: #f7f6f2;
-  color: #24231f;
+  background: #171512;
+  color: #f5f2ec;
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.7;
@@ -37,10 +37,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Professional Headings */
+/* Headings: inherit assigned Tailwind colours */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Manrope', sans-serif;
-  color: #171717;
+  color: inherit;
   line-height: 1.15;
   letter-spacing: -0.035em;
 }
@@ -59,9 +59,10 @@ button, a, select {
   cursor: pointer;
 }
 
+/* Text Selection */
 ::selection {
-  background: #171717;
-  color: #ffffff;
+  background: #c5a46d;
+  color: #171512;
 }
 
 /* Form Elements */

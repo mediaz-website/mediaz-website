@@ -41,8 +41,25 @@ function RoutedPages() {
   const location = useLocation()
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [location.pathname])
+    if (location.hash) {
+      const targetId = location.hash.substring(1)
+
+      const timer = window.setTimeout(() => {
+        const target = document.getElementById(targetId)
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'auto',
+            block: 'start',
+          })
+        }
+      }, 800)
+
+      return () => window.clearTimeout(timer)
+    }
+
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [location.pathname, location.hash])
 
   return (
     <AnimatePresence mode="wait">
