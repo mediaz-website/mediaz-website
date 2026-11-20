@@ -109,7 +109,7 @@ export default function Contact() {
                 href={`mailto:${sectionContent.email}`}
                 className="group flex w-fit items-center gap-3 text-sm text-white"
               >
-                mediazhub@gmail.com
+                {sectionContent.email}
                 <ArrowUpRight
                   size={15}
                   className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
