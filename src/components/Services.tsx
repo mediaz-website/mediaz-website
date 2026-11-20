@@ -21,6 +21,24 @@ import { images } from '../lib/images'
 import { supabase } from '../lib/supabase'
 import { Reveal } from './Motion'
 
+interface ServicesSectionContent {
+  eyebrow: string
+  headlineLine1: string
+  headlineLine2: string
+  description: string
+  topLinkText: string
+  bottomLinkText: string
+}
+
+const defaultSectionContent: ServicesSectionContent = {
+  eyebrow: 'What we create',
+  headlineLine1: 'The art of',
+  headlineLine2: 'visual storytelling.',
+  description: 'From commercial films to brand campaigns, we bring concepts to life through creative thinking, professional production and powerful visuals.',
+  topLinkText: 'Explore all capabilities',
+  bottomLinkText: 'Discover all services',
+}
+
 interface Service {
   id: string
   title: string
@@ -69,12 +87,25 @@ function getServiceIcon(iconName: string | null): LucideIcon {
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([])
+  const [sectionContent, setSectionContent] = useState<ServicesSectionContent>(defaultSectionContent)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let active = true
 
     async function fetchServices() {
+      const { data: sectionData } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('page_key', 'homepage')
+        .eq('section_key', 'services_section')
+        .eq('is_published', true)
+        .maybeSingle()
+
+      if (sectionData?.content && typeof sectionData.content === 'object' && active) {
+        setSectionContent({ ...defaultSectionContent, ...(sectionData.content as Partial<ServicesSectionContent>) })
+      }
+
       const { data, error } = await supabase
         .from('services')
         .select('*')
@@ -105,27 +136,26 @@ export default function Services() {
         <Reveal className="mb-14 flex flex-col justify-between gap-8 lg:mb-20 lg:flex-row lg:items-end">
           <div>
             <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">
-              What we create
+              {sectionContent.eyebrow}
             </p>
 
             <h2 className="max-w-3xl font-serif text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-8xl">
-              The art of
+              {sectionContent.headlineLine1}
               <br />
-              <span className="italic text-[#e0bd7e]">visual storytelling.</span>
+              <span className="italic text-[#e0bd7e]">{sectionContent.headlineLine2}</span>
             </h2>
           </div>
 
           <div className="max-w-sm">
             <p className="text-sm leading-relaxed text-white/60">
-              From commercial films to brand campaigns, we bring concepts to life
-              through creative thinking, professional production and powerful visuals.
+              {sectionContent.description}
             </p>
 
             <Link
               to="/services"
               className="mt-6 inline-flex items-center gap-3 border-b border-[#c5a46d]/60 pb-2 text-[10px] font-semibold tracking-[0.2em] text-[#e0bd7e] uppercase transition-colors hover:text-white"
             >
-              Explore all capabilities
+              {sectionContent.topLinkText}
               <ArrowUpRight size={15} />
             </Link>
           </div>
@@ -214,7 +244,7 @@ export default function Services() {
             to="/services"
             className="group inline-flex items-center gap-4 border border-[#c5a46d]/60 px-8 py-5 text-[10px] font-bold tracking-[0.2em] text-white uppercase transition duration-300 hover:bg-[#c5a46d] hover:text-[#171512]"
           >
-            Discover all services
+            {sectionContent.bottomLinkText}
             <ArrowUpRight
               size={16}
               className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
