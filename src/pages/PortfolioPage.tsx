@@ -2,12 +2,13 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { images } from '../lib/images'
 import { PageHero, PageMeta, SectionHeading } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
+import { supabase } from '../lib/supabase'
 
-const categories = [
+const defaultCategories = [
   'All work',
   'Commercial & Advertising',
   'Product Photography',
@@ -17,40 +18,110 @@ const categories = [
   'Food & Lifestyle',
 ]
 
-const projects = [
-  { title: 'Light / Motion', category: 'Commercial & Advertising', type: 'Demo project · Film study', image: images.camera },
-  { title: 'Object Study 01', category: 'Product Photography', type: 'Demo project · Still life', image: images.clothing },
-  { title: 'Color / Form', category: 'Brand Campaigns', type: 'Demo project · Campaign study', image: images.fashion },
-  { title: 'Vertical Energy', category: 'Reels & Social Media', type: 'Demo project · Social study', image: images.neonFashion },
-  { title: 'The Working Cut', category: 'Corporate Videos', type: 'Demo project · Studio study', image: images.studio },
-  { title: 'Table Stories', category: 'Food & Lifestyle', type: 'Demo project · Lifestyle study', image: images.food },
-  { title: 'The Human Frame', category: 'Brand Campaigns', type: 'Demo project · Portrait study', image: images.photographer },
-  { title: 'The Quiet Detail', category: 'Product Photography', type: 'Demo project · Detail study', image: images.lifestyle },
+type PortfolioProject = {
+  id: string
+  slug?: string
+  title: string
+  category: string
+  type: string
+  image: string
+  isDemo: boolean
+}
+
+const demoProjects: PortfolioProject[] = [
+  { id: 'demo-1', title: 'Light / Motion', category: 'Commercial & Advertising', type: 'Demo project · Film study', image: images.camera, isDemo: true },
+  { id: 'demo-2', title: 'Object Study 01', category: 'Product Photography', type: 'Demo project · Still life', image: images.clothing, isDemo: true },
+  { id: 'demo-3', title: 'Color / Form', category: 'Brand Campaigns', type: 'Demo project · Campaign study', image: images.fashion, isDemo: true },
+  { id: 'demo-4', title: 'Vertical Energy', category: 'Reels & Social Media', type: 'Demo project · Social study', image: images.neonFashion, isDemo: true },
+  { id: 'demo-5', title: 'The Working Cut', category: 'Corporate Videos', type: 'Demo project · Studio study', image: images.studio, isDemo: true },
+  { id: 'demo-6', title: 'Table Stories', category: 'Food & Lifestyle', type: 'Demo project · Lifestyle study', image: images.food, isDemo: true },
+  { id: 'demo-7', title: 'The Human Frame', category: 'Brand Campaigns', type: 'Demo project · Portrait study', image: images.photographer, isDemo: true },
+  { id: 'demo-8', title: 'The Quiet Detail', category: 'Product Photography', type: 'Demo project · Detail study', image: images.lifestyle, isDemo: true },
 ]
 
 export default function PortfolioPage() {
+  const navigate = useNavigate()
   const [activeCategory, setActiveCategory] = useState('All work')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [publishedProjects, setPublishedProjects] = useState<PortfolioProject[]>([])
+  const [loadingProjects, setLoadingProjects] = useState(true)
+
+  useEffect(() => {
+    let active = true
+
+    async function loadPublishedProjects() {
+      try {
+        const { data, error } = await supabase
+          .from('projects')
+          .select('id, title, slug, category, client_name, cover_image_url')
+          .eq('is_published', true)
+          .order('sort_order', { ascending: true })
+
+        if (error) throw error
+
+        if (active && data) {
+          const formattedProjects: PortfolioProject[] = data.map((project) => ({
+            id: project.id,
+            slug: project.slug,
+            title: project.title,
+            category: project.category || 'Other Projects',
+            type: project.client_name
+              ? `${project.client_name} · ${project.category || 'Project'}`
+              : project.category || 'Media Production',
+            image: project.cover_image_url || images.camera,
+            isDemo: false,
+          }))
+
+          setPublishedProjects(formattedProjects)
+        }
+      } catch (error) {
+        console.error('Unable to load published portfolio projects:', error)
+      } finally {
+        if (active) setLoadingProjects(false)
+      }
+    }
+
+    loadPublishedProjects()
+
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const allProjects = [...publishedProjects, ...demoProjects]
+
+  const categories = [
+    ...defaultCategories,
+    ...Array.from(
+      new Set(
+        publishedProjects
+          .map((project) => project.category)
+          .filter((category) => !defaultCategories.includes(category))
+      )
+    ),
+  ]
 
   const visibleProjects =
     activeCategory === 'All work'
-      ? projects
-      : projects.filter((project) => project.category === activeCategory)
+      ? allProjects
+      : allProjects.filter((project) => project.category === activeCategory)
+
+  const demoVisibleProjects = visibleProjects.filter((project) => project.isDemo)
 
   const selectedProject =
-    selectedIndex !== null ? visibleProjects[selectedIndex] : null
+    selectedIndex !== null ? demoVisibleProjects[selectedIndex] : null
 
   const showPrevious = () => {
-    if (selectedIndex !== null) {
+    if (selectedIndex !== null && demoVisibleProjects.length > 0) {
       setSelectedIndex(
-        (selectedIndex - 1 + visibleProjects.length) % visibleProjects.length,
+        (selectedIndex - 1 + demoVisibleProjects.length) % demoVisibleProjects.length
       )
     }
   }
 
   const showNext = () => {
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex + 1) % visibleProjects.length)
+    if (selectedIndex !== null && demoVisibleProjects.length > 0) {
+      setSelectedIndex((selectedIndex + 1) % demoVisibleProjects.length)
     }
   }
 
@@ -70,7 +141,7 @@ export default function PortfolioPage() {
       window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
     }
-  }, [selectedIndex, visibleProjects.length])
+  }, [selectedIndex, demoVisibleProjects.length])
 
   return (
     <>
@@ -103,7 +174,7 @@ export default function PortfolioPage() {
                 <span className="text-white/35">One creative vision.</span>
               </>
             }
-            detail="Explore our range of visual storytelling across different formats, industries and creative styles. These demo visuals illustrate our production direction."
+            detail="Explore our range of visual storytelling across different formats, industries and creative styles. Published projects are updated directly from our production studio."
           />
 
           <div className="mb-14 mt-14 flex flex-wrap gap-2 border-y border-white/15 py-5">
@@ -126,14 +197,17 @@ export default function PortfolioPage() {
             ))}
           </div>
 
-          <motion.div
-            layout
-            className="grid gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-12"
-          >
+          {loadingProjects && (
+            <p className="mb-8 text-center text-xs tracking-widest text-white/40 uppercase">
+              Loading published projects...
+            </p>
+          )}
+
+          <motion.div layout className="grid gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-12">
             {visibleProjects.map((project, index) => (
               <motion.article
                 layout
-                key={project.title}
+                key={project.id}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: index * 0.04 }}
@@ -145,7 +219,16 @@ export default function PortfolioPage() {
               >
                 <button
                   type="button"
-                  onClick={() => setSelectedIndex(index)}
+                  onClick={() => {
+                    if (project.isDemo) {
+                      const demoIndex = demoVisibleProjects.findIndex(
+                        (item) => item.id === project.id
+                      )
+                      setSelectedIndex(demoIndex)
+                    } else if (project.slug) {
+                      navigate(`/portfolio/${project.slug}`)
+                    }
+                  }}
                   aria-label={`View ${project.title}`}
                   className="block w-full text-left"
                 >
@@ -164,7 +247,7 @@ export default function PortfolioPage() {
                     </div>
 
                     <span className="absolute left-5 top-5 border border-white/30 bg-black/40 px-3 py-1.5 text-[9px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-sm">
-                      Demo Visual
+                      {project.isDemo ? 'Demo Visual' : 'Published Project'}
                     </span>
                   </div>
 
@@ -189,7 +272,7 @@ export default function PortfolioPage() {
           </motion.div>
 
           <AnimatePresence>
-            {visibleProjects.length === 0 && (
+            {visibleProjects.length === 0 && !loadingProjects && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -255,7 +338,7 @@ export default function PortfolioPage() {
             </button>
 
             <motion.div
-              key={selectedProject.title}
+              key={selectedProject.id}
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
@@ -279,7 +362,7 @@ export default function PortfolioPage() {
                 </div>
 
                 <span className="shrink-0 text-xs text-white/50">
-                  {selectedIndex! + 1} / {visibleProjects.length}
+                  {selectedIndex! + 1} / {demoVisibleProjects.length}
                 </span>
               </div>
             </motion.div>
