@@ -128,8 +128,7 @@ export default function ContactPage() {
             </h1>
 
             <p className="mt-7 max-w-xl text-base leading-relaxed text-white/65">
-              Every great visual begins with an idea. Tell us what you're
-              planning, and let's turn that idea into something worth remembering.
+              {pageContent.heroDescription}
             </p>
           </div>
 
@@ -248,14 +247,11 @@ export default function ContactPage() {
                   </p>
 
                   <h2 className="mt-5 font-serif text-3xl leading-tight text-white sm:text-4xl">
-                    Let's create
-                    <br />
-                    something memorable.
+                    {pageContent.sideHeading}
                   </h2>
 
                   <p className="mt-5 max-w-sm text-base leading-relaxed text-white/60">
-                    Share your project requirements with us. Our creative
-                    team will get back to you.
+                    {pageContent.sideDescription}
                   </p>
 
                   <div className="mt-14 flex items-center gap-3 text-[#e0bd7e]">
