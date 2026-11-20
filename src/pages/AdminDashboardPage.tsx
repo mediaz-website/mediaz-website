@@ -20,11 +20,11 @@ import { supabase } from '../lib/supabase'
 
 const allModules = [
   {
-    name: 'Homepage CMS',
+    name: 'CMS',
     icon: PanelsTopLeft,
     path: '/admin/cms/homepage-content',
     roles: ['owner', 'admin', 'editor'],
-    description: 'Manage Hero, Services, Showreel, Portfolio, Testimonials, Process and Contact sections.',
+    description: 'Manage all website pages, navigation and footer content.',
   },
   {
     name: 'Enquiries & CRM',
