@@ -41,20 +41,6 @@ const allModules = [
     description: 'Manage projects, case studies and published work.',
   },
   {
-    name: 'Services',
-    icon: BriefcaseBusiness,
-    path: '/admin/services',
-    roles: ['owner', 'admin', 'editor'],
-    description: 'Add, edit and publish website services.',
-  },
-  {
-    name: 'Testimonials',
-    icon: Star,
-    path: '/admin/testimonials',
-    roles: ['owner', 'admin', 'editor'],
-    description: 'Manage client testimonials and reviews.',
-  },
-  {
     name: 'AI Website Assistant',
     icon: WandSparkles,
     path: '/admin/ai-assistant',
