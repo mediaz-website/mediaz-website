@@ -3,8 +3,7 @@ import { ArrowLeft, Save, Send } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
-type Section = {
-  key: string
+type Section = {\n  pageKey?: string\n  key: string
   title: string
   description: string
   fields: { key: string; label: string; multiline?: boolean; hint?: string }[]
@@ -82,27 +81,101 @@ const sections: Section[] = [
     fields: [{ key: 'eyebrow', label: 'Top Label' }, { key: 'headlineLine1', label: 'Heading – Line 1' }, { key: 'headlineLine2', label: 'Heading – Line 2' }, { key: 'description', label: 'Description', multiline: true }, { key: 'email', label: 'Contact Email' }],
     defaults: { eyebrow: "Let's work together", headlineLine1: 'Have an', headlineLine2: 'idea?', description: "Bring us the rough version. The half-formed thought. The impossible deadline. We'll bring the right questions.", email: 'mediazhub@gmail.com' },
   },
+  {
+    pageKey: 'about', key: 'main', title: 'About Page',
+    description: 'Edit About page hero, introduction, stats, key headings and closing call-to-action.',
+    fields: [
+      { key: 'heroEyebrow', label: 'Hero Top Label' }, { key: 'heroLine1', label: 'Hero Heading Line 1' }, { key: 'heroLine2', label: 'Hero Heading Line 2' }, { key: 'heroDescription', label: 'Hero Description', multiline: true }, { key: 'heroCta', label: 'Hero Button Text' },
+      { key: 'introEyebrow', label: 'Introduction Label' }, { key: 'introHeading1', label: 'Introduction Heading Line 1' }, { key: 'introHeading2', label: 'Introduction Heading Line 2' }, { key: 'introLead', label: 'Introduction Main Text', multiline: true }, { key: 'introText1', label: 'Introduction Paragraph 1', multiline: true }, { key: 'introText2', label: 'Introduction Paragraph 2', multiline: true },
+      { key: 'statsProjects', label: 'Projects Stat' }, { key: 'statsYear', label: 'Journey Year Stat' }, { key: 'statsIndustries', label: 'Industries Stat' }, { key: 'statsReach', label: 'Reach Stat' },
+      { key: 'servicesEyebrow', label: 'Capabilities Label' }, { key: 'servicesHeading1', label: 'Capabilities Heading Line 1' }, { key: 'servicesHeading2', label: 'Capabilities Heading Line 2' }, { key: 'servicesDescription', label: 'Capabilities Description', multiline: true },
+      { key: 'industriesEyebrow', label: 'Industries Label' }, { key: 'industriesHeading1', label: 'Industries Heading Line 1' }, { key: 'industriesHeading2', label: 'Industries Heading Line 2' }, { key: 'industriesDescription', label: 'Industries Description', multiline: true },
+      { key: 'closingEyebrow', label: 'Closing Label' }, { key: 'closingHeading1', label: 'Closing Heading Line 1' }, { key: 'closingHeading2', label: 'Closing Heading Line 2' }, { key: 'closingDescription', label: 'Closing Description', multiline: true }, { key: 'closingCta', label: 'Closing Button Text' },
+    ],
+    defaults: {
+      heroEyebrow: 'About Mediazz Hub · Est. 2023', heroLine1: 'We turn ideas', heroLine2: 'into experiences.', heroDescription: 'A creative media production house bringing concepts, brands and stories to life through photography, filmmaking and end-to-end creative production.', heroCta: 'Explore Our Work',
+      introEyebrow: 'Who We Are', introHeading1: 'More than', introHeading2: 'just production.', introLead: 'Mediazz Hub is a creative media production house based in Indore, Madhya Pradesh, working with multiple brands and businesses since 2023.',
+      introText1: 'What started as a creative vision has grown into a production partner for businesses across different industries. From advertising campaigns and product shoots to celebrity shoots, podcasts, short films and event productions, we have completed 500+ projects across multiple creative services.',
+      introText2: 'Our approach brings concept planning, creative direction, production, photography, filmmaking and final editing together — making the entire process more connected, collaborative and effective.',
+      statsProjects: '500+', statsYear: '2023', statsIndustries: 'Multiple', statsReach: 'India',
+      servicesEyebrow: 'What We Create', servicesHeading1: 'One creative vision.', servicesHeading2: 'Many possibilities.', servicesDescription: 'From a single frame to a complete campaign, our production capabilities cover a wide range of creative formats.',
+      industriesEyebrow: 'Industries & Experiences', industriesHeading1: 'Different worlds.', industriesHeading2: 'One vision.', industriesDescription: 'Our projects have taken us across industries, audiences and creative environments. Every business has a different story, and every production needs its own approach.',
+      closingEyebrow: 'Have A Story To Tell?', closingHeading1: "Let's create something", closingHeading2: 'worth remembering.', closingDescription: 'Tell us about your brand, your vision and the story you want to bring to life.', closingCta: 'Start A Project',
+    },
+  },
+  {
+    pageKey: 'services', key: 'main', title: 'Services Page',
+    description: 'Edit Services page headings and closing call-to-action. Individual service cards are managed in Services.',
+    fields: [
+      { key: 'heroEyebrow', label: 'Hero Label' }, { key: 'heroLine1', label: 'Hero Heading Line 1' }, { key: 'heroLine2', label: 'Hero Heading Line 2' }, { key: 'heroDescription', label: 'Hero Description', multiline: true },
+      { key: 'sectionEyebrow', label: 'Capabilities Label' }, { key: 'sectionLine1', label: 'Capabilities Heading Line 1' }, { key: 'sectionLine2', label: 'Capabilities Heading Line 2' }, { key: 'sectionDescription', label: 'Capabilities Description', multiline: true },
+      { key: 'cardCta', label: 'Service Card Link Text' }, { key: 'closingEyebrow', label: 'Closing Label' }, { key: 'closingLine1', label: 'Closing Heading Line 1' }, { key: 'closingLine2', label: 'Closing Heading Line 2' }, { key: 'closingDescription', label: 'Closing Description', multiline: true }, { key: 'closingCta', label: 'Closing Button Text' },
+    ],
+    defaults: {
+      heroEyebrow: 'What we create', heroLine1: 'One creative house.', heroLine2: 'Endless possibilities.', heroDescription: 'From the first idea to the final frame, we bring concepts to life through thoughtful planning, professional production and cinematic storytelling.',
+      sectionEyebrow: 'Our capabilities', sectionLine1: 'Everything your story', sectionLine2: 'needs to be seen.', sectionDescription: 'Explore our creative production services. Whether you need a single shoot or a complete campaign, we bring the right people, ideas and production expertise together.',
+      cardCta: 'Discuss your project', closingEyebrow: 'Have a project in mind?', closingLine1: "Let's create something", closingLine2: 'worth remembering.', closingDescription: "Tell us what you have in mind. We'll help shape the concept, plan the production and bring your vision to life.", closingCta: 'Start a project',
+    },
+  },
+  {
+    pageKey: 'portfolio', key: 'main', title: 'Portfolio Page',
+    description: 'Edit Portfolio page headings and closing call-to-action. Project cards are managed in Projects.',
+    fields: [
+      { key: 'heroEyebrow', label: 'Hero Label' }, { key: 'heroLine1', label: 'Hero Heading Line 1' }, { key: 'heroLine2', label: 'Hero Heading Line 2' }, { key: 'heroDescription', label: 'Hero Description', multiline: true },
+      { key: 'sectionEyebrow', label: 'Portfolio Section Label' }, { key: 'sectionLine1', label: 'Section Heading Line 1' }, { key: 'sectionLine2', label: 'Section Heading Line 2' }, { key: 'sectionDescription', label: 'Section Description', multiline: true },
+      { key: 'closingEyebrow', label: 'Closing Label' }, { key: 'closingLine1', label: 'Closing Heading Line 1' }, { key: 'closingLine2', label: 'Closing Heading Line 2' }, { key: 'closingCta', label: 'Closing Button Text' },
+    ],
+    defaults: {
+      heroEyebrow: 'Our visual world', heroLine1: 'Stories made', heroLine2: 'to be remembered.', heroDescription: 'Every frame has a purpose. Explore the creative directions, visual styles and production possibilities we bring to brands and businesses.',
+      sectionEyebrow: 'Selected visual directions', sectionLine1: 'Different stories.', sectionLine2: 'One creative vision.', sectionDescription: 'Explore our range of visual storytelling across different formats, industries and creative styles. Published projects are updated directly from our production studio.',
+      closingEyebrow: 'Have a story to tell?', closingLine1: 'Have a story that needs', closingLine2: 'a visual world?', closingCta: 'Bring us the brief',
+    },
+  },
+  {
+    pageKey: 'contact', key: 'main', title: 'Contact Page',
+    description: 'Edit Contact page introduction and enquiry panel headings. Enquiry submission remains unchanged.',
+    fields: [
+      { key: 'heroEyebrow', label: 'Top Label' }, { key: 'heroLine1', label: 'Heading Line 1' }, { key: 'heroLine2', label: 'Heading Line 2' }, { key: 'heroDescription', label: 'Introduction', multiline: true },
+      { key: 'formEyebrow', label: 'Form Top Label' }, { key: 'formHeading', label: 'Form Heading' }, { key: 'sideEyebrow', label: 'Side Panel Label' }, { key: 'sideHeading', label: 'Side Panel Heading' }, { key: 'sideDescription', label: 'Side Panel Description', multiline: true },
+    ],
+    defaults: {
+      heroEyebrow: "Let's create something together", heroLine1: 'Have a project', heroLine2: 'in mind?', heroDescription: "Every great visual begins with an idea. Tell us what you're planning, and let's turn that idea into something worth remembering.",
+      formEyebrow: 'Start a conversation', formHeading: 'Tell us about your project.', sideEyebrow: 'Project enquiry', sideHeading: "Let's create something memorable.", sideDescription: 'Share your project requirements with us. Our creative team will get back to you.',
+    },
+  },
+  {
+    pageKey: 'global', key: 'main', title: 'Global Settings',
+    description: 'Edit shared navigation labels and footer information across the website.',
+    fields: [
+      { key: 'navHome', label: 'Navigation: Home' }, { key: 'navAbout', label: 'Navigation: About' }, { key: 'navServices', label: 'Navigation: Services' }, { key: 'navPortfolio', label: 'Navigation: Portfolio' }, { key: 'navContact', label: 'Navigation: Contact' }, { key: 'navCta', label: 'Navigation Button Text' },
+      { key: 'footerDescription', label: 'Footer Description', multiline: true }, { key: 'footerTagline', label: 'Footer Tagline' }, { key: 'footerEmail', label: 'Footer Email' }, { key: 'footerPhone', label: 'Footer WhatsApp Display' }, { key: 'footerLocation', label: 'Footer Location' }, { key: 'footerAvailability', label: 'Footer Availability Text' }, { key: 'footerClosing', label: 'Footer Closing Line' },
+    ],
+    defaults: {
+      navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact', navCta: 'Start a Project',
+      footerDescription: 'An independent creative media production house creating powerful visual stories for ambitious brands.', footerTagline: 'From Concept to Shoot', footerEmail: 'mediazzhub@gmail.com', footerPhone: 'WhatsApp · +91 8358063254', footerLocation: 'Indore, Madhya Pradesh, India', footerAvailability: 'Available for projects across India', footerClosing: 'Made for brands with somewhere to go.',
+    },
+  },
 ]
 
 export default function AdminHomepageContentPage() {
   const navigate = useNavigate()
-  const [activeKey, setActiveKey] = useState('hero')
+  const [activeId, setActiveId] = useState('homepage:hero')
   const [values, setValues] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const activeSection = sections.find((item) => item.key === activeKey)!
+  const activeSection = sections.find((item) => (item.pageKey || 'homepage') + ':' + item.key === activeId)!\n  const activeKey = activeSection.key\n  const activePageKey = activeSection.pageKey || 'homepage'
 
   useEffect(() => {
     let active = true
     async function loadSection() {
       setLoading(true); setError(''); setMessage('')
-      const { data: draft, error: draftError } = await supabase.from('site_content').select('content').eq('page_key', 'homepage').eq('section_key', activeKey + '_draft').maybeSingle()
+      const { data: draft, error: draftError } = await supabase.from('site_content').select('content').eq('page_key', activePageKey).eq('section_key', activeKey + '_draft').maybeSingle()
       if (draftError) setError(draftError.message)
       let content = draft?.content as Record<string, string> | null
       if (!content) {
-        const { data, error: readError } = await supabase.from('site_content').select('content').eq('page_key', 'homepage').eq('section_key', activeKey).maybeSingle()
+        const { data, error: readError } = await supabase.from('site_content').select('content').eq('page_key', activePageKey).eq('section_key', activeKey).maybeSingle()
         if (readError) setError(readError.message)
         content = data?.content as Record<string, string> | null
       }
@@ -110,13 +183,13 @@ export default function AdminHomepageContentPage() {
     }
     loadSection()
     return () => { active = false }
-  }, [activeKey])
+  }, [activeId])
 
   async function save(publish: boolean) {
     setSaving(true); setError(''); setMessage('')
     const target = publish ? activeKey : activeKey + '_draft'
     const { error: writeError } = await supabase.from('site_content').upsert({
-      page_key: 'homepage', section_key: target, content: values, is_published: publish, updated_at: new Date().toISOString(),
+      page_key: activePageKey, section_key: target, content: values, is_published: publish, updated_at: new Date().toISOString(),
     }, { onConflict: 'page_key,section_key' })
     if (writeError) setError(writeError.message)
     else setMessage(publish ? activeSection.title + ' successfully published.' : 'Draft saved. Live website is unchanged.')
@@ -126,9 +199,9 @@ export default function AdminHomepageContentPage() {
   return <main className="min-h-screen bg-[#171512] px-4 py-8 text-white sm:px-8"><div className="mx-auto max-w-5xl">
     <button onClick={() => navigate('/admin')} className="mb-6 flex items-center gap-2 text-sm text-[#c5a46d]"><ArrowLeft size={16}/> Back to Dashboard</button>
     <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#c5a46d]">Website Content Manager</p>
-    <h1 className="mt-2 font-serif text-3xl sm:text-4xl">Homepage CMS</h1>
-    <p className="mt-3 text-sm text-white/50">Manage all homepage sections from one place. Select a section, edit its content, then save as draft or publish.</p>
-    <div className="my-7 flex flex-wrap gap-2">{sections.map((section) => <button key={section.key} onClick={() => setActiveKey(section.key)} className={activeKey === section.key ? 'rounded-lg bg-[#c5a46d] px-4 py-2 text-sm font-semibold text-[#171512]' : 'rounded-lg border border-white/15 px-4 py-2 text-sm text-white/70'}>{section.title}</button>)}</div>
+    <h1 className="mt-2 font-serif text-3xl sm:text-4xl">Website CMS</h1>
+    <p className="mt-3 text-sm text-white/50">Manage all website pages from one place. Select a page or shared settings tab, edit its content, then save as draft or publish.</p>
+    <div className="my-7 flex flex-wrap gap-2">{sections.map((section) => <button key={(section.pageKey || 'homepage') + ':' + section.key} onClick={() => setActiveId((section.pageKey || 'homepage') + ':' + section.key)} className={activeId === (section.pageKey || 'homepage') + ':' + section.key ? 'rounded-lg bg-[#c5a46d] px-4 py-2 text-sm font-semibold text-[#171512]' : 'rounded-lg border border-white/15 px-4 py-2 text-sm text-white/70'}>{section.title}</button>)}</div>
     <div className="mb-6"><h2 className="text-2xl font-serif">{activeSection.title}</h2><p className="mt-2 text-sm text-white/50">{activeSection.description}</p></div>
     {message && <p className="mb-5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-300">{message}</p>}
     {error && <p className="mb-5 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">{error}</p>}
