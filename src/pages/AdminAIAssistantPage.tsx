@@ -34,11 +34,58 @@ function readFileAsDataUrl(file: File): Promise<string> {
     const reader = new FileReader()
     reader.onload = () => {
       if (typeof reader.result === 'string') resolve(reader.result)
-      else reject(new Error(`Could not read ${file.name}`))
+      else reject(new Error('Could not read ' + file.name))
     }
-    reader.onerror = () => reject(new Error(`Could not read ${file.name}`))
+    reader.onerror = () => reject(new Error('Could not read ' + file.name))
     reader.readAsDataURL(file)
   })
+}
+
+function splitHeading(value: string): { headlineLine1: string; headlineLine2: string } {
+  const clean = value.trim()
+  const sentences = clean.match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map((part) => part.trim()).filter(Boolean) || []
+
+  if (sentences.length >= 2) {
+    return {
+      headlineLine1: sentences.slice(0, -1).join(' '),
+      headlineLine2: sentences[sentences.length - 1],
+    }
+  }
+
+  const words = clean.split(/\s+/)
+  if (words.length <= 2) {
+    return { headlineLine1: clean, headlineLine2: '' }
+  }
+
+  const midpoint = Math.ceil(words.length / 2)
+  return {
+    headlineLine1: words.slice(0, midpoint).join(' '),
+    headlineLine2: words.slice(midpoint).join(' '),
+  }
+}
+
+function mapHeroChanges(changes: ChangePlan['changes']): Record<string, string> {
+  const mapped: Record<string, string> = {}
+
+  for (const change of changes) {
+    const field = String(change.field || '').trim().toLowerCase().replace(/[\s_-]+/g, '')
+    const value = String(change.value ?? '').trim()
+    if (!value) continue
+
+    if (['heading', 'title', 'headline', 'heroheading'].includes(field)) {
+      Object.assign(mapped, splitHeading(value))
+    } else if (['subtitle', 'description', 'herodescription'].includes(field)) {
+      mapped.description = value
+    } else if (field === 'headlineline1') {
+      mapped.headlineLine1 = value
+    } else if (field === 'headlineline2') {
+      mapped.headlineLine2 = value
+    } else if (field === 'eyebrow') {
+      mapped.eyebrow = value
+    }
+  }
+
+  return mapped
 }
 
 export default function AdminAIAssistantPage() {
@@ -46,17 +93,20 @@ export default function AdminAIAssistantPage() {
   const [attachments, setAttachments] = useState<Attachment[]>([])
   const [plan, setPlan] = useState<ChangePlan | null>(null)
   const [loading, setLoading] = useState(false)
+  const [publishing, setPublishing] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const addFiles = async (fileList: FileList | null) => {
     if (!fileList?.length) return
 
     setError('')
+    setSuccess('')
     const selected = Array.from(fileList)
 
     if (attachments.length + selected.length > MAX_FILES) {
-      setError(`Maximum ${MAX_FILES} attachments allowed.`)
+      setError('Maximum ' + MAX_FILES + ' attachments allowed.')
       if (fileInputRef.current) fileInputRef.current.value = ''
       return
     }
@@ -72,13 +122,13 @@ export default function AdminAIAssistantPage() {
 
     for (const file of selected) {
       if (!allowedTypes.includes(file.type)) {
-        setError(`${file.name}: Only JPG, PNG, WEBP, PDF and TXT files are supported.`)
+        setError(file.name + ': Only JPG, PNG, WEBP, PDF and TXT files are supported.')
         if (fileInputRef.current) fileInputRef.current.value = ''
         return
       }
 
       if (file.size > MAX_FILE_SIZE) {
-        setError(`${file.name} is larger than 10 MB.`)
+        setError(file.name + ' is larger than 10 MB.')
         if (fileInputRef.current) fileInputRef.current.value = ''
         return
       }
@@ -110,6 +160,7 @@ export default function AdminAIAssistantPage() {
 
     setLoading(true)
     setError('')
+    setSuccess('')
     setPlan(null)
 
     try {
@@ -145,13 +196,90 @@ export default function AdminAIAssistantPage() {
 
       setPlan(data.plan)
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'Something went wrong'
-      )
+      setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
       setLoading(false)
     }
   }
+
+  const applyAndPublish = async () => {
+    if (!plan) return
+
+    if (plan.requires_code || plan.type !== 'content_update') {
+      setError('This preview is not a supported CMS content update. Please use the Website CMS or request a code change separately.')
+      return
+    }
+
+    const target = String(plan.target || '').toLowerCase()
+    const isHomepageHero = target.includes('homepage') && target.includes('hero')
+    if (!isHomepageHero) {
+      setError('Abhi AI Assistant se direct publishing sirf Homepage Hero section ke liye enabled hai. Baaki sections Website CMS se publish kijiye.')
+      return
+    }
+
+    const updates = mapHeroChanges(plan.changes)
+    if (Object.keys(updates).length === 0) {
+      setError('Preview ke fields Homepage Hero CMS fields se match nahi hue. Please edit this section from Website CMS.')
+      return
+    }
+
+    const confirmed = window.confirm(
+      'Are you sure you want to publish these changes to the live Homepage Hero? This will update the live website content.'
+    )
+    if (!confirmed) return
+
+    setPublishing(true)
+    setError('')
+    setSuccess('')
+
+    try {
+      const { data: existing, error: readError } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('page_key', 'homepage')
+        .eq('section_key', 'hero')
+        .maybeSingle()
+
+      if (readError) throw readError
+
+      const existingContent =
+        existing?.content && typeof existing.content === 'object'
+          ? existing.content as Record<string, unknown>
+          : {}
+
+      const mergedContent = { ...existingContent, ...updates }
+
+      const { error: saveError } = await supabase
+        .from('site_content')
+        .upsert(
+          {
+            page_key: 'homepage',
+            section_key: 'hero',
+            content: mergedContent,
+            is_published: true,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'page_key,section_key' }
+        )
+
+      if (saveError) throw saveError
+
+      setSuccess('Homepage Hero successfully published. Live website content has been updated.')
+      setPlan(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not publish changes.')
+    } finally {
+      setPublishing(false)
+    }
+  }
+
+  const canPublishHero =
+    !!plan &&
+    plan.type === 'content_update' &&
+    !plan.requires_code &&
+    String(plan.target || '').toLowerCase().includes('homepage') &&
+    String(plan.target || '').toLowerCase().includes('hero') &&
+    Object.keys(mapHeroChanges(plan.changes)).length > 0
 
   return (
     <div className="min-h-screen bg-[#111111] text-white p-5 md:p-10">
@@ -199,7 +327,7 @@ export default function AdminAIAssistantPage() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              disabled={loading || attachments.length >= MAX_FILES}
+              disabled={loading || publishing || attachments.length >= MAX_FILES}
               className="border border-[#c6a15b]/60 text-[#e5c47e] px-4 py-2 rounded-lg text-sm disabled:opacity-40"
             >
               + Attach Images / Files
@@ -222,7 +350,7 @@ export default function AdminAIAssistantPage() {
                     <button
                       type="button"
                       onClick={() => removeAttachment(file.name)}
-                      disabled={loading}
+                      disabled={loading || publishing}
                       className="text-red-300 text-xs shrink-0"
                     >
                       Remove
@@ -240,7 +368,7 @@ export default function AdminAIAssistantPage() {
 
             <button
               onClick={generatePreview}
-              disabled={loading || !prompt.trim()}
+              disabled={loading || publishing || !prompt.trim()}
               className="bg-[#c6a15b] text-black font-semibold px-6 py-3 rounded-lg disabled:opacity-50"
             >
               {loading ? 'Preparing Preview...' : 'Generate Preview'}
@@ -251,6 +379,12 @@ export default function AdminAIAssistantPage() {
         {error && (
           <div className="mt-5 bg-red-950/40 border border-red-500/30 text-red-300 rounded-lg p-4">
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mt-5 bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 rounded-lg p-4">
+            {success}
           </div>
         )}
 
@@ -290,8 +424,7 @@ export default function AdminAIAssistantPage() {
 
             {plan.requires_code && (
               <p className="mt-5 text-amber-300 text-sm">
-                This request requires a code update. It cannot be
-                published through the content editor.
+                This request requires a code update. It cannot be published through the content editor.
               </p>
             )}
 
@@ -303,9 +436,27 @@ export default function AdminAIAssistantPage() {
               </div>
             )}
 
-            <p className="mt-6 text-xs text-gray-500">
-              No website changes have been saved or published yet.
-            </p>
+            {canPublishHero && (
+              <div className="mt-6 border-t border-white/10 pt-5">
+                <p className="mb-3 text-xs text-gray-400">
+                  Publishing will immediately update the live Homepage Hero content.
+                </p>
+                <button
+                  type="button"
+                  onClick={applyAndPublish}
+                  disabled={publishing || loading}
+                  className="rounded-lg bg-[#c6a15b] px-6 py-3 font-semibold text-black disabled:opacity-50"
+                >
+                  {publishing ? 'Publishing...' : 'Apply & Publish to Website'}
+                </button>
+              </div>
+            )}
+
+            {!canPublishHero && (
+              <p className="mt-6 text-xs text-gray-500">
+                Direct publishing is currently available for supported Homepage Hero content updates only. Use Website CMS for other sections.
+              </p>
+            )}
           </div>
         )}
       </div>
