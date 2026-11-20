@@ -16,7 +16,6 @@ import {
   WandSparkles,
   PanelsTopLeft,
   Layers3,
-  PanelsTopLeft,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
