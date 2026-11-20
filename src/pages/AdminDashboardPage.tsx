@@ -6,7 +6,6 @@ import {
   Inbox,
   FolderKanban,
   BriefcaseBusiness,
-  Star,
   Users,
   LogOut,
   Menu,
