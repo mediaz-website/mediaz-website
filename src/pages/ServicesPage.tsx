@@ -70,6 +70,15 @@ function getFallbackImage(title: string, index: number): string {
 }
 
 export default function ServicesPage() {
+  const pageContent = useSiteContent('services', 'main', {
+    heroEyebrow: 'What we create', heroLine1: 'One creative house.', heroLine2: 'Endless possibilities.',
+    heroDescription: 'From the first idea to the final frame, we bring concepts to life through thoughtful planning, professional production and cinematic storytelling.',
+    sectionEyebrow: 'Our capabilities', sectionLine1: 'Everything your story', sectionLine2: 'needs to be seen.',
+    sectionDescription: 'Explore our creative production services. Whether you need a single shoot or a complete campaign, we bring the right people, ideas and production expertise together.',
+    cardCta: 'Discuss your project', closingEyebrow: 'Have a project in mind?', closingLine1: "Let's create something", closingLine2: 'worth remembering.',
+    closingDescription: "Tell us what you have in mind. We'll help shape the concept, plan the production and bring your vision to life.", closingCta: 'Start a project',
+  })
+  
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
