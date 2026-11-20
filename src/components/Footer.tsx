@@ -59,11 +59,11 @@ export default function Footer() {
 
             <div className="flex flex-col items-start gap-4 text-sm text-white/65">
               {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Services', href: '/services' },
-                { label: 'Portfolio', href: '/portfolio' },
-                { label: 'Contact', href: '/contact' },
+                { label: content.navHome, href: '/' },
+                { label: content.navAbout, href: '/about' },
+                { label: content.navServices, href: '/services' },
+                { label: content.navPortfolio, href: '/portfolio' },
+                { label: content.navContact, href: '/contact' },
               ].map((item) => (
                 <Link
                   key={item.href}
