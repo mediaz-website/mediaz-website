@@ -85,7 +85,7 @@ export default function Footer() {
             <div className="flex flex-col items-start gap-5 text-sm text-white/65">
 
               <a
-                href="mailto:{content.footerEmail}"
+                href={`mailto:${content.footerEmail}`}
                 className="group flex items-center gap-3 transition-colors hover:text-[#e0bd7e]"
               >
                 <Mail size={17} className="shrink-0 text-[#c5a46d]" />
