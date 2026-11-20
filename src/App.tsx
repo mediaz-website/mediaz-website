@@ -41,6 +41,7 @@ import AdminTestimonialsPage from './pages/AdminTestimonialsPage'
 import AdminServicesPage from './pages/AdminServicesPage'
 import AdminTeamPage from './pages/AdminTeamPage'
 import AdminAIAssistantPage from './pages/AdminAIAssistantPage'
+import AdminHomepageHeroPage from './pages/AdminHomepageHeroPage'
 
 // HOME PAGE
 function HomePage() {
@@ -203,6 +204,16 @@ function App() {
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/admin/register" element={<AdminRegistrationPage />} />
         <Route path="/admin/reset-password" element={<AdminResetPasswordPage />} />
+
+        {/* Homepage Hero CMS: Owner, Admin and Editor */}
+        <Route
+          path="/admin/cms/homepage-hero"
+          element={
+            <AdminAccessGuard allowedRoles={['owner', 'admin', 'editor']}>
+              <AdminHomepageHeroPage />
+            </AdminAccessGuard>
+          }
+        />
 
         {/* AI Website Assistant: Owner, Admin and Editor */}
         <Route
