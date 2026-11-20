@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom'
 import { images } from '../lib/images'
 import { PageMeta } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
+import { useSiteContent } from '../hooks/useSiteContent'
 
 const stats = [
   ['500+', 'Projects Completed'],
@@ -111,24 +112,24 @@ export default function AboutPage() {
             <Reveal>
               <p className="mb-8 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#f0d49a]" />
-                About Mediazz Hub · Est. 2023
+                {content.heroEyebrow}
               </p>
 
               <h1 className="max-w-5xl font-serif text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.96] tracking-[-0.045em] text-white">
-                We turn ideas
+                {content.heroLine1}
                 <br />
-                into <span className="italic text-[#f0d49a]">experiences.</span>
+                {content.heroLine2}
               </h1>
 
               <p className="mt-9 max-w-xl text-sm leading-8 text-white/95 sm:text-base">
-                A creative media production house bringing concepts, brands and stories to life through photography, filmmaking and end-to-end creative production.
+                {content.heroDescription}
               </p>
 
               <Link
                 to="/portfolio"
                 className="group mt-9 inline-flex items-center gap-4 bg-[#c5a46d] px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#171512] transition-all hover:bg-[#e0bd7e]"
               >
-                Explore Our Work
+                {content.heroCta}
                 <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
             </Reveal>
@@ -144,27 +145,27 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-12 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                Who We Are
+                {content.introEyebrow}
               </p>
 
               <h2 className="mt-7 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
-                More than
+                {content.introHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">just production.</span>
+                <span className="italic text-[#f0d49a]">{content.introHeading2}</span>
               </h2>
             </Reveal>
 
             <Reveal delay={0.15} className="lg:col-span-6 lg:col-start-7">
               <p className="text-xl leading-relaxed text-white sm:text-2xl">
-                Mediazz Hub is a creative media production house based in Indore, Madhya Pradesh, working with multiple brands and businesses since 2023.
+                {content.introLead}
               </p>
 
               <p className="mt-7 text-sm leading-8 text-white/85">
-                What started as a creative vision has grown into a production partner for businesses across different industries. From advertising campaigns and product shoots to celebrity shoots, podcasts, short films and event productions, we have completed 500+ projects across multiple creative services.
+                {content.introText1}
               </p>
 
               <p className="mt-5 text-sm leading-8 text-white/85">
-                Our approach brings concept planning, creative direction, production, photography, filmmaking and final editing together — making the entire process more connected, collaborative and effective.
+                {content.introText2}
               </p>
             </Reveal>
           </div>
@@ -191,17 +192,17 @@ export default function AboutPage() {
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16 max-w-3xl">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                What We Create
+                {content.servicesEyebrow}
               </p>
 
               <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
-                One creative vision.
+                {content.servicesHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">Many possibilities.</span>
+                <span className="italic text-[#f0d49a]">{content.servicesHeading2}</span>
               </h2>
 
               <p className="mt-7 max-w-xl text-sm leading-8 text-white/85">
-                From a single frame to a complete campaign, our production capabilities cover a wide range of creative formats.
+                {content.servicesDescription}
               </p>
             </Reveal>
 
@@ -236,17 +237,17 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-5 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-2">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                Industries & Experiences
+                {content.industriesEyebrow}
               </p>
 
               <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
-                Different worlds.
+                {content.industriesHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">One vision.</span>
+                <span className="italic text-[#f0d49a]">{content.industriesHeading2}</span>
               </h2>
 
               <p className="mt-7 text-sm leading-8 text-white/85">
-                Our projects have taken us across industries, audiences and creative environments. Every business has a different story, and every production needs its own approach.
+                {content.industriesDescription}
               </p>
 
               <div className="mt-9 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0d49a]">
@@ -417,24 +418,24 @@ export default function AboutPage() {
             <Sparkles size={25} className="mx-auto text-[#f0d49a]" />
 
             <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-              Have A Story To Tell?
+              {content.closingEyebrow}
             </p>
 
             <h2 className="mt-7 font-serif text-5xl leading-[1.02] tracking-[-0.05em] text-white sm:text-7xl">
-              Let's create something
+              {content.closingHeading1}
               <br />
-              <span className="italic text-[#f0d49a]">worth remembering.</span>
+              <span className="italic text-[#f0d49a]">{content.closingHeading2}</span>
             </h2>
 
             <p className="mx-auto mt-7 max-w-lg text-sm leading-8 text-white/85">
-              Tell us about your brand, your vision and the story you want to bring to life.
+              {content.closingDescription}
             </p>
 
             <Link
               to="/contact"
               className="group mt-10 inline-flex items-center gap-5 bg-[#c5a46d] px-8 py-5 text-xs font-bold uppercase tracking-[0.18em] text-[#171512] transition-all duration-300 hover:bg-[#e0bd7e]"
             >
-              Start A Project
+              {content.closingCta}
               <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </Reveal>
