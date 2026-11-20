@@ -91,7 +91,7 @@ export default function Navbar() {
             to="/contact"
             className="group flex items-center gap-2 border border-[#c5a46d] bg-[#c5a46d] px-5 py-3 text-[11px] font-bold tracking-[0.12em] text-[#171512] uppercase transition-all duration-300 hover:bg-[#e0bd7e]"
           >
-            Start a Project
+            {globalContent.navCta}
             <ArrowUpRight
               size={15}
               className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
