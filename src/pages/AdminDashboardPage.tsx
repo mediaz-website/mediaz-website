@@ -14,10 +14,18 @@ import {
   RefreshCw,
   Clock,
   WandSparkles,
+  PanelsTopLeft,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const allModules = [
+  {
+    name: 'Homepage Hero CMS',
+    icon: PanelsTopLeft,
+    path: '/admin/cms/homepage-hero',
+    roles: ['owner', 'admin', 'editor'],
+    description: 'Edit homepage hero text, buttons and background media.',
+  },
   {
     name: 'Enquiries & CRM',
     icon: Inbox,
