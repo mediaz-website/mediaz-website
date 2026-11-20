@@ -43,6 +43,14 @@ const budgets = [
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
 export default function ContactPage() {
+  const pageContent = useSiteContent('contact', 'main', {
+    heroEyebrow: "Let's create something together", heroLine1: 'Have a project', heroLine2: 'in mind?',
+    heroDescription: "Every great visual begins with an idea. Tell us what you're planning, and let's turn that idea into something worth remembering.",
+    formEyebrow: 'Start a conversation', formHeading: 'Tell us about your project.',
+    sideEyebrow: 'Project enquiry', sideHeading: "Let's create something memorable.",
+    sideDescription: 'Share your project requirements with us. Our creative team will get back to you.',
+  })
+  
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
 
