@@ -13,6 +13,7 @@ import {
   X,
   RefreshCw,
   Clock,
+  WandSparkles,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
@@ -44,6 +45,13 @@ const allModules = [
     path: '/admin/testimonials',
     roles: ['owner', 'admin', 'editor'],
     description: 'Manage client testimonials and reviews.',
+  },
+  {
+    name: 'AI Website Assistant',
+    icon: WandSparkles,
+    path: '/admin/ai-assistant',
+    roles: ['owner', 'admin', 'editor'],
+    description: 'Update website content with AI-assisted previews.',
   },
   {
     name: 'Team & Users',
