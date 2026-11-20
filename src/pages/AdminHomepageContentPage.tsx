@@ -3,7 +3,9 @@ import { ArrowLeft, Save, Send } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
-type Section = {\n  pageKey?: string\n  key: string
+type Section = {
+  pageKey?: string
+  key: string
   title: string
   description: string
   fields: { key: string; label: string; multiline?: boolean; hint?: string }[]
@@ -165,7 +167,9 @@ export default function AdminHomepageContentPage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const activeSection = sections.find((item) => (item.pageKey || 'homepage') + ':' + item.key === activeId)!\n  const activeKey = activeSection.key\n  const activePageKey = activeSection.pageKey || 'homepage'
+  const activeSection = sections.find((item) => (item.pageKey || 'homepage') + ':' + item.key === activeId)!
+  const activeKey = activeSection.key
+  const activePageKey = activeSection.pageKey || 'homepage'
 
   useEffect(() => {
     let active = true
