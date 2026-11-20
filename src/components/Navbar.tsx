@@ -5,18 +5,18 @@ import { useEffect, useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { useSiteContent } from '../hooks/useSiteContent'
 
-const links = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Contact', href: '/contact' },
-]
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const location = useLocation()\n  const globalContent = useSiteContent('global', 'main', { navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact', navCta: '{globalContent.navCta}' })\n  const links = [\n    { label: globalContent.navHome, href: '/' },\n    { label: globalContent.navAbout, href: '/about' },\n    { label: globalContent.navServices, href: '/services' },\n    { label: globalContent.navPortfolio, href: '/portfolio' },\n    { label: globalContent.navContact, href: '/contact' },\n  ]
+  const location = useLocation()
+  const globalContent = useSiteContent('global', 'main', { navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact', navCta: 'Start a Project' })
+  const links = [
+    { label: globalContent.navHome, href: '/' },
+    { label: globalContent.navAbout, href: '/about' },
+    { label: globalContent.navServices, href: '/services' },
+    { label: globalContent.navPortfolio, href: '/portfolio' },
+    { label: globalContent.navContact, href: '/contact' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
