@@ -42,6 +42,7 @@ import AdminServicesPage from './pages/AdminServicesPage'
 import AdminTeamPage from './pages/AdminTeamPage'
 import AdminAIAssistantPage from './pages/AdminAIAssistantPage'
 import AdminHomepageHeroPage from './pages/AdminHomepageHeroPage'
+import AdminHomepageServicesPage from './pages/AdminHomepageServicesPage'
 
 // HOME PAGE
 function HomePage() {
@@ -211,6 +212,16 @@ function App() {
           element={
             <AdminAccessGuard allowedRoles={['owner', 'admin', 'editor']}>
               <AdminHomepageHeroPage />
+            </AdminAccessGuard>
+          }
+        />
+
+        {/* Homepage Services CMS: Owner, Admin and Editor */}
+        <Route
+          path="/admin/cms/homepage-services"
+          element={
+            <AdminAccessGuard allowedRoles={['owner', 'admin', 'editor']}>
+              <AdminHomepageServicesPage />
             </AdminAccessGuard>
           }
         />
