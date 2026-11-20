@@ -18,13 +18,7 @@ import { Link } from 'react-router-dom'
 import { images } from '../lib/images'
 import { PageMeta } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
-
-const stats = [
-  ['500+', 'Projects Completed'],
-  ['2023', 'Our Journey Began'],
-  ['Multiple', 'Industries Served'],
-  ['India', 'Our Reach'],
-]
+import { useSiteContent } from '../hooks/useSiteContent'
 
 const services = [
   { icon: Clapperboard, title: 'Commercial & Ad Films', description: 'Brand commercials, promotional films, campaign shoots and advertising creatives.' },
@@ -35,43 +29,28 @@ const services = [
   { icon: Megaphone, title: 'Creative & Campaign Production', description: 'Creative concepts, campaign planning, digital advertisements and production execution.' },
 ]
 
-const industries = [
-  'Automotive & Car Showrooms',
-  'Fashion & Clothing Manufacturers',
-  'D2C & Ecommerce Brands',
-  'Food, Cafes & Hospitality',
-  'Events & Entertainment',
-  'Real Estate & Architecture',
-  'Education & Institutions',
-  'Beauty, Salon & Lifestyle',
-  'Sports & Fitness',
-  'Devotional & Cultural Events',
-  'Music & Performing Arts',
-  'Travel, Airbnb & Experiences',
-  'Digital Marketing Agencies',
-  'Corporate & Professional Brands',
-]
-
-const collaborations = [
-  'REAL ESTATE',
-  'JEEP',
-  'TATA IPL FANPARK',
-  'MG / Morris Garages',
-]
-
-const process = [
-  ['01', 'Discover', 'Understanding your brand, audience, goals and the story worth telling.'],
-  ['02', 'Concept', 'Developing the creative direction, visual approach and production plan.'],
-  ['03', 'Shoot', 'Bringing the concept to life with the right team, equipment and execution.'],
-  ['04', 'Post-Production', 'Editing, colour grading, sound and final delivery across formats.'],
-]
-
 const gallery = [
   { src: images.studio, title: 'Creative Production', category: 'Behind The Scenes' },
   { src: images.photographer, title: 'The Art of Shooting', category: 'Production' },
 ]
 
 export default function AboutPage() {
+  const content = useSiteContent('about', 'main', {
+    seoTitle: 'About Mediazz Hub', seoDescription: 'Discover Mediazz Hub, an Indore-based creative media production house with 500+ completed projects since 2023.', heroEyebrow: 'About Mediazz Hub · Est. 2023', heroLine1: 'We turn ideas', heroLine2: 'into experiences.',
+    heroDescription: 'A creative media production house bringing concepts, brands and stories to life through photography, filmmaking and end-to-end creative production.', heroCta: 'Explore Our Work',
+    introEyebrow: 'Who We Are', introHeading1: 'More than', introHeading2: 'just production.',
+    introLead: 'Mediazz Hub is a creative media production house based in Indore, Madhya Pradesh, working with multiple brands and businesses since 2023.',
+    introText1: 'What started as a creative vision has grown into a production partner for businesses across different industries. From advertising campaigns and product shoots to celebrity shoots, podcasts, short films and event productions, we have completed 500+ projects across multiple creative services.',
+    introText2: 'Our approach brings concept planning, creative direction, production, photography, filmmaking and final editing together — making the entire process more connected, collaborative and effective.',
+    statsProjects: '500+', statsYear: '2023', statsIndustries: 'Multiple', statsReach: 'India',
+    servicesEyebrow: 'What We Create', servicesHeading1: 'One creative vision.', servicesHeading2: 'Many possibilities.', servicesDescription: 'From a single frame to a complete campaign, our production capabilities cover a wide range of creative formats.',
+    industriesEyebrow: 'Industries & Experiences', industriesHeading1: 'Different worlds.', industriesHeading2: 'One vision.', industriesDescription: 'Our projects have taken us across industries, audiences and creative environments. Every business has a different story, and every production needs its own approach.',
+    industriesList: 'Automotive & Car Showrooms | Fashion & Clothing Manufacturers | D2C & Ecommerce Brands | Food, Cafes & Hospitality | Events & Entertainment | Real Estate & Architecture | Education & Institutions | Beauty, Salon & Lifestyle | Sports & Fitness | Devotional & Cultural Events | Music & Performing Arts | Travel, Airbnb & Experiences | Digital Marketing Agencies | Corporate & Professional Brands', collaborationsList: 'REAL ESTATE | JEEP | TATA IPL FANPARK | MG / Morris Garages', processEyebrow: 'How We Work', processHeading1: 'From concept', processHeading2: 'to final frame.', process1Title: 'Discover', process1Text: 'Understanding your brand, audience, goals and the story worth telling.', process2Title: 'Concept', process2Text: 'Developing the creative direction, visual approach and production plan.', process3Title: 'Shoot', process3Text: 'Bringing the concept to life with the right team, equipment and execution.', process4Title: 'Post-Production', process4Text: 'Editing, colour grading, sound and final delivery across formats.', closingEyebrow: 'Have A Story To Tell?', closingHeading1: "Let's create something", closingHeading2: 'worth remembering.', closingDescription: 'Tell us about your brand, your vision and the story you want to bring to life.', closingCta: 'Start A Project',
+  })
+  const stats = [[content.statsProjects, 'Projects Completed'], [content.statsYear, 'Our Journey Began'], [content.statsIndustries, 'Industries Served'], [content.statsReach, 'Our Reach']]
+  const industries = content.industriesList.split('|').map((item) => item.trim()).filter(Boolean)
+  const collaborations = content.collaborationsList.split('|').map((item) => item.trim()).filter(Boolean)
+  const process = [['01', content.process1Title, content.process1Text], ['02', content.process2Title, content.process2Text], ['03', content.process3Title, content.process3Text], ['04', content.process4Title, content.process4Text]]
   const [activeImage, setActiveImage] = useState<number | null>(null)
 
   const nextImage = () => {
@@ -89,8 +68,8 @@ export default function AboutPage() {
   return (
     <>
       <PageMeta
-        title="About Mediazz Hub"
-        description="Discover Mediazz Hub, an Indore-based creative media production house with 500+ completed projects since 2023."
+        title={content.seoTitle}
+        description={content.seoDescription}
       />
 
       <main className="overflow-hidden bg-[#171512] text-white">
@@ -111,24 +90,24 @@ export default function AboutPage() {
             <Reveal>
               <p className="mb-8 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#f0d49a]" />
-                About Mediazz Hub · Est. 2023
+                {content.heroEyebrow}
               </p>
 
               <h1 className="max-w-5xl font-serif text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.96] tracking-[-0.045em] text-white">
-                We turn ideas
+                {content.heroLine1}
                 <br />
-                into <span className="italic text-[#f0d49a]">experiences.</span>
+                {content.heroLine2}
               </h1>
 
               <p className="mt-9 max-w-xl text-sm leading-8 text-white/95 sm:text-base">
-                A creative media production house bringing concepts, brands and stories to life through photography, filmmaking and end-to-end creative production.
+                {content.heroDescription}
               </p>
 
               <Link
                 to="/portfolio"
                 className="group mt-9 inline-flex items-center gap-4 bg-[#c5a46d] px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#171512] transition-all hover:bg-[#e0bd7e]"
               >
-                Explore Our Work
+                {content.heroCta}
                 <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
             </Reveal>
@@ -144,27 +123,27 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-12 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                Who We Are
+                {content.introEyebrow}
               </p>
 
               <h2 className="mt-7 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
-                More than
+                {content.introHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">just production.</span>
+                <span className="italic text-[#f0d49a]">{content.introHeading2}</span>
               </h2>
             </Reveal>
 
             <Reveal delay={0.15} className="lg:col-span-6 lg:col-start-7">
               <p className="text-xl leading-relaxed text-white sm:text-2xl">
-                Mediazz Hub is a creative media production house based in Indore, Madhya Pradesh, working with multiple brands and businesses since 2023.
+                {content.introLead}
               </p>
 
               <p className="mt-7 text-sm leading-8 text-white/85">
-                What started as a creative vision has grown into a production partner for businesses across different industries. From advertising campaigns and product shoots to celebrity shoots, podcasts, short films and event productions, we have completed 500+ projects across multiple creative services.
+                {content.introText1}
               </p>
 
               <p className="mt-5 text-sm leading-8 text-white/85">
-                Our approach brings concept planning, creative direction, production, photography, filmmaking and final editing together — making the entire process more connected, collaborative and effective.
+                {content.introText2}
               </p>
             </Reveal>
           </div>
@@ -191,17 +170,17 @@ export default function AboutPage() {
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16 max-w-3xl">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                What We Create
+                {content.servicesEyebrow}
               </p>
 
               <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
-                One creative vision.
+                {content.servicesHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">Many possibilities.</span>
+                <span className="italic text-[#f0d49a]">{content.servicesHeading2}</span>
               </h2>
 
               <p className="mt-7 max-w-xl text-sm leading-8 text-white/85">
-                From a single frame to a complete campaign, our production capabilities cover a wide range of creative formats.
+                {content.servicesDescription}
               </p>
             </Reveal>
 
@@ -236,17 +215,17 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-5 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-2">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                Industries & Experiences
+                {content.industriesEyebrow}
               </p>
 
               <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
-                Different worlds.
+                {content.industriesHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">One vision.</span>
+                <span className="italic text-[#f0d49a]">{content.industriesHeading2}</span>
               </h2>
 
               <p className="mt-7 text-sm leading-8 text-white/85">
-                Our projects have taken us across industries, audiences and creative environments. Every business has a different story, and every production needs its own approach.
+                {content.industriesDescription}
               </p>
 
               <div className="mt-9 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0d49a]">
@@ -377,13 +356,13 @@ export default function AboutPage() {
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                How We Work
+                {content.processEyebrow}
               </p>
 
               <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
-                From concept
+                {content.processHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">to final frame.</span>
+                <span className="italic text-[#f0d49a]">{content.processHeading2}</span>
               </h2>
             </Reveal>
 
@@ -417,24 +396,24 @@ export default function AboutPage() {
             <Sparkles size={25} className="mx-auto text-[#f0d49a]" />
 
             <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-              Have A Story To Tell?
+              {content.closingEyebrow}
             </p>
 
             <h2 className="mt-7 font-serif text-5xl leading-[1.02] tracking-[-0.05em] text-white sm:text-7xl">
-              Let's create something
+              {content.closingHeading1}
               <br />
-              <span className="italic text-[#f0d49a]">worth remembering.</span>
+              <span className="italic text-[#f0d49a]">{content.closingHeading2}</span>
             </h2>
 
             <p className="mx-auto mt-7 max-w-lg text-sm leading-8 text-white/85">
-              Tell us about your brand, your vision and the story you want to bring to life.
+              {content.closingDescription}
             </p>
 
             <Link
               to="/contact"
               className="group mt-10 inline-flex items-center gap-5 bg-[#c5a46d] px-8 py-5 text-xs font-bold uppercase tracking-[0.18em] text-[#171512] transition-all duration-300 hover:bg-[#e0bd7e]"
             >
-              Start A Project
+              {content.closingCta}
               <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </Reveal>

@@ -6,17 +6,25 @@ import {
   Inbox,
   FolderKanban,
   BriefcaseBusiness,
-  Star,
   Users,
   LogOut,
   Menu,
   X,
   RefreshCw,
   Clock,
+  WandSparkles,
+  PanelsTopLeft,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const allModules = [
+  {
+    name: 'CMS',
+    icon: PanelsTopLeft,
+    path: '/admin/cms/homepage-content',
+    roles: ['owner', 'admin', 'editor'],
+    description: 'Manage all website pages, navigation and footer content.',
+  },
   {
     name: 'Enquiries & CRM',
     icon: Inbox,
@@ -32,18 +40,11 @@ const allModules = [
     description: 'Manage projects, case studies and published work.',
   },
   {
-    name: 'Services',
-    icon: BriefcaseBusiness,
-    path: '/admin/services',
+    name: 'AI Website Assistant',
+    icon: WandSparkles,
+    path: '/admin/ai-assistant',
     roles: ['owner', 'admin', 'editor'],
-    description: 'Add, edit and publish website services.',
-  },
-  {
-    name: 'Testimonials',
-    icon: Star,
-    path: '/admin/testimonials',
-    roles: ['owner', 'admin', 'editor'],
-    description: 'Manage client testimonials and reviews.',
+    description: 'Update website content with AI-assisted previews.',
   },
   {
     name: 'Team & Users',

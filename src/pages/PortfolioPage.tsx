@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { images } from '../lib/images'
 import { PageHero, PageMeta, SectionHeading } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
+import { useSiteContent } from '../hooks/useSiteContent'
 import { supabase } from '../lib/supabase'
 
 const defaultCategories = [
@@ -40,6 +41,14 @@ const demoProjects: PortfolioProject[] = [
 ]
 
 export default function PortfolioPage() {
+  const pageContent = useSiteContent('portfolio', 'main', {
+    heroEyebrow: 'Our visual world', heroLine1: 'Stories made', heroLine2: 'to be remembered.',
+    heroDescription: 'Every frame has a purpose. Explore the creative directions, visual styles and production possibilities we bring to brands and businesses.',
+    sectionEyebrow: 'Selected visual directions', sectionLine1: 'Different stories.', sectionLine2: 'One creative vision.',
+    sectionDescription: 'Explore our range of visual storytelling across different formats, industries and creative styles. Published projects are updated directly from our production studio.',
+    closingEyebrow: 'Have a story to tell?', closingLine1: 'Have a story that needs', closingLine2: 'a visual world?', closingCta: 'Bring us the brief',
+  })
+  
   const navigate = useNavigate()
   const [activeCategory, setActiveCategory] = useState('All work')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
@@ -151,30 +160,30 @@ export default function PortfolioPage() {
       />
 
       <PageHero
-        eyebrow="Our visual world"
+        eyebrow={pageContent.heroEyebrow}
         title={
           <>
-            Stories made
+            {pageContent.heroLine1}
             <br />
-            <span className="text-white/35">to be remembered.</span>
+            <span className="text-white/35">{pageContent.heroLine2}</span>
           </>
         }
-        description="Every frame has a purpose. Explore the creative directions, visual styles and production possibilities we bring to brands and businesses."
+        description={pageContent.heroDescription}
         image={images.fashion}
       />
 
       <main className="bg-[#171512]">
         <section className="mx-auto max-w-[1440px] px-6 py-24 lg:px-12 lg:py-36">
           <SectionHeading
-            eyebrow="Selected visual directions"
+            eyebrow={pageContent.sectionEyebrow}
             title={
               <>
-                Different stories.
+                {pageContent.sectionLine1}
                 <br />
-                <span className="text-white/35">One creative vision.</span>
+                <span className="text-white/35">{pageContent.sectionLine2}</span>
               </>
             }
-            detail="Explore our range of visual storytelling across different formats, industries and creative styles. Published projects are updated directly from our production studio."
+            detail={pageContent.sectionDescription}
           />
 
           <div className="mb-14 mt-14 flex flex-wrap gap-2 border-y border-white/15 py-5">
@@ -287,20 +296,20 @@ export default function PortfolioPage() {
         <section className="border-t border-white/15 bg-[#0b0b0b] py-24 text-center lg:py-32">
           <Reveal>
             <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">
-              Have a story to tell?
+              {pageContent.closingEyebrow}
             </p>
 
             <h2 className="mx-auto max-w-4xl font-serif text-4xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl">
-              Have a story that needs
+              {pageContent.closingLine1}
               <br />
-              <span className="italic text-[#e0bd7e]">a visual world?</span>
+              <span className="italic text-[#e0bd7e]">{pageContent.closingLine2}</span>
             </h2>
 
             <Link
               to="/contact"
               className="mt-9 inline-flex items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition-colors hover:bg-[#e0bd7e]"
             >
-              Bring us the brief
+              {pageContent.closingCta}
               <ArrowUpRight size={16} />
             </Link>
           </Reveal>

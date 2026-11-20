@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { PageMeta } from '../components/PageFrame'
 import { supabase } from '../lib/supabase'
+import { useSiteContent } from '../hooks/useSiteContent'
 
 const services = [
   'Commercial Shoot',
@@ -42,6 +43,14 @@ const budgets = [
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
 export default function ContactPage() {
+  const pageContent = useSiteContent('contact', 'main', {
+    heroEyebrow: "Let's create something together", heroLine1: 'Have a project', heroLine2: 'in mind?',
+    heroDescription: "Every great visual begins with an idea. Tell us what you're planning, and let's turn that idea into something worth remembering.",
+    formEyebrow: 'Start a conversation', formHeading: 'Tell us about your project.',
+    sideEyebrow: 'Project enquiry', sideHeading: "Let's create something memorable.",
+    sideDescription: 'Share your project requirements with us. Our creative team will get back to you.',
+  })
+  
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
 
@@ -109,18 +118,17 @@ export default function ContactPage() {
 
           <div className="mb-16 max-w-4xl lg:mb-24">
             <p className="mb-5 text-xs font-bold tracking-[0.3em] text-[#c5a46d] uppercase">
-              Let's create something together
+              {pageContent.heroEyebrow}
             </p>
 
             <h1 className="font-serif text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
-              Have a project
+              {pageContent.heroLine1}
               <br />
-              <span className="italic text-[#e0bd7e]">in mind?</span>
+              <span className="italic text-[#e0bd7e]">{pageContent.heroLine2}</span>
             </h1>
 
             <p className="mt-7 max-w-xl text-base leading-relaxed text-white/65">
-              Every great visual begins with an idea. Tell us what you're
-              planning, and let's turn that idea into something worth remembering.
+              {pageContent.heroDescription}
             </p>
           </div>
 
@@ -235,18 +243,15 @@ export default function ContactPage() {
               <div className="lg:col-span-4">
                 <div className="border-t border-white/20 pt-7">
                   <p className="text-xs font-bold tracking-[0.3em] text-[#c5a46d] uppercase">
-                    Project enquiry
+                    {pageContent.sideEyebrow}
                   </p>
 
                   <h2 className="mt-5 font-serif text-3xl leading-tight text-white sm:text-4xl">
-                    Let's create
-                    <br />
-                    something memorable.
+                    {pageContent.sideHeading}
                   </h2>
 
                   <p className="mt-5 max-w-sm text-base leading-relaxed text-white/60">
-                    Share your project requirements with us. Our creative
-                    team will get back to you.
+                    {pageContent.sideDescription}
                   </p>
 
                   <div className="mt-14 flex items-center gap-3 text-[#e0bd7e]">
@@ -294,10 +299,10 @@ export default function ContactPage() {
                   <div className="mb-10 flex items-center justify-between gap-4 border-b border-white/10 pb-7">
                     <div>
                       <p className="text-xs font-bold tracking-[0.3em] text-[#c5a46d] uppercase">
-                        Start a conversation
+                        {pageContent.formEyebrow}
                       </p>
                       <h2 className="mt-3 font-serif text-3xl font-semibold text-white sm:text-4xl">
-                        Tell us about your project.
+                        {pageContent.formHeading}
                       </h2>
                     </div>
                     <Sparkles className="hidden shrink-0 text-[#c5a46d] sm:block" size={28} strokeWidth={1.2} />

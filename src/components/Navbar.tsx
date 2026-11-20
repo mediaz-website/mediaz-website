@@ -3,19 +3,20 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Menu, X, MessageCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-
-const links = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Contact', href: '/contact' },
-]
+import { useSiteContent } from '../hooks/useSiteContent'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const globalContent = useSiteContent('global', 'main', { navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact', navCta: 'Start a Project' })
+  const links = [
+    { label: globalContent.navHome, href: '/' },
+    { label: globalContent.navAbout, href: '/about' },
+    { label: globalContent.navServices, href: '/services' },
+    { label: globalContent.navPortfolio, href: '/portfolio' },
+    { label: globalContent.navContact, href: '/contact' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -90,7 +91,7 @@ export default function Navbar() {
             to="/contact"
             className="group flex items-center gap-2 border border-[#c5a46d] bg-[#c5a46d] px-5 py-3 text-[11px] font-bold tracking-[0.12em] text-[#171512] uppercase transition-all duration-300 hover:bg-[#e0bd7e]"
           >
-            Start a Project
+            {globalContent.navCta}
             <ArrowUpRight
               size={15}
               className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"

@@ -1,5 +1,6 @@
 
 import { Link } from 'react-router-dom'
+import { useSiteContent } from '../hooks/useSiteContent'
 import {
   ArrowUpRight,
   Mail,
@@ -23,6 +24,7 @@ const socials = [
 const currentYear = new Date().getFullYear()
 
 export default function Footer() {
+  const content = useSiteContent('global', 'main', { footerDescription: 'An independent creative media production house creating powerful visual stories for ambitious brands.', footerTagline: 'From Concept to Shoot', footerEmail: 'mediazzhub@gmail.com', footerPhone: 'WhatsApp · +91 8358063254', footerLocation: 'Indore, Madhya Pradesh, India', footerAvailability: 'Available for projects across India', footerClosing: 'Made for brands with somewhere to go.', navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact' })
   return (
     <footer className="border-t border-white/10 bg-[#171512] text-white">
 
@@ -41,12 +43,11 @@ export default function Footer() {
             </Link>
 
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/55">
-              An independent creative media production house creating
-              powerful visual stories for ambitious brands.
+              {content.footerDescription}
             </p>
 
             <p className="mt-5 text-xs font-bold tracking-[0.2em] text-[#c5a46d] uppercase">
-              From Concept to Shoot
+              {content.footerTagline}
             </p>
           </div>
 
@@ -58,11 +59,11 @@ export default function Footer() {
 
             <div className="flex flex-col items-start gap-4 text-sm text-white/65">
               {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Services', href: '/services' },
-                { label: 'Portfolio', href: '/portfolio' },
-                { label: 'Contact', href: '/contact' },
+                { label: content.navHome, href: '/' },
+                { label: content.navAbout, href: '/about' },
+                { label: content.navServices, href: '/services' },
+                { label: content.navPortfolio, href: '/portfolio' },
+                { label: content.navContact, href: '/contact' },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -84,11 +85,11 @@ export default function Footer() {
             <div className="flex flex-col items-start gap-5 text-sm text-white/65">
 
               <a
-                href="mailto:mediazzhub@gmail.com"
+                href={`mailto:${content.footerEmail}`}
                 className="group flex items-center gap-3 transition-colors hover:text-[#e0bd7e]"
               >
                 <Mail size={17} className="shrink-0 text-[#c5a46d]" />
-                <span>mediazzhub@gmail.com</span>
+                <span>{content.footerEmail}</span>
               </a>
 
               <a
@@ -98,17 +99,17 @@ export default function Footer() {
                 className="group flex items-center gap-3 transition-colors hover:text-[#e0bd7e]"
               >
                 <MessageCircle size={17} className="shrink-0 text-[#c5a46d]" />
-                <span>WhatsApp · +91 8358063254</span>
+                <span>{content.footerPhone}</span>
                 <ArrowUpRight size={14} className="opacity-0 transition-opacity group-hover:opacity-100" />
               </a>
 
               <div className="flex items-center gap-3">
                 <MapPin size={17} className="shrink-0 text-[#c5a46d]" />
-                <span>Indore, Madhya Pradesh, India</span>
+                <span>{content.footerLocation}</span>
               </div>
 
               <p className="pl-7 text-xs text-white/40">
-                Available for projects across India
+                {content.footerAvailability}
               </p>
             </div>
           </div>
@@ -164,7 +165,7 @@ export default function Footer() {
           </p>
 
           <p className="font-serif text-sm italic text-[#c5a46d]">
-            Made for brands with somewhere to go.
+            {content.footerClosing}
           </p>
 
           <Link

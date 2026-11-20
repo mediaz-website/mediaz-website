@@ -40,7 +40,8 @@ import AdminProjectsPage from './pages/AdminProjectsPage'
 import AdminTestimonialsPage from './pages/AdminTestimonialsPage'
 import AdminServicesPage from './pages/AdminServicesPage'
 import AdminTeamPage from './pages/AdminTeamPage'
-
+import AdminAIAssistantPage from './pages/AdminAIAssistantPage'
+import AdminHomepageContentPage from './pages/AdminHomepageContentPage'
 
 // HOME PAGE
 function HomePage() {
@@ -57,7 +58,6 @@ function HomePage() {
   )
 }
 
-
 // PUBLIC WEBSITE LAYOUT
 function PublicWebsite() {
   const location = useLocation()
@@ -65,7 +65,6 @@ function PublicWebsite() {
   useEffect(() => {
     if (location.hash) {
       const elementId = location.hash.replace('#', '')
-
       setTimeout(() => {
         document.getElementById(elementId)?.scrollIntoView({
           behavior: 'smooth',
@@ -82,7 +81,6 @@ function PublicWebsite() {
   return (
     <div className="min-h-screen">
       <Navbar />
-
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />
@@ -91,16 +89,13 @@ function PublicWebsite() {
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:slug" element={<ProjectDetailsPage />} />
           <Route path="/contact" element={<ContactPage />} />
-
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>
-
       <Footer />
     </div>
   )
 }
-
 
 // ADMIN ACCESS GUARD
 function AdminAccessGuard({
@@ -131,7 +126,6 @@ function AdminAccessGuard({
           return
         }
 
-        // Check admin role
         const { data: adminData, error: adminError } = await supabase
           .from('admin_users')
           .select('role')
@@ -146,7 +140,6 @@ function AdminAccessGuard({
 
         const userRole = String(adminData.role).toLowerCase()
 
-        // Check profile completion
         const { data: profileData, error: profileError } = await supabase
           .from('team_profiles')
           .select('profile_completed')
@@ -158,7 +151,6 @@ function AdminAccessGuard({
           return
         }
 
-        // Check route-specific role permission
         const roles = allowedRoleKey
           ? allowedRoleKey.split('|')
           : null
@@ -203,17 +195,35 @@ function AdminAccessGuard({
   return <>{children}</>
 }
 
-
 // MAIN APP
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* Admin authentication pages */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/admin/register" element={<AdminRegistrationPage />} />
         <Route path="/admin/reset-password" element={<AdminResetPasswordPage />} />
+
+        {/* Complete Homepage CMS: Owner, Admin and Editor */}
+        <Route
+          path="/admin/cms/homepage-content"
+          element={
+            <AdminAccessGuard allowedRoles={['owner', 'admin', 'editor']}>
+              <AdminHomepageContentPage />
+            </AdminAccessGuard>
+          }
+        />
+
+        {/* AI Website Assistant: Owner, Admin and Editor */}
+        <Route
+          path="/admin/ai-assistant"
+          element={
+            <AdminAccessGuard allowedRoles={['owner', 'admin', 'editor']}>
+              <AdminAIAssistantPage />
+            </AdminAccessGuard>
+          }
+        />
 
         {/* Enquiries: Owner + Admin */}
         <Route
@@ -282,7 +292,6 @@ function App() {
 
         {/* Public website */}
         <Route path="/*" element={<PublicWebsite />} />
-
       </Routes>
     </BrowserRouter>
   )

@@ -4,6 +4,7 @@ import type { FormEvent } from 'react'
 import { ArrowUpRight, CircleCheck as CheckCircle2, Loader as Loader2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { Reveal } from './Motion'
+import { useHomepageSection } from '../hooks/useHomepageSection'
 
 const serviceOptions = [
   'Commercial Shoot',
@@ -18,7 +19,10 @@ const serviceOptions = [
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
+const sectionDefaults = { eyebrow: "Let's work together", headlineLine1: 'Have an', headlineLine2: 'idea?', description: "Bring us the rough version. The half-formed thought. The impossible deadline. We'll bring the right questions.", email: 'mediazhub@gmail.com' }
+
 export default function Contact() {
+  const sectionContent = useHomepageSection('contact_section', sectionDefaults)
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -87,26 +91,25 @@ export default function Contact() {
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-28">
           <Reveal>
             <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase">
-              Let&apos;s work together
+              {sectionContent.eyebrow}
             </p>
 
             <h2 className="font-display text-6xl leading-[0.86] font-bold tracking-[-0.07em] text-white sm:text-7xl lg:text-9xl">
-              Have an
+              {sectionContent.headlineLine1}
               <br />
-              <span className="text-white/35">idea?</span>
+              <span className="text-white/35">{sectionContent.headlineLine2}</span>
             </h2>
 
             <p className="mt-10 max-w-sm text-sm leading-relaxed text-white/55">
-              Bring us the rough version. The half-formed thought. The impossible
-              deadline. We&apos;ll bring the right questions.
+              {sectionContent.description}
             </p>
 
             <div className="mt-12 border-t border-white/15 pt-5">
               <a
-                href="mailto:mediazhub@gmail.com"
+                href={`mailto:${sectionContent.email}`}
                 className="group flex w-fit items-center gap-3 text-sm text-white"
               >
-                mediazhub@gmail.com
+                {sectionContent.email}
                 <ArrowUpRight
                   size={15}
                   className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"

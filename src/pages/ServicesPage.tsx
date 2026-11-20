@@ -21,6 +21,7 @@ import { supabase } from '../lib/supabase'
 import { serviceDetails } from '../lib/services'
 import { PageHero, PageMeta, SectionHeading } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
+import { useSiteContent } from '../hooks/useSiteContent'
 
 interface Service {
   id: string
@@ -69,6 +70,15 @@ function getFallbackImage(title: string, index: number): string {
 }
 
 export default function ServicesPage() {
+  const pageContent = useSiteContent('services', 'main', {
+    heroEyebrow: 'What we create', heroLine1: 'One creative house.', heroLine2: 'Endless possibilities.',
+    heroDescription: 'From the first idea to the final frame, we bring concepts to life through thoughtful planning, professional production and cinematic storytelling.',
+    sectionEyebrow: 'Our capabilities', sectionLine1: 'Everything your story', sectionLine2: 'needs to be seen.',
+    sectionDescription: 'Explore our creative production services. Whether you need a single shoot or a complete campaign, we bring the right people, ideas and production expertise together.',
+    cardCta: 'Discuss your project', closingEyebrow: 'Have a project in mind?', closingLine1: "Let's create something", closingLine2: 'worth remembering.',
+    closingDescription: "Tell us what you have in mind. We'll help shape the concept, plan the production and bring your vision to life.", closingCta: 'Start a project',
+  })
+  
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -131,29 +141,29 @@ export default function ServicesPage() {
       />
 
       <PageHero
-        eyebrow="What we create"
+        eyebrow={pageContent.heroEyebrow}
         title={
           <>
-            One creative house.
+            {pageContent.heroLine1}
             <br />
-            <span className="text-white/35">Endless possibilities.</span>
+            <span className="text-white/35">{pageContent.heroLine2}</span>
           </>
         }
-        description="From the first idea to the final frame, we bring concepts to life through thoughtful planning, professional production and cinematic storytelling."
+        description={pageContent.heroDescription}
       />
 
       <main className="bg-ink-950">
         <section className="mx-auto max-w-[1440px] px-6 py-24 lg:px-12 lg:py-36">
           <SectionHeading
-            eyebrow="Our capabilities"
+            eyebrow={pageContent.sectionEyebrow}
             title={
               <>
-                Everything your story
+                {pageContent.sectionLine1}
                 <br />
-                <span className="text-white/35">needs to be seen.</span>
+                <span className="text-white/35">{pageContent.sectionLine2}</span>
               </>
             }
-            detail="Explore our creative production services. Whether you need a single shoot or a complete campaign, we bring the right people, ideas and production expertise together."
+            detail={pageContent.sectionDescription}
           />
 
           {loading ? (
@@ -232,7 +242,7 @@ export default function ServicesPage() {
                           to="/contact"
                           className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 mt-7 text-[10px] font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:text-[#e0bd7e]"
                         >
-                          Discuss your project
+                          {pageContent.cardCta}
                           <ArrowUpRight
                             size={16}
                             className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
@@ -251,18 +261,17 @@ export default function ServicesPage() {
           <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-10 px-6 lg:flex-row lg:items-end lg:px-12">
             <div className="max-w-3xl">
               <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">
-                Have a project in mind?
+                {pageContent.closingEyebrow}
               </p>
 
               <h2 className="font-serif text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
-                Let's create something
+                {pageContent.closingLine1}
                 <br />
-                <span className="italic text-[#e0bd7e]">worth remembering.</span>
+                <span className="italic text-[#e0bd7e]">{pageContent.closingLine2}</span>
               </h2>
 
               <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/55">
-                Tell us what you have in mind. We'll help shape the concept,
-                plan the production and bring your vision to life.
+                {pageContent.closingDescription}
               </p>
             </div>
 
@@ -270,7 +279,7 @@ export default function ServicesPage() {
               to="/contact"
               className="flex w-fit shrink-0 items-center gap-4 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition duration-300 hover:bg-[#e0bd7e]"
             >
-              Start a project
+              {pageContent.closingCta}
               <ArrowUpRight size={17} />
             </Link>
           </div>

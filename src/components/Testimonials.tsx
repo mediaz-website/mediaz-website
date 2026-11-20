@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Star, Quote, MessageSquareQuote } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import { useHomepageSection } from '../hooks/useHomepageSection'
 
 interface Testimonial {
   id: string
@@ -15,7 +16,10 @@ interface Testimonial {
   sort_order: number
 }
 
+const sectionDefaults = { eyebrow: 'Client Experiences', headlineLine1: 'What Our Clients', headlineLine2: 'Say About Us', description: "Every project is a collaboration. Here's what our clients have to say about working with Mediazz Hub." }
+
 export default function Testimonials() {
+  const sectionContent = useHomepageSection('testimonials_section', sectionDefaults)
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -55,19 +59,18 @@ export default function Testimonials() {
       <div className="relative mx-auto max-w-7xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#c5a46d]">
-            Client Experiences
+            {sectionContent.eyebrow}
           </p>
 
           <h2 className="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
-            What Our Clients
+            {sectionContent.headlineLine1}
             <span className="block italic text-[#c5a46d]">
-              Say About Us
+              {sectionContent.headlineLine2}
             </span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-white/50 sm:text-base">
-            Every project is a collaboration. Here's what our clients have to
-            say about working with Mediazz Hub.
+            {sectionContent.description}
           </p>
         </div>
 
