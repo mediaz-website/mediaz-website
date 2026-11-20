@@ -1,5 +1,6 @@
 
 import { Link } from 'react-router-dom'
+import { useSiteContent } from '../hooks/useSiteContent'
 import {
   ArrowUpRight,
   Mail,
@@ -46,7 +47,7 @@ export default function Footer() {
             </p>
 
             <p className="mt-5 text-xs font-bold tracking-[0.2em] text-[#c5a46d] uppercase">
-              From Concept to Shoot
+              {content.footerTagline}
             </p>
           </div>
 
@@ -84,11 +85,11 @@ export default function Footer() {
             <div className="flex flex-col items-start gap-5 text-sm text-white/65">
 
               <a
-                href="mailto:mediazzhub@gmail.com"
+                href="mailto:{content.footerEmail}"
                 className="group flex items-center gap-3 transition-colors hover:text-[#e0bd7e]"
               >
                 <Mail size={17} className="shrink-0 text-[#c5a46d]" />
-                <span>mediazzhub@gmail.com</span>
+                <span>{content.footerEmail}</span>
               </a>
 
               <a
@@ -98,17 +99,17 @@ export default function Footer() {
                 className="group flex items-center gap-3 transition-colors hover:text-[#e0bd7e]"
               >
                 <MessageCircle size={17} className="shrink-0 text-[#c5a46d]" />
-                <span>WhatsApp · +91 8358063254</span>
+                <span>{content.footerPhone}</span>
                 <ArrowUpRight size={14} className="opacity-0 transition-opacity group-hover:opacity-100" />
               </a>
 
               <div className="flex items-center gap-3">
                 <MapPin size={17} className="shrink-0 text-[#c5a46d]" />
-                <span>Indore, Madhya Pradesh, India</span>
+                <span>{content.footerLocation}</span>
               </div>
 
               <p className="pl-7 text-xs text-white/40">
-                Available for projects across India
+                {content.footerAvailability}
               </p>
             </div>
           </div>
@@ -164,7 +165,7 @@ export default function Footer() {
           </p>
 
           <p className="font-serif text-sm italic text-[#c5a46d]">
-            Made for brands with somewhere to go.
+            {content.footerClosing}
           </p>
 
           <Link
