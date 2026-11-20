@@ -73,6 +73,20 @@ const gallery = [
 ]
 
 export default function AboutPage() {
+  const content = useSiteContent('about', 'main', {
+    heroEyebrow: 'About Mediazz Hub · Est. 2023', heroLine1: 'We turn ideas', heroLine2: 'into experiences.',
+    heroDescription: 'A creative media production house bringing concepts, brands and stories to life through photography, filmmaking and end-to-end creative production.', heroCta: 'Explore Our Work',
+    introEyebrow: 'Who We Are', introHeading1: 'More than', introHeading2: 'just production.',
+    introLead: 'Mediazz Hub is a creative media production house based in Indore, Madhya Pradesh, working with multiple brands and businesses since 2023.',
+    introText1: 'What started as a creative vision has grown into a production partner for businesses across different industries. From advertising campaigns and product shoots to celebrity shoots, podcasts, short films and event productions, we have completed 500+ projects across multiple creative services.',
+    introText2: 'Our approach brings concept planning, creative direction, production, photography, filmmaking and final editing together — making the entire process more connected, collaborative and effective.',
+    statsProjects: '500+', statsYear: '2023', statsIndustries: 'Multiple', statsReach: 'India',
+    servicesEyebrow: 'What We Create', servicesHeading1: 'One creative vision.', servicesHeading2: 'Many possibilities.', servicesDescription: 'From a single frame to a complete campaign, our production capabilities cover a wide range of creative formats.',
+    industriesEyebrow: 'Industries & Experiences', industriesHeading1: 'Different worlds.', industriesHeading2: 'One vision.', industriesDescription: 'Our projects have taken us across industries, audiences and creative environments. Every business has a different story, and every production needs its own approach.',
+    closingEyebrow: 'Have A Story To Tell?', closingHeading1: "Let's create something", closingHeading2: 'worth remembering.', closingDescription: 'Tell us about your brand, your vision and the story you want to bring to life.', closingCta: 'Start A Project',
+  })
+  const stats = [[content.statsProjects, 'Projects Completed'], [content.statsYear, 'Our Journey Began'], [content.statsIndustries, 'Industries Served'], [content.statsReach, 'Our Reach']]
+  
   const [activeImage, setActiveImage] = useState<number | null>(null)
 
   const nextImage = () => {
