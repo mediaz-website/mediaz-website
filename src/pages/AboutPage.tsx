@@ -29,37 +29,6 @@ const services = [
   { icon: Megaphone, title: 'Creative & Campaign Production', description: 'Creative concepts, campaign planning, digital advertisements and production execution.' },
 ]
 
-const industries = [
-  'Automotive & Car Showrooms',
-  'Fashion & Clothing Manufacturers',
-  'D2C & Ecommerce Brands',
-  'Food, Cafes & Hospitality',
-  'Events & Entertainment',
-  'Real Estate & Architecture',
-  'Education & Institutions',
-  'Beauty, Salon & Lifestyle',
-  'Sports & Fitness',
-  'Devotional & Cultural Events',
-  'Music & Performing Arts',
-  'Travel, Airbnb & Experiences',
-  'Digital Marketing Agencies',
-  'Corporate & Professional Brands',
-]
-
-const collaborations = [
-  'REAL ESTATE',
-  'JEEP',
-  'TATA IPL FANPARK',
-  'MG / Morris Garages',
-]
-
-const process = [
-  ['01', 'Discover', 'Understanding your brand, audience, goals and the story worth telling.'],
-  ['02', 'Concept', 'Developing the creative direction, visual approach and production plan.'],
-  ['03', 'Shoot', 'Bringing the concept to life with the right team, equipment and execution.'],
-  ['04', 'Post-Production', 'Editing, colour grading, sound and final delivery across formats.'],
-]
-
 const gallery = [
   { src: images.studio, title: 'Creative Production', category: 'Behind The Scenes' },
   { src: images.photographer, title: 'The Art of Shooting', category: 'Production' },
