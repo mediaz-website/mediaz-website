@@ -18,7 +18,7 @@ export default function Portfolio() {
     <section id="work" className="bg-[#0b0b0b] py-28 lg:py-40">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <Reveal className="mb-16 flex flex-col justify-between gap-8 lg:mb-24 lg:flex-row lg:items-end">
-          <div><p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase"{content.eyebrow}</p><h2 className="font-display text-5xl leading-[0.92] font-bold tracking-[-0.06em] text-white sm:text-6xl lg:text-8xl">{content.headlineLine1}<br /><span className="text-white/35">{content.headlineLine2}</span></h2></div>
+          <div><p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase">{content.eyebrow}</p><h2 className="font-display text-5xl leading-[0.92] font-bold tracking-[-0.06em] text-white sm:text-6xl lg:text-8xl">{content.headlineLine1}<br /><span className="text-white/35">{content.headlineLine2}</span></h2></div>
           <a href="#contact" className="group flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-white uppercase">{content.ctaText} <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>
         </Reveal>
         <div className="grid gap-x-5 gap-y-20 lg:grid-cols-12 lg:gap-y-0">
