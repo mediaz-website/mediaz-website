@@ -41,6 +41,14 @@ const demoProjects: PortfolioProject[] = [
 ]
 
 export default function PortfolioPage() {
+  const pageContent = useSiteContent('portfolio', 'main', {
+    heroEyebrow: 'Our visual world', heroLine1: 'Stories made', heroLine2: 'to be remembered.',
+    heroDescription: 'Every frame has a purpose. Explore the creative directions, visual styles and production possibilities we bring to brands and businesses.',
+    sectionEyebrow: 'Selected visual directions', sectionLine1: 'Different stories.', sectionLine2: 'One creative vision.',
+    sectionDescription: 'Explore our range of visual storytelling across different formats, industries and creative styles. Published projects are updated directly from our production studio.',
+    closingEyebrow: 'Have a story to tell?', closingLine1: 'Have a story that needs', closingLine2: 'a visual world?', closingCta: 'Bring us the brief',
+  })
+  
   const navigate = useNavigate()
   const [activeCategory, setActiveCategory] = useState('All work')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
