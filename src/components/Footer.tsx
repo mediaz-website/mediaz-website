@@ -24,7 +24,7 @@ const socials = [
 const currentYear = new Date().getFullYear()
 
 export default function Footer() {
-  const content = useSiteContent('global', 'main', { footerDescription: 'An independent creative media production house creating powerful visual stories for ambitious brands.', footerTagline: '{content.footerTagline}', footerEmail: 'mediazzhub@gmail.com', footerPhone: 'WhatsApp · +91 8358063254', footerLocation: 'Indore, Madhya Pradesh, India', footerAvailability: '{content.footerAvailability}', footerClosing: '{content.footerClosing}' })
+  const content = useSiteContent('global', 'main', { footerDescription: 'An independent creative media production house creating powerful visual stories for ambitious brands.', footerTagline: 'From Concept to Shoot', footerEmail: 'mediazzhub@gmail.com', footerPhone: 'WhatsApp · +91 8358063254', footerLocation: 'Indore, Madhya Pradesh, India', footerAvailability: 'Available for projects across India', footerClosing: 'Made for brands with somewhere to go.', navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact' })
   return (
     <footer className="border-t border-white/10 bg-[#171512] text-white">
 
