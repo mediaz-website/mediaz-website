@@ -40,11 +40,11 @@ const allModules = [
     description: 'Manage projects, case studies and published work.',
   },
   {
-    name: 'AI Website Assistant',
+    name: 'Expert AI Website Manager',
     icon: WandSparkles,
     path: '/admin/ai-assistant',
-    roles: ['owner', 'admin', 'editor'],
-    description: 'Update website content with AI-assisted previews.',
+    roles: ['owner'],
+    description: 'Owner-only AI manager for website operations, memory and automation.',
   },
   {
     name: 'Team & Users',
