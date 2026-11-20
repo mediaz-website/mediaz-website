@@ -59,7 +59,7 @@ export default function Testimonials() {
       <div className="relative mx-auto max-w-7xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#c5a46d]">
-            Client Experiences
+            {sectionContent.eyebrow}
           </p>
 
           <h2 className="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
