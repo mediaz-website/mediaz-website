@@ -91,7 +91,7 @@ export default function Contact() {
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-28">
           <Reveal>
             <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase">
-              Let&apos;s work together
+              {sectionContent.eyebrow}
             </p>
 
             <h2 className="font-display text-6xl leading-[0.86] font-bold tracking-[-0.07em] text-white sm:text-7xl lg:text-9xl">
