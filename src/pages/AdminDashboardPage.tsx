@@ -15,31 +15,16 @@ import {
   Clock,
   WandSparkles,
   PanelsTopLeft,
-  Layers3,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const allModules = [
   {
-    name: 'Homepage Hero CMS',
-    icon: PanelsTopLeft,
-    path: '/admin/cms/homepage-hero',
-    roles: ['owner', 'admin', 'editor'],
-    description: 'Edit homepage hero text, buttons and background media.',
-  },
-  {
-    name: 'Homepage Services CMS',
-    icon: Layers3,
-    path: '/admin/cms/homepage-services',
-    roles: ['owner', 'admin', 'editor'],
-    description: 'Edit homepage services section heading, description and links.',
-  },
-  {
-    name: 'Other Homepage Sections CMS',
+    name: 'Homepage CMS',
     icon: PanelsTopLeft,
     path: '/admin/cms/homepage-content',
     roles: ['owner', 'admin', 'editor'],
-    description: 'Manage Showreel, Portfolio, Testimonials, Process and Contact sections.',
+    description: 'Manage Hero, Services, Showreel, Portfolio, Testimonials, Process and Contact sections.',
   },
   {
     name: 'Enquiries & CRM',
