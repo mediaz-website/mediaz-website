@@ -215,11 +215,11 @@ function App() {
           }
         />
 
-        {/* AI Website Assistant: Owner, Admin and Editor */}
+        {/* Expert AI Website Manager: Owner only */}
         <Route
           path="/admin/ai-assistant"
           element={
-            <AdminAccessGuard allowedRoles={['owner', 'admin', 'editor']}>
+            <AdminAccessGuard allowedRoles={['owner']}>
               <AdminAIAssistantPage />
             </AdminAccessGuard>
           }
