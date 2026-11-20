@@ -83,10 +83,14 @@ export default function AboutPage() {
     statsProjects: '500+', statsYear: '2023', statsIndustries: 'Multiple', statsReach: 'India',
     servicesEyebrow: 'What We Create', servicesHeading1: 'One creative vision.', servicesHeading2: 'Many possibilities.', servicesDescription: 'From a single frame to a complete campaign, our production capabilities cover a wide range of creative formats.',
     industriesEyebrow: 'Industries & Experiences', industriesHeading1: 'Different worlds.', industriesHeading2: 'One vision.', industriesDescription: 'Our projects have taken us across industries, audiences and creative environments. Every business has a different story, and every production needs its own approach.',
-    industriesList: 'Automotive & Car Showrooms\\nFashion & Clothing Manufacturers\\nD2C & Ecommerce Brands\\nFood, Cafes & Hospitality\\nEvents & Entertainment\\nReal Estate & Architecture\\nEducation & Institutions\\nBeauty, Salon & Lifestyle\\nSports & Fitness\\nDevotional & Cultural Events\\nMusic & Performing Arts\\nTravel, Airbnb & Experiences\\nDigital Marketing Agencies\\nCorporate & Professional Brands', collaborationsList: 'REAL ESTATE\\nJEEP\\nTATA IPL FANPARK\\nMG / Morris Garages', processEyebrow: '{content.processEyebrow}', processHeading1: '{content.processHeading1}', processHeading2: 'to final frame.', process1Title: 'Discover', process1Text: 'Understanding your brand, audience, goals and the story worth telling.', process2Title: 'Concept', process2Text: 'Developing the creative direction, visual approach and production plan.', process3Title: 'Shoot', process3Text: 'Bringing the concept to life with the right team, equipment and execution.', process4Title: 'Post-Production', process4Text: 'Editing, colour grading, sound and final delivery across formats.', closingEyebrow: 'Have A Story To Tell?', closingHeading1: "Let's create something", closingHeading2: 'worth remembering.', closingDescription: 'Tell us about your brand, your vision and the story you want to bring to life.', closingCta: 'Start A Project',
+    industriesList: 'Automotive & Car Showrooms\\nFashion & Clothing Manufacturers\\nD2C & Ecommerce Brands\\nFood, Cafes & Hospitality\\nEvents & Entertainment\\nReal Estate & Architecture\\nEducation & Institutions\\nBeauty, Salon & Lifestyle\\nSports & Fitness\\nDevotional & Cultural Events\\nMusic & Performing Arts\\nTravel, Airbnb & Experiences\\nDigital Marketing Agencies\\nCorporate & Professional Brands', collaborationsList: 'REAL ESTATE\\nJEEP\\nTATA IPL FANPARK\\nMG / Morris Garages', processEyebrow: 'How We Work', processHeading1: 'From concept', processHeading2: 'to final frame.', process1Title: 'Discover', process1Text: 'Understanding your brand, audience, goals and the story worth telling.', process2Title: 'Concept', process2Text: 'Developing the creative direction, visual approach and production plan.', process3Title: 'Shoot', process3Text: 'Bringing the concept to life with the right team, equipment and execution.', process4Title: 'Post-Production', process4Text: 'Editing, colour grading, sound and final delivery across formats.', closingEyebrow: 'Have A Story To Tell?', closingHeading1: "Let's create something", closingHeading2: 'worth remembering.', closingDescription: 'Tell us about your brand, your vision and the story you want to bring to life.', closingCta: 'Start A Project',
   })
   const stats = [[content.statsProjects, 'Projects Completed'], [content.statsYear, 'Our Journey Began'], [content.statsIndustries, 'Industries Served'], [content.statsReach, 'Our Reach']]\n  const industries = content.industriesList.split('\\n').filter(Boolean)\n  const collaborations = content.collaborationsList.split('\\n').filter(Boolean)\n  const process = [['01', content.process1Title, content.process1Text], ['02', content.process2Title, content.process2Text], ['03', content.process3Title, content.process3Text], ['04', content.process4Title, content.process4Text]]
   
+  const stats = [[content.statsProjects, 'Projects Completed'], [content.statsYear, 'Our Journey Began'], [content.statsIndustries, 'Industries Served'], [content.statsReach, 'Our Reach']]
+  const industries = content.industriesList.split('\\n').filter(Boolean)
+  const collaborations = content.collaborationsList.split('\\n').filter(Boolean)
+  const process = [['01', content.process1Title, content.process1Text], ['02', content.process2Title, content.process2Text], ['03', content.process3Title, content.process3Text], ['04', content.process4Title, content.process4Text]]
   const [activeImage, setActiveImage] = useState<number | null>(null)
 
   const nextImage = () => {
@@ -104,8 +108,8 @@ export default function AboutPage() {
   return (
     <>
       <PageMeta
-        title="About Mediazz Hub"
-        description="Discover Mediazz Hub, an Indore-based creative media production house with 500+ completed projects since 2023."
+        title={content.seoTitle}
+        description={content.seoDescription}
       />
 
       <main className="overflow-hidden bg-[#171512] text-white">
@@ -392,11 +396,11 @@ export default function AboutPage() {
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                How We Work
+                {content.processEyebrow}
               </p>
 
               <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
-                From concept
+                {content.processHeading1}
                 <br />
                 <span className="italic text-[#f0d49a]">{content.processHeading2}</span>
               </h2>
