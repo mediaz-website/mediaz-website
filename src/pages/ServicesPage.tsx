@@ -271,8 +271,7 @@ export default function ServicesPage() {
               </h2>
 
               <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/55">
-                Tell us what you have in mind. We'll help shape the concept,
-                plan the production and bring your vision to life.
+                {pageContent.closingDescription}
               </p>
             </div>
 
