@@ -16,6 +16,7 @@ import {
   WandSparkles,
   PanelsTopLeft,
   Layers3,
+  PanelsTopLeft,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
@@ -33,6 +34,13 @@ const allModules = [
     path: '/admin/cms/homepage-services',
     roles: ['owner', 'admin', 'editor'],
     description: 'Edit homepage services section heading, description and links.',
+  },
+  {
+    name: 'Other Homepage Sections CMS',
+    icon: PanelsTopLeft,
+    path: '/admin/cms/homepage-content',
+    roles: ['owner', 'admin', 'editor'],
+    description: 'Manage Showreel, Portfolio, Testimonials, Process and Contact sections.',
   },
   {
     name: 'Enquiries & CRM',
