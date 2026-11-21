@@ -89,12 +89,12 @@ export default function AboutPage() {
 
           <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 lg:px-16 lg:pb-28">
             <Reveal>
-              <p className="mb-8 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#f0d49a]" />
+              <p className="mb-8 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#e0bd7e]" />
                 {content.heroEyebrow}
               </p>
 
-              <h1 className="max-w-5xl font-serif text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.96] tracking-[-0.045em] text-white">
+              <h1 className="max-w-5xl font-display text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.96] tracking-[-0.045em] text-white">
                 {content.heroLine1}
                 <br />
                 {content.heroLine2}
@@ -123,14 +123,14 @@ export default function AboutPage() {
         <section className="bg-[#171512] py-24 lg:py-36">
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-12 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
                 {content.introEyebrow}
               </p>
 
-              <h2 className="mt-7 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
+              <h2 className="mt-7 font-display text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
                 {content.introHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">{content.introHeading2}</span>
+                <span className="italic text-[#e0bd7e]">{content.introHeading2}</span>
               </h2>
             </Reveal>
 
@@ -155,7 +155,7 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-y-12 px-6 md:grid-cols-4 lg:px-16">
             {stats.map(([number, label], index) => (
               <Reveal key={label} delay={index * 0.08} className="text-center md:border-r md:border-white/10 last:border-0">
-                <p className="font-serif text-5xl tracking-tight text-[#f0d49a] sm:text-6xl">
+                <p className="font-display text-5xl tracking-tight text-[#e0bd7e] sm:text-6xl">
                   {number}
                 </p>
                 <p className="mt-3 text-[9px] font-bold uppercase tracking-[0.22em] text-white/85 sm:text-[10px]">
@@ -170,14 +170,14 @@ export default function AboutPage() {
         <section className="bg-[#171512] py-24 lg:py-36">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16 max-w-3xl">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
                 {content.servicesEyebrow}
               </p>
 
-              <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
+              <h2 className="mt-6 font-display text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
                 {content.servicesHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">{content.servicesHeading2}</span>
+                <span className="italic text-[#e0bd7e]">{content.servicesHeading2}</span>
               </h2>
 
               <p className="mt-7 max-w-xl text-sm leading-8 text-white/85">
@@ -195,10 +195,10 @@ export default function AboutPage() {
                   <Icon
                     size={27}
                     strokeWidth={1.5}
-                    className="text-[#f0d49a] transition-transform duration-300 group-hover:scale-110"
+                    className="text-[#e0bd7e] transition-transform duration-300 group-hover:scale-110"
                   />
 
-                  <h3 className="mt-12 font-serif text-2xl font-semibold text-white transition-colors group-hover:text-[#f0d49a]">
+                  <h3 className="mt-12 font-display text-2xl font-semibold text-white transition-colors group-hover:text-[#e0bd7e]">
                     {title}
                   </h3>
 
@@ -215,21 +215,21 @@ export default function AboutPage() {
         <section className="bg-[#211e19] py-24 lg:py-36">
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-5 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-2">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
                 {content.industriesEyebrow}
               </p>
 
-              <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
+              <h2 className="mt-6 font-display text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-6xl">
                 {content.industriesHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">{content.industriesHeading2}</span>
+                <span className="italic text-[#e0bd7e]">{content.industriesHeading2}</span>
               </h2>
 
               <p className="mt-7 text-sm leading-8 text-white/85">
                 {content.industriesDescription}
               </p>
 
-              <div className="mt-9 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0d49a]">
+              <div className="mt-9 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#e0bd7e]">
                 <Building2 size={17} />
                 Multi-industry experience
               </div>
@@ -243,10 +243,10 @@ export default function AboutPage() {
                     delay={index * 0.035}
                     className="flex items-center gap-4 border-b border-white/20 py-5 pr-3"
                   >
-                    <span className="font-mono text-[10px] text-[#f0d49a]">
+                    <span className="font-mono text-[10px] text-[#e0bd7e]">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <p className="text-sm font-medium text-white/95 transition-colors hover:text-[#f0d49a]">
+                    <p className="text-sm font-medium text-white/95 transition-colors hover:text-[#e0bd7e]">
                       {industry}
                     </p>
                   </Reveal>
@@ -260,12 +260,12 @@ export default function AboutPage() {
         <section className="bg-[#171512] py-24 lg:py-32">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="text-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
                 Selected Brand Collaborations
               </p>
 
-              <h2 className="mt-6 font-serif text-5xl tracking-[-0.045em] text-white sm:text-6xl">
-                Brands & <span className="italic text-[#f0d49a]">businesses.</span>
+              <h2 className="mt-6 font-display text-5xl tracking-[-0.045em] text-white sm:text-6xl">
+                Brands & <span className="italic text-[#e0bd7e]">businesses.</span>
               </h2>
 
               <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/85">
@@ -280,7 +280,7 @@ export default function AboutPage() {
                   delay={index * 0.08}
                   className="flex min-h-36 items-center justify-center border-b border-white/20 p-6 text-center transition-colors duration-300 hover:bg-white/[0.04] md:border-b-0 md:border-r last:border-0"
                 >
-                  <span className="font-serif text-xl font-semibold tracking-wide text-white transition-colors hover:text-[#f0d49a] sm:text-2xl">
+                  <span className="font-display text-xl font-semibold tracking-wide text-white transition-colors hover:text-[#e0bd7e] sm:text-2xl">
                     {brand}
                   </span>
                 </Reveal>
@@ -298,12 +298,12 @@ export default function AboutPage() {
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-14 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
                   Behind The Creative
                 </p>
 
-                <h2 className="mt-5 font-serif text-5xl tracking-[-0.045em] text-white sm:text-6xl">
-                  The art of <span className="italic text-[#f0d49a]">making.</span>
+                <h2 className="mt-5 font-display text-5xl tracking-[-0.045em] text-white sm:text-6xl">
+                  The art of <span className="italic text-[#e0bd7e]">making.</span>
                 </h2>
               </div>
 
@@ -335,15 +335,15 @@ export default function AboutPage() {
 
                     <div className="mt-5 flex items-center justify-between border-b border-white/20 pb-5">
                       <div>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#f0d49a]">
+                        <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#e0bd7e]">
                           {item.category}
                         </p>
-                        <h3 className="mt-2 font-serif text-2xl text-white">
+                        <h3 className="mt-2 font-display text-2xl text-white">
                           {item.title}
                         </h3>
                       </div>
 
-                      <ArrowUpRight size={19} className="text-[#f0d49a]" />
+                      <ArrowUpRight size={19} className="text-[#e0bd7e]" />
                     </div>
                   </button>
                 </Reveal>
@@ -356,14 +356,14 @@ export default function AboutPage() {
         <section className="bg-[#171512] py-24 lg:py-36">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16">
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
                 {content.processEyebrow}
               </p>
 
-              <h2 className="mt-6 font-serif text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
+              <h2 className="mt-6 font-display text-5xl leading-[1.02] tracking-[-0.045em] text-white sm:text-7xl">
                 {content.processHeading1}
                 <br />
-                <span className="italic text-[#f0d49a]">{content.processHeading2}</span>
+                <span className="italic text-[#e0bd7e]">{content.processHeading2}</span>
               </h2>
             </Reveal>
 
@@ -374,11 +374,11 @@ export default function AboutPage() {
                   delay={index * 0.1}
                   className="border-b border-white/20 p-7 transition-colors duration-300 hover:bg-white/[0.045] sm:border-r lg:min-h-[270px] lg:p-8"
                 >
-                  <span className="font-mono text-[11px] text-[#f0d49a]">
+                  <span className="font-mono text-[11px] text-[#e0bd7e]">
                     {number}
                   </span>
 
-                  <h3 className="mt-16 font-serif text-3xl font-semibold text-white">
+                  <h3 className="mt-16 font-display text-3xl font-semibold text-white">
                     {title}
                   </h3>
 
@@ -394,16 +394,16 @@ export default function AboutPage() {
         {/* FINAL CTA */}
         <section className="border-t border-white/10 bg-[#211e19] px-6 py-28 text-center lg:py-40">
           <Reveal className="mx-auto max-w-4xl">
-            <Sparkles size={25} className="mx-auto text-[#f0d49a]" />
+            <Sparkles size={25} className="mx-auto text-[#e0bd7e]" />
 
-            <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.35em] text-[#f0d49a]">
+            <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
               {content.closingEyebrow}
             </p>
 
-            <h2 className="mt-7 font-serif text-5xl leading-[1.02] tracking-[-0.05em] text-white sm:text-7xl">
+            <h2 className="mt-7 font-display text-5xl leading-[1.02] tracking-[-0.05em] text-white sm:text-7xl">
               {content.closingHeading1}
               <br />
-              <span className="italic text-[#f0d49a]">{content.closingHeading2}</span>
+              <span className="italic text-[#e0bd7e]">{content.closingHeading2}</span>
             </h2>
 
             <p className="mx-auto mt-7 max-w-lg text-sm leading-8 text-white/85">
@@ -459,7 +459,7 @@ export default function AboutPage() {
               className="max-h-[75vh] max-w-full object-contain"
             />
 
-            <p className="mt-5 text-center font-serif text-2xl text-white">
+            <p className="mt-5 text-center font-display text-2xl text-white">
               {gallery[activeImage].title}
             </p>
           </div>
