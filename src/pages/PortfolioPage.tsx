@@ -55,7 +55,8 @@ export default function PortfolioPage() {
   })
   
   const navigate = useNavigate()
-  const [activeCategory, setActiveCategory] = useState('All work')
+  const [activeAiCategory, setActiveAiCategory] = useState('All AI work')
+  const [activeGroundCategory, setActiveGroundCategory] = useState('All shoot work')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [publishedProjects, setPublishedProjects] = useState<PortfolioProject[]>([])
   const [loadingProjects, setLoadingProjects] = useState(true)
@@ -115,15 +116,26 @@ export default function PortfolioPage() {
     ),
   ]
 
-  const visibleProjects =
-    activeCategory === 'All work'
-      ? allProjects
-      : allProjects.filter((project) => project.category === activeCategory)
-
   const isAiProject = (project: PortfolioProject) =>
     project.category === 'AI & Automation' || /ai|automation/i.test(project.category)
-  const aiVisibleProjects = visibleProjects.filter(isAiProject)
-  const groundVisibleProjects = visibleProjects.filter((project) => !isAiProject(project))
+
+  const aiProjects = allProjects.filter(isAiProject)
+  const groundProjects = allProjects.filter((project) => !isAiProject(project))
+  const aiCategories = [
+    'All AI work',
+    ...Array.from(new Set(aiProjects.map((project) => project.category))),
+  ]
+  const groundCategories = [
+    'All shoot work',
+    ...Array.from(new Set(groundProjects.map((project) => project.category))),
+  ]
+  const aiVisibleProjects = activeAiCategory === 'All AI work'
+    ? aiProjects
+    : aiProjects.filter((project) => project.category === activeAiCategory)
+  const groundVisibleProjects = activeGroundCategory === 'All shoot work'
+    ? groundProjects
+    : groundProjects.filter((project) => project.category === activeGroundCategory)
+  const visibleProjects = [...aiVisibleProjects, ...groundVisibleProjects]
   const demoVisibleProjects = visibleProjects.filter((project) => project.isDemo)
 
   const selectedProject =
@@ -208,26 +220,6 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          <div className="mb-14 mt-14 flex flex-wrap gap-2 border-y border-white/15 py-5">
-            {categories.map((category) => (
-              <button
-                key={category}
-                type="button"
-                onClick={() => {
-                  setActiveCategory(category)
-                  setSelectedIndex(null)
-                }}
-                className={`rounded-full border px-4 py-2 text-[10px] font-semibold tracking-[0.12em] uppercase transition-colors ${
-                  activeCategory === category
-                    ? 'border-[#c5a46d] bg-[#c5a46d] text-[#171512]'
-                    : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
           {loadingProjects && (
             <p className="mb-8 text-center text-xs tracking-widest text-white/40 uppercase">
               Loading published projects...
@@ -236,7 +228,12 @@ export default function PortfolioPage() {
 
           <div className="grid items-start gap-12 lg:grid-cols-2">
             <section className="border border-[#c5a46d]/25 bg-[#211e19]/50 p-4 sm:p-6">
-              <h3 className="mb-6 font-display text-2xl font-bold text-white">AI Production Work</h3>
+              <h3 className="mb-4 font-display text-2xl font-bold text-white">AI Production Work</h3>
+              <div className="mb-6 flex flex-wrap gap-2 border-b border-white/10 pb-5">
+                {aiCategories.map((category) => (
+                  <button key={category} type="button" onClick={() => { setActiveAiCategory(category); setSelectedIndex(null) }} className={`rounded-full border px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.1em] transition-colors ${activeAiCategory === category ? 'border-[#c5a46d] bg-[#c5a46d] text-[#171512]' : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'}`}>{category}</button>
+                ))}
+              </div>
               <motion.div layout className="grid gap-10 sm:grid-cols-2">
                 {aiVisibleProjects.map((project, index) => (
                   <motion.article layout key={project.id} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.03 }} className="group">
@@ -296,7 +293,12 @@ export default function PortfolioPage() {
               {aiVisibleProjects.length === 0 && <p className="py-10 text-sm text-white/50">No AI projects in this category yet.</p>}
             </section>
             <section className="border border-white/15 bg-[#191714]/50 p-4 sm:p-6">
-              <h3 className="mb-6 font-display text-2xl font-bold text-white">On-ground Production Work</h3>
+              <h3 className="mb-4 font-display text-2xl font-bold text-white">On-ground Production Work</h3>
+              <div className="mb-6 flex flex-wrap gap-2 border-b border-white/10 pb-5">
+                {groundCategories.map((category) => (
+                  <button key={category} type="button" onClick={() => { setActiveGroundCategory(category); setSelectedIndex(null) }} className={`rounded-full border px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.1em] transition-colors ${activeGroundCategory === category ? 'border-[#c5a46d] bg-[#c5a46d] text-[#171512]' : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'}`}>{category}</button>
+                ))}
+              </div>
               <motion.div layout className="grid gap-10 sm:grid-cols-2">
                 {groundVisibleProjects.map((project, index) => (
                   <motion.article layout key={project.id} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.03 }} className="group">
