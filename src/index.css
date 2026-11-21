@@ -92,3 +92,73 @@ a, button {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Compact public-facing cards on small screens without changing desktop layouts */
+@media (max-width: 639px) {
+  /* Shared content cards used across public pages */
+  main article[class*="border"][class*="bg-"],
+  section article[class*="border"][class*="bg-"],
+  main div[class*="border"][class*="bg-"],
+  section div[class*="border"][class*="bg-"] {
+    padding: 1rem !important;
+  }
+
+  main article[class*="border"][class*="bg-"] h3,
+  section article[class*="border"][class*="bg-"] h3,
+  main div[class*="border"][class*="bg-"] h3,
+  section div[class*="border"][class*="bg-"] h3 {
+    font-size: 1.05rem !important;
+    line-height: 1.3 !important;
+  }
+
+  main article[class*="border"][class*="bg-"] p,
+  section article[class*="border"][class*="bg-"] p,
+  main div[class*="border"][class*="bg-"] p,
+  section div[class*="border"][class*="bg-"] p {
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+
+  main article[class*="border"][class*="bg-"] .mt-8,
+  section article[class*="border"][class*="bg-"] .mt-8,
+  main div[class*="border"][class*="bg-"] .mt-8,
+  section div[class*="border"][class*="bg-"] .mt-8 {
+    margin-top: 1rem !important;
+  }
+
+  main article[class*="border"][class*="bg-"] .mt-7,
+  section article[class*="border"][class*="bg-"] .mt-7,
+  main div[class*="border"][class*="bg-"] .mt-7,
+  section div[class*="border"][class*="bg-"] .mt-7 {
+    margin-top: 0.875rem !important;
+  }
+
+  main article[class*="border"][class*="bg-"] [class~="size-12"],
+  section article[class*="border"][class*="bg-"] [class~="size-12"],
+  main div[class*="border"][class*="bg-"] [class~="size-12"],
+  section div[class*="border"][class*="bg-"] [class~="size-12"] {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+
+  /* Homepage service preview cards */
+  #services .grid a.group.relative.block.h-full {
+    min-height: 250px !important;
+  }
+
+  #services .grid a.group.relative.block.h-full > .relative {
+    min-height: 250px !important;
+    padding: 1rem !important;
+  }
+
+  #services .grid a.group.relative.block.h-full h3 {
+    font-size: 1.05rem !important;
+    line-height: 1.3 !important;
+  }
+
+  #services .grid a.group.relative.block.h-full p {
+    font-size: 0.78rem !important;
+    line-height: 1.5 !important;
+  }
+}
