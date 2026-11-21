@@ -30,7 +30,7 @@ const steps = [
 export default function Process() {
   const content = useHomepageSection('process_section', defaults)
   return (
-    <section id="process" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-32">
+    <section id="our-approach" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-32">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 mediazz-section-line opacity-30" />
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <Reveal className="mb-10 max-w-3xl sm:mb-16 lg:mb-20">
