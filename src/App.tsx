@@ -87,7 +87,8 @@ function PublicWebsite() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/ai-video-production" element={<AIVideoProductionPage />} />
+          <Route path="/services/ai-media-production" element={<AIVideoProductionPage />} />
+          <Route path="/services/ai-video-production" element={<Navigate to="/services/ai-media-production" replace />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:slug" element={<ProjectDetailsPage />} />
           <Route path="/contact" element={<ContactPage />} />
