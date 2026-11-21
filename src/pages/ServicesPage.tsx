@@ -72,9 +72,9 @@ function getFallbackImage(title: string, index: number): string {
 export default function ServicesPage() {
   const pageContent = useSiteContent('services', 'main', {
     heroEyebrow: 'What we create', heroLine1: 'One creative house.', heroLine2: 'Endless possibilities.',
-    heroDescription: 'From the first idea to the final frame, we bring concepts to life through thoughtful planning, professional production and cinematic storytelling.',
+    heroDescription: 'From AI-powered media and smart automation to professional on-ground shoots, digital solutions and final delivery — we bring every part of your brand communication together.',
     sectionEyebrow: 'Our capabilities', sectionLine1: 'Everything your story', sectionLine2: 'needs to be seen.',
-    sectionDescription: 'Explore our creative production services. Whether you need a single shoot or a complete campaign, we bring the right people, ideas and production expertise together.',
+    sectionDescription: 'Explore our AI-powered media, automation, digital solutions and on-ground production capabilities. Choose one service or bring them together for a complete project.',
     cardCta: 'Discuss your project', closingEyebrow: 'Have a project in mind?', closingLine1: "Let's create something", closingLine2: 'worth remembering.',
     closingDescription: "Tell us what you have in mind. We'll help shape the concept, plan the production and bring your vision to life.", closingCta: 'Start a project',
   })
@@ -133,21 +133,19 @@ export default function ServicesPage() {
     return () => window.clearTimeout(timer)
   }, [loading, services])
 
-  const displayedServices = services.some((service) => service.slug === 'ai-video-production')
-    ? services
-    : [
-        ...services,
-        {
-          id: 'ai-video-production-static',
-          title: 'AI Video Production',
-          slug: 'ai-video-production',
-          short_description: 'AI-powered videos for brands, products and campaigns.',
-          description: 'AI promotional videos, product videos, AI ads, avatar videos and social media reels.',
-          image_url: null,
-          icon: 'sparkles',
-          sort_order: 999,
-        },
-      ]
+  const displayedServices = [
+    ...services.filter((service) => service.slug !== 'ai-video-production' && service.slug !== 'ai-media-production'),
+    {
+      id: 'ai-media-production-static',
+      title: 'AI Media & Technology',
+      slug: 'ai-media-production',
+      short_description: 'AI media, automation and digital solutions for modern brands.',
+      description: 'AI videos, voiceovers, images, custom automation, social media management, website development, SEO and AEO.',
+      image_url: null,
+      icon: 'sparkles',
+      sort_order: 999,
+    },
+  ]
 
   return (
     <>
@@ -255,7 +253,7 @@ export default function ServicesPage() {
                         )}
 
                         <Link
-                          to={service.slug === 'ai-video-production' ? '/services/ai-video-production' : '/contact'}
+                          to={service.slug === 'ai-media-production' ? '/services/ai-media-production' : '/contact'}
                           className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 mt-7 text-[10px] font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:text-[#e0bd7e]"
                         >
                           {pageContent.cardCta}

@@ -30,6 +30,13 @@ const services = [
   'Event & Music Production',
   'Campaign & Promotional Production',
   'AI Video Production',
+  'AI Voiceover & Audio',
+  'AI Image & Creative Production',
+  'AI Automation & Workflow Development',
+  'Social Media & Profile Management',
+  'Website Development',
+  'SEO & AEO',
+  'AI Tools & Integrations',
 ]
 
 const budgets = [

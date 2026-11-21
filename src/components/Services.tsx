@@ -34,7 +34,7 @@ const defaultSectionContent: ServicesSectionContent = {
   eyebrow: 'What we create',
   headlineLine1: 'The art of',
   headlineLine2: 'visual storytelling.',
-  description: 'From commercial films to brand campaigns, we bring concepts to life through creative thinking, professional production and powerful visuals.',
+  description: 'AI-powered media, production automation, digital solutions and professional on-ground shoots — connected under one creative partner.',
   topLinkText: 'Explore all capabilities',
   bottomLinkText: 'Discover all services',
 }
@@ -130,21 +130,19 @@ export default function Services() {
     }
   }, [])
 
-  const displayedServices = services.some((service) => service.slug === 'ai-video-production')
-    ? services
-    : [
-        ...services,
-        {
-          id: 'ai-video-production-static',
-          title: 'AI Video Production',
-          slug: 'ai-video-production',
-          short_description: 'AI-powered videos for brands, products and campaigns.',
-          description: null,
-          image_url: images.creative,
-          icon: 'sparkles',
-          sort_order: 999,
-        },
-      ]
+  const displayedServices = [
+    ...services.filter((service) => service.slug !== 'ai-video-production' && service.slug !== 'ai-media-production'),
+    {
+      id: 'ai-media-production-static',
+      title: 'AI Media & Technology',
+      slug: 'ai-media-production',
+      short_description: 'AI media, automation and digital solutions for modern brands.',
+      description: null,
+      image_url: images.creative,
+      icon: 'sparkles',
+      sort_order: 999,
+    },
+  ]
 
   return (
     <section id="services" className="bg-[#171512] py-24 lg:py-36">
@@ -196,7 +194,7 @@ export default function Services() {
               return (
                 <Reveal key={service.id} delay={(index % 4) * 0.06} className="h-full">
                   <Link
-                    to={service.slug === 'ai-video-production' ? '/services/ai-video-production' : `/services#service-${service.slug}`}
+                    to={service.slug === 'ai-media-production' ? '/services/ai-media-production' : `/services#service-${service.slug}`}
                     className="group relative block h-full min-h-[320px] overflow-hidden bg-[#211e19] sm:min-h-[350px]"
                   >
                     <img
