@@ -1,4 +1,4 @@
-import { ArrowUpRight, Bot, Camera, CheckCircle2, Clapperboard, Code2, Image, Mic2, Search, Share2, Sparkles, Workflow } from 'lucide-react'
+import { ArrowUpRight, Bot, Camera, Clapperboard, Code2, Image, Mic2, Search, Share2, Workflow } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PageHero, PageMeta, SectionHeading } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
