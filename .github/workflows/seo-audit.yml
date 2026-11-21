@@ -1,0 +1,35 @@
+name: Mediazz Hub SEO Audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 3 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run technical SEO audit
+        env:
+          SITE_URL: https://mediazhub.com
+        run: node scripts/seo-audit.mjs
+      - name: Save audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mediazzhub-seo-audit
+          path: |
+            seo-audit-report.md
+            seo-audit-report.json
+          if-no-files-found: warn
+          retention-days: 30
