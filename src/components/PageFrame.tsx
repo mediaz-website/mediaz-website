@@ -7,9 +7,18 @@ import { Reveal } from './Motion'
 
 export function PageMeta({ title, description }: { title: string; description: string }) {
   useEffect(() => {
-    document.title = `${title} — Mediazz Hub`
+    document.title = `${title} | Mediazz Hub`
     const meta = document.querySelector('meta[name="description"]')
     meta?.setAttribute('content', description)
+
+    const canonicalUrl = `${window.location.origin}${window.location.pathname}`
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    canonical.href = canonicalUrl
   }, [description, title])
   return null
 }
