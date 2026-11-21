@@ -39,7 +39,7 @@ export default function ServicesSlideshow() {
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % serviceSlides.length)
-    }, 1000)
+    }, 5000)
 
     return () => window.clearInterval(intervalId)
   }, [])
@@ -74,7 +74,7 @@ export default function ServicesSlideshow() {
               <span className="text-white/35"> / {String(serviceSlides.length).padStart(2, '0')}</span>
             </p>
             <p className="hidden text-[8px] font-semibold uppercase tracking-[0.2em] text-white/40 sm:block">
-              Auto slideshow · 1 sec
+              Auto slideshow · 5 sec
             </p>
           </div>
         </div>
