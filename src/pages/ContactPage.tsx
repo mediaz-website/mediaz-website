@@ -29,6 +29,7 @@ const services = [
   'Celebrity & Model Shoots',
   'Event & Music Production',
   'Campaign & Promotional Production',
+  'AI Video Production',
 ]
 
 const budgets = [
