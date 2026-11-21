@@ -120,6 +120,10 @@ export default function PortfolioPage() {
       ? allProjects
       : allProjects.filter((project) => project.category === activeCategory)
 
+  const isAiProject = (project: PortfolioProject) =>
+    project.category === 'AI & Automation' || /ai|automation/i.test(project.category)
+  const aiVisibleProjects = visibleProjects.filter(isAiProject)
+  const groundVisibleProjects = visibleProjects.filter((project) => !isAiProject(project))
   const demoVisibleProjects = visibleProjects.filter((project) => project.isDemo)
 
   const selectedProject =
@@ -191,6 +195,19 @@ export default function PortfolioPage() {
             detail={pageContent.sectionDescription}
           />
 
+          <div className="mb-10 mt-12 grid gap-5 md:grid-cols-2">
+            <div id="ai-production-portfolio" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#211e19] p-6 sm:p-8">
+              <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">01 / Worldwide</p>
+              <h2 className="mt-3 font-display text-3xl font-extrabold text-white">AI Production</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">AI-created videos, images, voiceovers and digital media, supported by smart workflows and automation for brands worldwide.</p>
+            </div>
+            <div id="on-ground-portfolio" className="scroll-mt-28 border border-white/15 bg-[#191714] p-6 sm:p-8">
+              <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">02 / Pan India</p>
+              <h2 className="mt-3 font-display text-3xl font-extrabold text-white">On-ground Production</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">Real-world shoots, photography, commercials, reels, podcasts and films produced by our crew across India.</p>
+            </div>
+          </div>
+
           <div className="mb-14 mt-14 flex flex-wrap gap-2 border-y border-white/15 py-5">
             {categories.map((category) => (
               <button
@@ -217,20 +234,12 @@ export default function PortfolioPage() {
             </p>
           )}
 
-          <motion.div layout className="grid gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-12">
-            {visibleProjects.map((project, index) => (
-              <motion.article
-                layout
-                key={project.id}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: index * 0.04 }}
-                className={`group ${
-                  index % 3 === 1
-                    ? 'lg:col-span-5 lg:mt-20'
-                    : 'lg:col-span-7'
-                }`}
-              >
+          <div className="grid items-start gap-12 lg:grid-cols-2">
+            <section className="border border-[#c5a46d]/25 bg-[#211e19]/50 p-4 sm:p-6">
+              <h3 className="mb-6 font-display text-2xl font-bold text-white">AI Production Work</h3>
+              <motion.div layout className="grid gap-10 sm:grid-cols-2">
+                {aiVisibleProjects.map((project, index) => (
+                  <motion.article layout key={project.id} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.03 }} className="group">
                 <button
                   type="button"
                   onClick={() => {
@@ -283,7 +292,35 @@ export default function PortfolioPage() {
                 </button>
               </motion.article>
             ))}
-          </motion.div>
+              </motion.div>
+              {aiVisibleProjects.length === 0 && <p className="py-10 text-sm text-white/50">No AI projects in this category yet.</p>}
+            </section>
+            <section className="border border-white/15 bg-[#191714]/50 p-4 sm:p-6">
+              <h3 className="mb-6 font-display text-2xl font-bold text-white">On-ground Production Work</h3>
+              <motion.div layout className="grid gap-10 sm:grid-cols-2">
+                {groundVisibleProjects.map((project, index) => (
+                  <motion.article layout key={project.id} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.03 }} className="group">
+                    <button type="button" onClick={() => {
+                      if (project.isDemo) {
+                        const demoIndex = demoVisibleProjects.findIndex((item) => item.id === project.id)
+                        setSelectedIndex(demoIndex)
+                      } else if (project.slug) {
+                        navigate('/portfolio/' + project.slug)
+                      }
+                    }} aria-label={'View ' + project.title} className="block w-full text-left">
+                      <div className="relative aspect-[1.15] overflow-hidden bg-[#211e19]">
+                        <img src={project.image} alt={project.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-500 group-hover:bg-black/25"><div className="flex size-16 items-center justify-center rounded-full border border-white/70 bg-black/30 text-white opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:opacity-100"><ArrowUpRight size={23} /></div></div>
+                        <span className="absolute left-5 top-5 border border-white/30 bg-black/40 px-3 py-1.5 text-[9px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-sm">{project.isDemo ? 'Demo Visual' : 'Published Project'}</span>
+                      </div>
+                      <div className="mt-4 flex items-start justify-between border-t border-white/15 pt-4"><div><h3 className="font-display text-xl font-semibold text-white">{project.title}</h3><p className="mt-1 text-[10px] tracking-[0.2em] text-white/45 uppercase">{project.type}</p></div><ArrowUpRight size={17} className="text-[#e0bd7e]" /></div>
+                    </button>
+                  </motion.article>
+                ))}
+              </motion.div>
+              {groundVisibleProjects.length === 0 && <p className="py-10 text-sm text-white/50">No on-ground projects in this category yet.</p>}
+            </section>
+          </div>
 
           <AnimatePresence>
             {visibleProjects.length === 0 && !loadingProjects && (
