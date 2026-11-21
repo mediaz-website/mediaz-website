@@ -121,7 +121,7 @@ export default function ContactPage() {
         description="Share your creative production brief with Mediazz Hub."
       />
 
-      <main className="min-h-screen bg-[#171512] px-6 pb-24 pt-36 text-white sm:px-8 lg:pb-32 lg:pt-44">
+      <main className="min-h-screen bg-[#0b0b0d] px-6 pb-24 pt-36 text-white sm:px-8 lg:pb-32 lg:pt-44">
         <div className="mx-auto max-w-[1440px]">
 
           <div className="mb-16 max-w-4xl lg:mb-24">
@@ -141,7 +141,7 @@ export default function ContactPage() {
           </div>
 
           {status === 'success' ? (
-            <div className="grid gap-12 border border-white/15 bg-[#211e19] p-7 sm:p-12 lg:grid-cols-2 lg:gap-16 lg:p-16">
+            <div className="grid gap-12 border border-white/15 bg-[#141416] p-7 sm:p-12 lg:grid-cols-2 lg:gap-16 lg:p-16">
 
               <div className="flex flex-col justify-center">
                 <div className="flex size-16 items-center justify-center rounded-full border border-[#c5a46d]/50 text-[#e0bd7e]">
@@ -187,7 +187,7 @@ export default function ContactPage() {
                     rel="noreferrer"
                     className="group flex items-center gap-4"
                   >
-                    <span className="flex size-12 shrink-0 items-center justify-center border border-white/15 text-[#e0bd7e] transition-colors group-hover:border-[#c5a46d] group-hover:bg-[#c5a46d] group-hover:text-[#171512]">
+                    <span className="flex size-12 shrink-0 items-center justify-center border border-white/15 text-[#e0bd7e] transition-colors group-hover:border-[#c5a46d] group-hover:bg-[#c5a46d] group-hover:text-[#0b0b0d]">
                       <MessageCircle size={20} />
                     </span>
                     <span>
@@ -205,7 +205,7 @@ export default function ContactPage() {
                     href="mailto:mediazzhub@gmail.com"
                     className="group flex items-center gap-4"
                   >
-                    <span className="flex size-12 shrink-0 items-center justify-center border border-white/15 text-[#e0bd7e] transition-colors group-hover:border-[#c5a46d] group-hover:bg-[#c5a46d] group-hover:text-[#171512]">
+                    <span className="flex size-12 shrink-0 items-center justify-center border border-white/15 text-[#e0bd7e] transition-colors group-hover:border-[#c5a46d] group-hover:bg-[#c5a46d] group-hover:text-[#0b0b0d]">
                       <Mail size={20} />
                     </span>
                     <span>
@@ -302,7 +302,7 @@ export default function ContactPage() {
               </div>
 
               <div className="lg:col-span-8">
-                <div className="border border-white/15 bg-[#211e19] p-6 sm:p-10 lg:p-12">
+                <div className="border border-white/15 bg-[#141416] p-6 sm:p-10 lg:p-12">
 
                   <div className="mb-10 flex items-center justify-between gap-4 border-b border-white/10 pb-7">
                     <div>
@@ -365,7 +365,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={status === 'sending'}
-                      className="mt-10 flex w-full items-center justify-center gap-4 bg-[#c5a46d] px-8 py-5 text-xs font-bold tracking-[0.2em] text-[#171512] uppercase transition-colors hover:bg-[#e0bd7e] disabled:cursor-not-allowed disabled:opacity-50 sm:w-fit"
+                      className="mt-10 flex w-full items-center justify-center gap-4 bg-[#c5a46d] px-8 py-5 text-xs font-bold tracking-[0.2em] text-[#0b0b0d] uppercase transition-colors hover:bg-[#e0bd7e] disabled:cursor-not-allowed disabled:opacity-50 sm:w-fit"
                     >
                       {status === 'sending' ? (
                         <>
@@ -467,14 +467,14 @@ function SelectField({
         name={id}
         required
         defaultValue=""
-        className="w-full border-b border-white/20 bg-[#211e19] py-4 text-base font-semibold text-white outline-none transition-colors focus:border-[#c5a46d]"
+        className="w-full border-b border-white/20 bg-[#141416] py-4 text-base font-semibold text-white outline-none transition-colors focus:border-[#c5a46d]"
       >
-        <option value="" disabled className="bg-[#211e19] text-white/60">
+        <option value="" disabled className="bg-[#141416] text-white/60">
           {placeholder}
         </option>
 
         {options.map((option) => (
-          <option key={option} value={option} className="bg-[#211e19] text-white">
+          <option key={option} value={option} className="bg-[#141416] text-white">
             {option}
           </option>
         ))}
