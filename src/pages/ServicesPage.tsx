@@ -1,301 +1,146 @@
-
-import { useEffect, useState } from 'react'
 import {
-  ArrowUpRight,
-  Clapperboard,
-  Camera,
-  Video,
-  Play,
-  Film,
-  Lightbulb,
-  Mic2,
-  FileVideo,
-  Sparkles,
-  Music,
-  Megaphone,
-  WandSparkles,
+  ArrowDownRight, ArrowUpRight, Bot, Camera, Clapperboard, Code2,
+  Film, Image, Megaphone, Mic2, Search, Share2, Sparkles, Video, Workflow,
 } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
-import { serviceDetails } from '../lib/services'
-import { PageHero, PageMeta, SectionHeading } from '../components/PageFrame'
+import { Link, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { PageMeta } from '../components/PageFrame'
 import { Reveal } from '../components/Motion'
-import { useSiteContent } from '../hooks/useSiteContent'
+import { images } from '../lib/images'
 
-interface Service {
-  id: string
-  title: string
-  slug: string
-  short_description: string | null
-  description: string | null
-  image_url: string | null
-  icon: string | null
-  sort_order: number
-}
+const aiServices = [
+  { slug: 'ai-video-production', title: 'AI Video Production', text: 'Promotional films, product videos, AI ads, reels, explainers and virtual influencer content.', icon: Clapperboard, tag: 'Video & motion' },
+  { slug: 'ai-voiceover-audio', title: 'AI Voiceover & Audio', text: 'Natural-sounding voiceovers, narration, multilingual audio and sound support for campaigns.', icon: Mic2, tag: 'Voice & sound' },
+  { slug: 'ai-image-creative-production', title: 'AI Image & Creative Production', text: 'Campaign visuals, product concepts, creative assets and image-generation workflows.', icon: Image, tag: 'Visual creation' },
+  { slug: 'ai-automation-workflows', title: 'AI Automation & Workflows', text: 'Custom workflows for content planning, production coordination, approvals and repetitive tasks.', icon: Workflow, tag: 'Systems & automation' },
+  { slug: 'social-media-management', title: 'Social Media & Profile Management', text: 'Content calendars, profile management, publishing workflows and ongoing social support.', icon: Share2, tag: 'Digital presence' },
+  { slug: 'website-development', title: 'Website Development', text: 'Business websites, landing pages and digital experiences designed around your goals.', icon: Code2, tag: 'Web experiences' },
+  { slug: 'seo-aeo', title: 'SEO & AEO', text: 'Search and answer-engine optimisation to make your brand easier to discover online.', icon: Search, tag: 'Search visibility' },
+  { slug: 'ai-tools-integrations', title: 'AI Tools & Integrations', text: 'Practical AI assistants, connected tools and integrations that help teams work smarter.', icon: Bot, tag: 'Connected tools' },
+]
 
-const iconMap: Record<string, LucideIcon> = {
-  camera: Camera,
-  clapperboard: Clapperboard,
-  film: Film,
-  lightbulb: Lightbulb,
-  play: Play,
-  sparkles: Sparkles,
-  video: Video,
-  'wand-sparkles': WandSparkles,
-  wand: WandSparkles,
-  mic: Mic2,
-  mic2: Mic2,
-  'file-video': FileVideo,
-  music: Music,
-  megaphone: Megaphone,
-}
+const groundServices = [
+  { slug: 'commercial-advertising-shoots', title: 'Commercial & Advertising Shoots', text: 'Campaign films, ad shoots, brand commercials and promotional productions.', icon: Megaphone, tag: 'Campaign production' },
+  { slug: 'product-brand-photography', title: 'Product & Brand Photography', text: 'Studio and location photography, catalogues, ecommerce visuals and brand imagery.', icon: Camera, tag: 'Photography' },
+  { slug: 'reels-video-production', title: 'Reels & Video Production', text: 'On-location reels, social videos, corporate films, interviews and brand stories.', icon: Video, tag: 'Video production' },
+  { slug: 'podcast-interview-production', title: 'Podcast & Interview Production', text: 'Multi-camera podcasts, interviews, founder stories and professional studio shoots.', icon: Mic2, tag: 'Audio & conversation' },
+  { slug: 'events-live-coverage', title: 'Events & Live Coverage', text: 'Event films, live coverage, highlight edits and brand activations across India.', icon: Film, tag: 'Events' },
+  { slug: 'short-films-documentaries', title: 'Short Films & Documentaries', text: 'Documentaries, short films, institutional films and visual storytelling.', icon: Clapperboard, tag: 'Film & storytelling' },
+]
 
-function getServiceIcon(iconName: string | null): LucideIcon {
-  if (!iconName) return Camera
-
-  const key = iconName.toLowerCase().trim().replaceAll(' ', '-')
-  return iconMap[key] || iconMap[key.replaceAll('-', '')] || Camera
-}
-
-function getFallbackImage(title: string, index: number): string {
-  const existingService = serviceDetails.find(
-    (item) => item.title.toLowerCase() === title.toLowerCase()
+function CapabilityCard({ item, index, }: { item: typeof aiServices[number] | typeof groundServices[number]; index: number }) {
+  const Icon = item.icon
+  return (
+    <Reveal delay={(index % 4) * 0.05} className="h-full">
+      <article id={`service-${item.slug}`} className="group flex h-full scroll-mt-32 flex-col border border-white/10 bg-[#201e1a] p-6 transition duration-500 hover:-translate-y-1 hover:border-[#c5a46d]/65 hover:bg-[#28241e] sm:p-7">
+        <div className="flex items-start justify-between gap-4">
+          <span className="flex size-12 items-center justify-center border border-[#c5a46d]/35 bg-[#c5a46d]/10 text-[#e0bd7e]"><Icon size={21} strokeWidth={1.5} /></span>
+          <span className="font-mono text-[10px] tracking-[0.2em] text-white/35">{String(index + 1).padStart(2, '0')}</span>
+        </div>
+        <p className="mt-8 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#c5a46d]">{item.tag}</p>
+        <h3 className="mt-3 font-display text-xl font-semibold leading-snug tracking-tight text-white sm:text-2xl">{item.title}</h3>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-white/55">{item.text}</p>
+        <Link to="/contact" className="mt-7 flex items-center justify-between border-t border-white/10 pt-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/75 transition-colors hover:text-[#e0bd7e]">
+          Discuss this service <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </Link>
+      </article>
+    </Reveal>
   )
-
-  if (existingService) return existingService.image
-
-  const fallback = serviceDetails[index % serviceDetails.length]
-  return fallback.image
 }
 
 export default function ServicesPage() {
-  const pageContent = useSiteContent('services', 'main', {
-    heroEyebrow: 'What we create', heroLine1: 'One creative house.', heroLine2: 'Endless possibilities.',
-    heroDescription: 'From AI-powered media and smart automation to professional on-ground shoots, digital solutions and final delivery — we bring every part of your brand communication together.',
-    sectionEyebrow: 'Our capabilities', sectionLine1: 'Everything your story', sectionLine2: 'needs to be seen.',
-    sectionDescription: 'Explore our AI-powered media, automation, digital solutions and on-ground production capabilities. Choose one service or bring them together for a complete project.',
-    cardCta: 'Discuss your project', closingEyebrow: 'Have a project in mind?', closingLine1: "Let's create something", closingLine2: 'worth remembering.',
-    closingDescription: "Tell us what you have in mind. We'll help shape the concept, plan the production and bring your vision to life.", closingCta: 'Start a project',
-  })
-  
-  const [services, setServices] = useState<Service[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
-    let active = true
-
-    async function fetchServices() {
-      const { data, error: fetchError } = await supabase
-        .from('services')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order', { ascending: true })
-        .order('created_at', { ascending: false })
-
-      if (fetchError) {
-        console.error('Error loading services:', fetchError.message)
-
-        if (active) {
-          setError(true)
-          setLoading(false)
-        }
-
-        return
-      }
-
-      if (active) {
-        setServices(data || [])
-        setLoading(false)
-      }
-    }
-
-    fetchServices()
-
-    return () => {
-      active = false
-    }
-  }, [])
-
-  useEffect(() => {
-    if (loading || !window.location.hash) return
-
-    const targetId = decodeURIComponent(window.location.hash.substring(1))
-
+    if (!location.hash) return
+    const targetId = decodeURIComponent(location.hash.slice(1))
     const timer = window.setTimeout(() => {
-      document.getElementById(targetId)?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }, 400)
-
+      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 450)
     return () => window.clearTimeout(timer)
-  }, [loading, services])
-
-  const displayedServices = [
-    ...services.filter((service) => service.slug !== 'ai-video-production' && service.slug !== 'ai-media-production'),
-    {
-      id: 'ai-media-production-static',
-      title: 'AI Media & Technology',
-      slug: 'ai-media-production',
-      short_description: 'AI media, automation and digital solutions for modern brands.',
-      description: 'AI videos, voiceovers, images, custom automation, social media management, website development, SEO and AEO.',
-      image_url: null,
-      icon: 'sparkles',
-      sort_order: 999,
-    },
-  ]
+  }, [location.hash])
 
   return (
     <>
-      <PageMeta
-        title="Services"
-        description="Explore Mediazz Hub's creative production services, from commercial films and product shoots to brand campaigns and photography."
-      />
-
-      <PageHero
-        eyebrow={pageContent.heroEyebrow}
-        title={
-          <>
-            {pageContent.heroLine1}
-            <br />
-            <span className="text-white/35">{pageContent.heroLine2}</span>
-          </>
-        }
-        description={pageContent.heroDescription}
-      />
-
-      <main className="bg-ink-950">
-        <section className="mx-auto max-w-[1440px] px-6 py-24 lg:px-12 lg:py-36">
-          <SectionHeading
-            eyebrow={pageContent.sectionEyebrow}
-            title={
-              <>
-                {pageContent.sectionLine1}
-                <br />
-                <span className="text-white/35">{pageContent.sectionLine2}</span>
-              </>
-            }
-            detail={pageContent.sectionDescription}
-          />
-
-          {loading ? (
-            <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="h-[550px] animate-pulse border border-white/10 bg-white/5"
-                />
-              ))}
-            </div>
-          ) : error ? (
-            <p className="mt-16 text-center text-sm text-white/55">
-              Services could not be loaded right now. Please refresh the page.
-            </p>
-          ) : displayedServices.length === 0 ? (
-            <p className="mt-16 text-center text-sm text-white/55">
-              Our services are being updated. Please check back soon.
-            </p>
-          ) : (
-            <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {displayedServices.map((service, index) => {
-                const Icon = getServiceIcon(service.icon)
-                const image =
-                  service.image_url || getFallbackImage(service.title, index)
-
-                return (
-                  <Reveal key={service.id} delay={(index % 3) * 0.06}>
-                    <article
-                      id={`service-${service.slug}`}
-                      className="group flex h-full scroll-mt-28 flex-col overflow-hidden border border-white/10 bg-[#211e19] transition duration-500 hover:border-[#c5a46d]/60"
-                    >
-                      <div className="relative h-64 overflow-hidden sm:h-72">
-                        <img
-                          src={image}
-                          alt={service.title}
-                          loading="lazy"
-                          className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                        />
-
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/10" />
-
-                        <div className="absolute left-6 top-6 flex items-center gap-3">
-                          <span className="font-mono text-xs tracking-[0.2em] text-white/70">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <span className="h-px w-8 bg-[#c5a46d]" />
-                          <span className="text-[9px] font-semibold tracking-[0.25em] text-white/65 uppercase">
-                            Mediazz Hub
-                          </span>
-                        </div>
-
-                        <div className="absolute bottom-6 left-6 flex size-11 items-center justify-center border border-white/30 bg-black/25 text-[#e0bd7e] backdrop-blur-sm">
-                          <Icon size={20} strokeWidth={1.4} />
-                        </div>
-                      </div>
-
-                      <div className="flex flex-1 flex-col p-7">
-                        <h3 className="font-display text-2xl font-semibold tracking-[-0.04em] text-white">
-                          {service.title}
-                        </h3>
-
-                        {service.short_description && (
-                          <p className="mt-3 text-sm font-medium text-[#e0bd7e]">
-                            {service.short_description}
-                          </p>
-                        )}
-
-                        {service.description && (
-                          <p className="mt-4 text-sm leading-relaxed text-white/60">
-                            {service.description}
-                          </p>
-                        )}
-
-                        <Link
-                          to={service.slug === 'ai-media-production' ? '/services/ai-media-production' : '/contact'}
-                          className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 mt-7 text-[10px] font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:text-[#e0bd7e]"
-                        >
-                          {pageContent.cardCta}
-                          <ArrowUpRight
-                            size={16}
-                            className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-                          />
-                        </Link>
-                      </div>
-                    </article>
-                  </Reveal>
-                )
-              })}
-            </div>
-          )}
+      <PageMeta title="Services" description="Explore Mediazz Hub's AI media production and on-ground production services, from AI videos and automation to commercial shoots, photography and films." />
+      <main className="overflow-hidden bg-[#171512] text-white">
+        <section className="relative flex min-h-[78vh] items-end border-b border-white/10 px-6 pb-14 pt-36 lg:min-h-[82vh] lg:px-12 lg:pb-20">
+          <div className="absolute inset-0">
+            <img src={images.creative} alt="" className="h-full w-full object-cover opacity-25" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#171512] via-[#171512]/90 to-[#171512]/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#171512] via-transparent to-[#171512]/30" />
+          </div>
+          <div className="relative mx-auto grid w-full max-w-[1440px] gap-12 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+            <Reveal>
+              <p className="mb-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#d0b27c]"><span className="h-px w-9 bg-[#c5a46d]" /> Two production worlds. One creative partner.</p>
+              <h1 className="max-w-4xl font-display text-[clamp(3.5rem,8vw,8.5rem)] font-extrabold leading-[.88] tracking-[-.075em]">Make it <span className="text-[#d8bb87]">real.</span><br />Make it <span className="text-white/45">remarkable.</span></h1>
+              <p className="mt-8 max-w-xl text-sm leading-relaxed text-white/65 sm:text-base">From AI-powered media and smart automation to real-world shoots and films — explore every way Mediazz Hub can bring your brand to life.</p>
+            </Reveal>
+            <Reveal delay={0.12} className="grid gap-3 sm:grid-cols-2">
+              <a href="#ai-production" className="group border border-[#c5a46d]/55 bg-[#c5a46d]/10 p-5 backdrop-blur-sm transition hover:bg-[#c5a46d]/20 sm:p-6">
+                <Sparkles className="mb-8 text-[#e0bd7e]" size={25} />
+                <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-[#e0bd7e]">01 / Worldwide</span>
+                <strong className="mt-2 block font-display text-xl leading-tight sm:text-2xl">AI Media & Technology</strong>
+                <span className="mt-4 flex items-center gap-2 text-xs text-white/60">Explore AI services <ArrowDownRight size={15} className="transition-transform group-hover:translate-y-1" /></span>
+              </a>
+              <a href="#on-ground-production" className="group border border-white/20 bg-black/20 p-5 backdrop-blur-sm transition hover:border-[#c5a46d]/55 hover:bg-white/5 sm:p-6">
+                <Camera className="mb-8 text-[#e0bd7e]" size={25} />
+                <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">02 / Pan India</span>
+                <strong className="mt-2 block font-display text-xl leading-tight sm:text-2xl">On-ground Production</strong>
+                <span className="mt-4 flex items-center gap-2 text-xs text-white/60">Explore shoot services <ArrowDownRight size={15} className="transition-transform group-hover:translate-y-1" /></span>
+              </a>
+            </Reveal>
+            <div className="flex flex-wrap gap-x-8 gap-y-2 border-t border-white/15 pt-5 text-[9px] font-semibold uppercase tracking-[0.22em] text-white/40 lg:col-span-2"><span>Concept & strategy</span><span>Production & execution</span><span>Editing & delivery</span><span>Indore · India · Worldwide</span></div>
+          </div>
         </section>
 
-        <section className="border-t border-white/10 bg-[#0b0b0b] py-24 lg:py-32">
-          <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-10 px-6 lg:flex-row lg:items-end lg:px-12">
-            <div className="max-w-3xl">
-              <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">
-                {pageContent.closingEyebrow}
-              </p>
-
-              <h2 className="font-serif text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
-                {pageContent.closingLine1}
-                <br />
-                <span className="italic text-[#e0bd7e]">{pageContent.closingLine2}</span>
-              </h2>
-
-              <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/55">
-                {pageContent.closingDescription}
-              </p>
+        <section id="services-grid" className="scroll-mt-24 border-y border-white/10 bg-[#1d1a16] py-16 lg:py-24">
+          <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
+            <div className="mb-10 max-w-2xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">Two ways to create</p>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">Choose your <span className="text-[#d5b77e]">production world.</span></h2>
+              <p className="mt-4 text-sm leading-relaxed text-white/55">Both production teams, their services and selected work — side by side, in one view.</p>
             </div>
+            <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
+              <section id="ai-production" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#211e19] p-5 sm:p-7 lg:p-8">
+                <div className="mb-7 border-b border-[#c5a46d]/25 pb-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">01 / Worldwide</p>
+                  <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-white sm:text-4xl">AI Media & Technology</h2>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/60">AI-powered videos, images, voiceovers, digital content and intelligent automation — created and delivered remotely for brands worldwide.</p>
+                  <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-[#d5b77e]">AI media production · Remote collaboration · Worldwide delivery</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">{aiServices.map((item, index) => <CapabilityCard key={item.slug} item={item} index={index} />)}</div>
+                <div className="mt-8 border border-[#c5a46d]/30 bg-[#c5a46d]/[0.07] p-5 sm:p-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · AI media & automation</p>
+                  <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl">Ideas transformed with AI.</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">Explore AI-generated videos, Anaya virtual influencer content, creative experiments and production workflows made by Mediazz Hub.</p>
+                  <Link to="/portfolio#ai-production-portfolio" className="mt-5 inline-flex items-center gap-3 bg-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#171512] transition hover:bg-[#e0bd7e]">View AI portfolio <ArrowUpRight size={15} /></Link>
+                </div>
+              </section>
 
-            <Link
-              to="/contact"
-              className="flex w-fit shrink-0 items-center gap-4 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition duration-300 hover:bg-[#e0bd7e]"
-            >
-              {pageContent.closingCta}
-              <ArrowUpRight size={17} />
-            </Link>
+              <section id="on-ground-production" className="scroll-mt-28 border border-white/15 bg-[#191714] p-5 sm:p-7 lg:p-8">
+                <div className="mb-7 border-b border-white/15 pb-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">02 / Pan India</p>
+                  <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-white sm:text-4xl">On-ground Production</h2>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/60">Physical shoots with real locations, people and production crews — from planning and filming to final editing, available across India.</p>
+                  <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">Shoot planning · On-location execution · Pan India coverage</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">{groundServices.map((item, index) => <CapabilityCard key={item.slug} item={item} index={index} />)}</div>
+                <div className="mt-8 border border-white/15 bg-white/[0.035] p-5 sm:p-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · On-ground production</p>
+                  <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl">The craft behind every frame.</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">Browse commercial shoots, product photography, reels, brand films, podcasts and other productions delivered by our crew.</p>
+                  <Link to="/portfolio#on-ground-portfolio" className="mt-5 inline-flex items-center gap-3 border border-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#e0bd7e] transition hover:bg-[#c5a46d] hover:text-[#171512]">View on-ground portfolio <ArrowUpRight size={15} /></Link>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-white/10 bg-[#0d0c0a] py-20 lg:py-28">
+          <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-8 px-6 lg:flex-row lg:items-end lg:px-12">
+            <div className="max-w-3xl"><p className="mb-5 text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">One brief. The right production mix.</p><h2 className="font-display text-4xl font-extrabold leading-tight tracking-[-.06em] sm:text-6xl">Not sure which route <span className="text-[#d5b77e]">fits your idea?</span></h2><p className="mt-5 max-w-xl text-sm leading-relaxed text-white/55">Tell us what you want to create. We’ll recommend the right combination of AI media, on-ground production and automation.</p></div>
+            <Link to="/contact" className="inline-flex w-fit items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#171512] transition hover:bg-[#e0bd7e]">Plan a project <ArrowUpRight size={17} /></Link>
           </div>
         </section>
       </main>

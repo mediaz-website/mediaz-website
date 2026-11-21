@@ -8,6 +8,11 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'DM Mono', monospace;
 
+  /* Shared Mediazz Hub brand accents */
+  --color-brand-gold: #c5a46d;
+  --color-brand-highlight: #e0bd7e;
+  --color-brand-cream: #f5f2ec;
+
   /* Premium Dark Theme Palette */
   --color-ink-950: #171512;
   --color-ink-900: #211e19;

@@ -31,10 +31,10 @@ const workflow = [
 
 const faqs = [
   ['Does Mediazz Hub only create AI videos?', 'No. We work across AI video, AI voiceover, AI images, automation, social media management, website development, SEO and AEO, as well as traditional on-ground media production.'],
-  ['Do you also provide traditional photo and video shoots?', 'Yes. We plan and execute commercial shoots, product photography, brand films, reels, podcasts, events and other on-ground productions.'],
+  ['Do you also provide traditional photo and video shoots?', 'Yes. We plan and execute commercial shoots, product photography, brand films, reels, podcasts, events and other on-ground productions across India.'],
   ['Can you automate media production workflows?', 'Yes. We can build practical automations for content planning, asset handling, approvals, publishing and repetitive production or business tasks.'],
   ['Can AI and on-ground production be combined?', 'Absolutely. A project can combine real footage, AI-generated visuals, voiceovers, editing and automation depending on the creative brief.'],
-  ['Where do you work?', 'Mediazz Hub is based in Indore and works with brands and businesses across India.'],
+  ['Where do you work?', 'AI media production and video editing are available worldwide. On-ground shoots and physical production are available across India. Mediazz Hub is based in Indore.'],
 ]
 
 export default function AIVideoProductionPage() {
@@ -42,12 +42,12 @@ export default function AIVideoProductionPage() {
     <>
       <PageMeta
         title="AI Media Production & Technology Solutions in Indore"
-        description="Mediazz Hub combines AI media production, AI voiceovers, AI images, automation, social media management, website development, SEO and AEO with professional on-ground shoots across India."
+        description="Mediazz Hub provides AI media production and video editing worldwide, alongside professional on-ground shoots across India, AI voiceovers, images, automation and digital solutions."
       />
       <PageHero
         eyebrow="AI Media · Technology · Production"
         title={<>More than AI.<br /><span className="text-white/35">Complete media solutions.</span></>}
-        description="From AI-generated media and smart automation to real-world shoots and complete creative production — one partner for your brand’s digital and on-ground needs."
+        description="AI media production and video editing for clients worldwide, plus professional on-ground shoots across India — from concept and planning to final delivery."
         image={images.creative}
       />
 
@@ -63,38 +63,48 @@ export default function AIVideoProductionPage() {
           </div>
         </section>
 
-        <section className="border-y border-white/10 bg-[#171512] py-24 lg:py-32">
-          <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-            <SectionHeading eyebrow="01 · AI & digital capabilities" title={<>Create smarter.<br /><span className="text-white/35">Work more efficiently.</span></>} detail="AI-powered media, digital services and connected workflows to help brands create, communicate and operate better." />
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {aiCapabilities.map((item, index) => {
-                const Icon = item.icon
-                return <Reveal key={item.title} delay={(index % 4) * 0.05} className="h-full">
-                  <article className="h-full border border-white/10 bg-[#211e19] p-7 transition-colors hover:border-[#c5a46d]/60">
-                    <Icon className="mb-8 text-[#e0bd7e]" size={25} strokeWidth={1.4} />
-                    <h3 className="font-display text-xl font-semibold tracking-tight">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/55">{item.text}</p>
-                  </article>
-                </Reveal>
-              })}
-            </div>
-          </div>
-        </section>
+        <section className="border-y border-white/10 bg-[#171512] py-16 sm:py-20 lg:py-28">
+          <div className="mx-auto max-w-[1440px] px-3 sm:px-6 lg:px-12">
+            <div className="grid grid-cols-2 items-start gap-3 sm:gap-5 lg:gap-10">
+              <div className="min-w-0">
+                <p className="mb-2 text-[8px] font-semibold tracking-[0.16em] text-[#c5a46d] uppercase sm:text-[10px] sm:tracking-[0.25em]">01 · AI & digital</p>
+                <h2 className="font-display text-xl font-bold leading-tight tracking-[-0.05em] sm:text-3xl lg:text-5xl">AI Media <span className="text-white/35">& Technology</span></h2>
+                <p className="mt-2 text-[10px] leading-relaxed text-[#e0bd7e] sm:text-xs lg:text-sm">Worldwide availability · AI production & video editing</p>
+                <p className="mt-3 text-[10px] leading-relaxed text-white/55 sm:text-xs lg:text-sm">Create digital content, build smarter workflows and grow your brand with AI-powered services.</p>
+                <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 lg:mt-7">
+                  {aiCapabilities.map((item, index) => {
+                    const Icon = item.icon
+                    return <Reveal key={item.title} delay={(index % 2) * 0.04} className="h-full">
+                      <article className="h-full border border-white/10 bg-[#211e19] p-3 transition-colors hover:border-[#c5a46d]/60 sm:p-4 lg:p-5">
+                        <Icon className="mb-3 text-[#e0bd7e] sm:mb-4" size={19} strokeWidth={1.4} />
+                        <h3 className="font-display text-xs font-semibold leading-snug tracking-tight sm:text-sm lg:text-lg">{item.title}</h3>
+                        <p className="mt-2 text-[10px] leading-relaxed text-white/55 sm:text-xs lg:text-sm">{item.text}</p>
+                      </article>
+                    </Reveal>
+                  })}
+                </div>
+              </div>
 
-        <section className="mx-auto max-w-[1440px] px-6 py-24 lg:px-12 lg:py-32">
-          <SectionHeading eyebrow="02 · On-ground production" title={<>Real people. Real places.<br /><span className="text-white/35">Professional production.</span></>} detail="When the story needs real-world craft, our production team plans and executes shoots from concept to final edit." />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {groundCapabilities.map((item, index) => <Reveal key={item.title} delay={index * 0.05} className="h-full">
-              <article className="h-full border border-white/10 bg-[#211e19] p-7">
-                <Camera className="mb-8 text-[#e0bd7e]" size={25} strokeWidth={1.4} />
-                <h3 className="font-display text-xl font-semibold">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/55">{item.text}</p>
-              </article>
-            </Reveal>)}
-          </div>
-          <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-7">
-            <p className="text-sm text-white/55">Need a dedicated shoot or complete campaign?</p>
-            <Link to="/services" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#e0bd7e] hover:text-white">Explore all production services <ArrowUpRight size={15} /></Link>
+              <div className="min-w-0">
+                <p className="mb-2 text-[8px] font-semibold tracking-[0.16em] text-[#c5a46d] uppercase sm:text-[10px] sm:tracking-[0.25em]">02 · On-ground</p>
+                <h2 className="font-display text-xl font-bold leading-tight tracking-[-0.05em] sm:text-3xl lg:text-5xl">On-ground <span className="text-white/35">Production</span></h2>
+                <p className="mt-2 text-[10px] leading-relaxed text-[#e0bd7e] sm:text-xs lg:text-sm">Pan India availability · On-location shoots</p>
+                <p className="mt-3 text-[10px] leading-relaxed text-white/55 sm:text-xs lg:text-sm">Professional shoots planned and executed across India, from concept to final edit.</p>
+                <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 lg:mt-7">
+                  {groundCapabilities.map((item, index) => <Reveal key={item.title} delay={(index % 2) * 0.04} className="h-full">
+                    <article className="h-full border border-white/10 bg-[#211e19] p-3 sm:p-4 lg:p-5">
+                      <Camera className="mb-3 text-[#e0bd7e] sm:mb-4" size={19} strokeWidth={1.4} />
+                      <h3 className="font-display text-xs font-semibold leading-snug sm:text-sm lg:text-lg">{item.title}</h3>
+                      <p className="mt-2 text-[10px] leading-relaxed text-white/55 sm:text-xs lg:text-sm">{item.text}</p>
+                    </article>
+                  </Reveal>)}
+                </div>
+                <div className="mt-5 border-t border-white/10 pt-4 sm:mt-7 sm:pt-6">
+                  <p className="text-[10px] leading-relaxed text-white/55 sm:text-xs lg:text-sm">Need a dedicated shoot or complete campaign?</p>
+                  <Link to="/services#services-grid" className="mt-2 inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider text-[#e0bd7e] hover:text-white sm:text-[10px]">Explore all production services <ArrowUpRight size={13} /></Link>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -139,7 +149,7 @@ export default function AIVideoProductionPage() {
           <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-8 px-6 lg:flex-row lg:items-end lg:px-12">
             <div className="max-w-3xl">
               <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">Have a project in mind?</p>
-              <h2 className="font-serif text-5xl leading-tight tracking-tight sm:text-6xl">Let’s build something <span className="italic text-[#e0bd7e]">meaningful.</span></h2>
+              <h2 className="font-display text-5xl leading-tight tracking-tight sm:text-6xl">Let’s build something <span className="italic text-[#e0bd7e]">meaningful.</span></h2>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/55">Tell us what you want to create, improve or automate. We’ll help you choose the right production approach.</p>
             </div>
             <Link to="/contact" className="flex w-fit items-center gap-4 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition hover:bg-[#e0bd7e]">Discuss your project <ArrowUpRight size={17} /></Link>
