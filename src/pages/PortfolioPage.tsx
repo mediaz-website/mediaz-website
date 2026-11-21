@@ -17,6 +17,7 @@ const defaultCategories = [
   'Reels & Social Media',
   'Corporate Videos',
   'Food & Lifestyle',
+  'AI & Automation',
 ]
 
 type PortfolioProject = {
@@ -27,6 +28,7 @@ type PortfolioProject = {
   type: string
   image: string
   isDemo: boolean
+  videoUrl?: string
 }
 
 const demoProjects: PortfolioProject[] = [
@@ -38,14 +40,17 @@ const demoProjects: PortfolioProject[] = [
   { id: 'demo-6', title: 'Table Stories', category: 'Food & Lifestyle', type: 'Demo project · Lifestyle study', image: images.food, isDemo: true },
   { id: 'demo-7', title: 'The Human Frame', category: 'Brand Campaigns', type: 'Demo project · Portrait study', image: images.photographer, isDemo: true },
   { id: 'demo-8', title: 'The Quiet Detail', category: 'Product Photography', type: 'Demo project · Detail study', image: images.lifestyle, isDemo: true },
+  { id: 'ai-demo-1', title: 'Anaya Sharma · AI Influencer', category: 'AI & Automation', type: 'AI-generated influencer videos · Showcase link to be added', image: images.creative, isDemo: true, videoUrl: '' },
+  { id: 'ai-demo-2', title: 'AI Video & Creative Production', category: 'AI & Automation', type: 'AI video, image and voiceover production · Showcase link to be added', image: images.studio, isDemo: true, videoUrl: '' },
+  { id: 'ai-demo-3', title: 'AI Production Workflows', category: 'AI & Automation', type: 'Content and media production automation · Showcase link to be added', image: images.lifestyle, isDemo: true, videoUrl: '' },
 ]
 
 export default function PortfolioPage() {
   const pageContent = useSiteContent('portfolio', 'main', {
     heroEyebrow: 'Our visual world', heroLine1: 'Stories made', heroLine2: 'to be remembered.',
-    heroDescription: 'Every frame has a purpose. Explore the creative directions, visual styles and production possibilities we bring to brands and businesses.',
+    heroDescription: 'Explore our on-ground productions, AI-generated videos, digital creatives and automation projects — bringing real-world craft and AI-powered creativity together.',
     sectionEyebrow: 'Selected visual directions', sectionLine1: 'Different stories.', sectionLine2: 'One creative vision.',
-    sectionDescription: 'Explore our range of visual storytelling across different formats, industries and creative styles. Published projects are updated directly from our production studio.',
+    sectionDescription: 'Browse real-world shoots, AI media showcases and production workflow projects. We will keep adding video showcase links as each project is published.',
     closingEyebrow: 'Have a story to tell?', closingLine1: 'Have a story that needs', closingLine2: 'a visual world?', closingCta: 'Bring us the brief',
   })
   
@@ -156,7 +161,7 @@ export default function PortfolioPage() {
     <>
       <PageMeta
         title="Portfolio"
-        description="Explore Mediazz Hub's creative production gallery across commercial, product, brand, social, corporate and lifestyle production."
+        description="Explore Mediazz Hub's portfolio of on-ground media production, AI videos, digital creatives and media automation projects."
       />
 
       <PageHero
@@ -368,6 +373,11 @@ export default function PortfolioPage() {
                   <p className="mt-1 text-[10px] tracking-[0.18em] text-white/50 uppercase">
                     {selectedProject.type}
                   </p>
+                  {selectedProject.videoUrl ? (
+                    <a href={selectedProject.videoUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#e0bd7e] hover:text-white">Watch project <ArrowUpRight size={14} /></a>
+                  ) : selectedProject.category === 'AI & Automation' ? (
+                    <p className="mt-3 text-xs text-white/45">Video showcase link will be added.</p>
+                  ) : null}
                 </div>
 
                 <span className="shrink-0 text-xs text-white/50">
