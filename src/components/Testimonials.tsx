@@ -74,6 +74,14 @@ export default function Testimonials() {
           </p>
         </div>
 
+        {testimonials.length === 0 ? (
+          <div className="mx-auto max-w-2xl border border-[#c5a46d]/25 bg-[#211e19] px-8 py-12 text-center sm:px-12">
+            <Quote size={34} className="mx-auto mb-5 text-[#c5a46d]/60" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#c5a46d]">Client stories</p>
+            <h3 className="mt-3 font-display text-2xl font-semibold text-white sm:text-3xl">Real experiences, coming soon.</h3>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-white/50">We’ll feature verified client feedback here once it is ready to share. No sample reviews or placeholder ratings.</p>
+          </div>
+        ) : (
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {testimonials.map((item) => (
             <article
