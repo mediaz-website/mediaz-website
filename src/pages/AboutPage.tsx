@@ -73,10 +73,10 @@ export default function AboutPage() {
         description={content.seoDescription}
       />
 
-      <main className="overflow-hidden bg-[#171512] text-white">
+      <main className="overflow-hidden bg-[#0b0b0d] text-white">
 
         {/* ABOUT HERO */}
-        <section className="relative flex min-h-[85vh] items-end overflow-hidden bg-[#171512] pt-36">
+        <section className="relative flex min-h-[85vh] items-end overflow-hidden bg-[#0b0b0d] pt-36">
           <div className="absolute inset-0">
             <img
               src={images.studio}
@@ -84,7 +84,7 @@ export default function AboutPage() {
               className="h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#171512]/90 via-transparent to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d]/90 via-transparent to-black/20" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 lg:px-16 lg:pb-28">
@@ -106,7 +106,7 @@ export default function AboutPage() {
 
               <Link
                 to="/portfolio"
-                className="group mt-9 inline-flex items-center gap-4 bg-[#c5a46d] px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#171512] transition-all hover:bg-[#e0bd7e]"
+                className="group mt-9 inline-flex items-center gap-4 bg-[#c5a46d] px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#0b0b0d] transition-all hover:bg-[#e0bd7e]"
               >
                 {content.heroCta}
                 <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -120,7 +120,7 @@ export default function AboutPage() {
         </section>
 
         {/* INTRODUCTION */}
-        <section className="bg-[#171512] py-24 lg:py-36">
+        <section className="bg-[#0b0b0d] py-24 lg:py-36">
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-12 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
@@ -151,7 +151,7 @@ export default function AboutPage() {
         </section>
 
         {/* NUMBERS */}
-        <section className="border-y border-white/10 bg-[#211e19] py-16 lg:py-20">
+        <section className="border-y border-white/10 bg-[#141416] py-16 lg:py-20">
           <div className="mx-auto grid max-w-[1440px] grid-cols-2 gap-y-12 px-6 md:grid-cols-4 lg:px-16">
             {stats.map(([number, label], index) => (
               <Reveal key={label} delay={index * 0.08} className="text-center md:border-r md:border-white/10 last:border-0">
@@ -167,7 +167,7 @@ export default function AboutPage() {
         </section>
 
         {/* SERVICES */}
-        <section className="bg-[#171512] py-24 lg:py-36">
+        <section className="bg-[#0b0b0d] py-24 lg:py-36">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16 max-w-3xl">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
@@ -212,7 +212,7 @@ export default function AboutPage() {
         </section>
 
         {/* INDUSTRIES */}
-        <section className="bg-[#211e19] py-24 lg:py-36">
+        <section className="bg-[#141416] py-24 lg:py-36">
           <div className="mx-auto grid max-w-[1440px] gap-14 px-6 lg:grid-cols-5 lg:gap-20 lg:px-16">
             <Reveal className="lg:col-span-2">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
@@ -257,7 +257,7 @@ export default function AboutPage() {
         </section>
 
         {/* BRAND COLLABORATIONS */}
-        <section className="bg-[#171512] py-24 lg:py-32">
+        <section className="bg-[#0b0b0d] py-24 lg:py-32">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="text-center">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
@@ -294,7 +294,7 @@ export default function AboutPage() {
         </section>
 
         {/* VISUAL GALLERY */}
-        <section className="bg-[#211e19] py-24 lg:py-32">
+        <section className="bg-[#141416] py-24 lg:py-32">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-14 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
               <div>
@@ -328,7 +328,7 @@ export default function AboutPage() {
                         className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
 
-                      <span className="absolute bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#c5a46d] text-[#171512] opacity-0 transition-all duration-300 group-hover:opacity-100">
+                      <span className="absolute bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#c5a46d] text-[#0b0b0d] opacity-0 transition-all duration-300 group-hover:opacity-100">
                         <ArrowUpRight size={20} />
                       </span>
                     </div>
@@ -353,7 +353,7 @@ export default function AboutPage() {
         </section>
 
         {/* OUR PROCESS */}
-        <section className="bg-[#171512] py-24 lg:py-36">
+        <section className="bg-[#0b0b0d] py-24 lg:py-36">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-16">
             <Reveal className="mb-16">
               <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#e0bd7e]">
@@ -392,7 +392,7 @@ export default function AboutPage() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="border-t border-white/10 bg-[#211e19] px-6 py-28 text-center lg:py-40">
+        <section className="border-t border-white/10 bg-[#141416] px-6 py-28 text-center lg:py-40">
           <Reveal className="mx-auto max-w-4xl">
             <Sparkles size={25} className="mx-auto text-[#e0bd7e]" />
 
@@ -412,7 +412,7 @@ export default function AboutPage() {
 
             <Link
               to="/contact"
-              className="group mt-10 inline-flex items-center gap-5 bg-[#c5a46d] px-8 py-5 text-xs font-bold uppercase tracking-[0.18em] text-[#171512] transition-all duration-300 hover:bg-[#e0bd7e]"
+              className="group mt-10 inline-flex items-center gap-5 bg-[#c5a46d] px-8 py-5 text-xs font-bold uppercase tracking-[0.18em] text-[#0b0b0d] transition-all duration-300 hover:bg-[#e0bd7e]"
             >
               {content.closingCta}
               <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
