@@ -101,7 +101,7 @@ export default function AIVideoProductionPage() {
                 </div>
                 <div className="mt-5 border-t border-white/10 pt-4 sm:mt-7 sm:pt-6">
                   <p className="text-[10px] leading-relaxed text-white/55 sm:text-xs lg:text-sm">Need a dedicated shoot or complete campaign?</p>
-                  <Link to="/services" className="mt-2 inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider text-[#e0bd7e] hover:text-white sm:text-[10px]">Explore all production services <ArrowUpRight size={13} /></Link>
+                  <Link to="/services#services-grid" className="mt-2 inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider text-[#e0bd7e] hover:text-white sm:text-[10px]">Explore all production services <ArrowUpRight size={13} /></Link>
                 </div>
               </div>
             </div>
