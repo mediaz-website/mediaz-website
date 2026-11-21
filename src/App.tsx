@@ -51,6 +51,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <ServicesSlideshow />
       <Services />
       <Showreel />
       <Portfolio />
@@ -83,6 +84,7 @@ function PublicWebsite() {
 
   return (
     <div className="min-h-screen">
+      <CreativeScroll />
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
