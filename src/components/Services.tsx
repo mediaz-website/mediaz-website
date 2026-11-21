@@ -21,7 +21,7 @@ const defaultSectionContent: ServicesSectionContent = {
   eyebrow: 'What we create',
   headlineLine1: 'End-to-end',
   headlineLine2: 'creative production.',
-  description: 'From concept planning and creative strategy to commercial shoots, product photography, reels, editing and final delivery — supported by AI and digital capabilities when they add value.'
+  description: 'From concept planning and creative strategy to commercial shoots, product photography, reels, editing and final delivery — supported by AI and digital capabilities when they add value.',
   topLinkText: 'Explore all capabilities',
   bottomLinkText: 'Discover all services',
 }
