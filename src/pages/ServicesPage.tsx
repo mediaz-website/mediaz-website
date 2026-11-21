@@ -63,12 +63,12 @@ export default function ServicesPage() {
   return (
     <>
       <PageMeta title="Services" description="Explore Mediazz Hub's AI media production and on-ground production services, from AI videos and automation to commercial shoots, photography and films." />
-      <main className="overflow-hidden bg-[#171512] text-white">
+      <main className="overflow-hidden bg-[#0b0b0d] text-white">
         <section className="relative flex min-h-[78vh] items-end border-b border-white/10 px-6 pb-14 pt-36 lg:min-h-[82vh] lg:px-12 lg:pb-20">
           <div className="absolute inset-0">
             <img src={images.creative} alt="" className="h-full w-full object-cover opacity-25" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#171512] via-[#171512]/90 to-[#171512]/45" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#171512] via-transparent to-[#171512]/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0b0b0d] via-[#0b0b0d]/90 to-[#0b0b0d]/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-transparent to-[#0b0b0d]/30" />
           </div>
           <div className="relative mx-auto grid w-full max-w-[1440px] gap-12 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
             <Reveal>
@@ -102,7 +102,7 @@ export default function ServicesPage() {
               <p className="mt-4 text-sm leading-relaxed text-white/55">Both production teams, their services and selected work — side by side, in one view.</p>
             </div>
             <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
-              <section id="ai-production" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#211e19] p-5 sm:p-7 lg:p-8">
+              <section id="ai-production" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#141416] p-5 sm:p-7 lg:p-8">
                 <div className="mb-7 border-b border-[#c5a46d]/25 pb-6">
                   <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">01 / Worldwide</p>
                   <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-white sm:text-4xl">AI Media & Technology</h2>
@@ -114,7 +114,7 @@ export default function ServicesPage() {
                   <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · AI media & automation</p>
                   <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl">Ideas transformed with AI.</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/55">Explore AI-generated videos, Anaya virtual influencer content, creative experiments and production workflows made by Mediazz Hub.</p>
-                  <Link to="/portfolio#ai-production-portfolio" className="mt-5 inline-flex items-center gap-3 bg-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#171512] transition hover:bg-[#e0bd7e]">View AI portfolio <ArrowUpRight size={15} /></Link>
+                  <Link to="/portfolio#ai-production-portfolio" className="mt-5 inline-flex items-center gap-3 bg-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#0b0b0d] transition hover:bg-[#e0bd7e]">View AI portfolio <ArrowUpRight size={15} /></Link>
                 </div>
               </section>
 
@@ -130,7 +130,7 @@ export default function ServicesPage() {
                   <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · On-ground production</p>
                   <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl">The craft behind every frame.</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/55">Browse commercial shoots, product photography, reels, brand films, podcasts and other productions delivered by our crew.</p>
-                  <Link to="/portfolio#on-ground-portfolio" className="mt-5 inline-flex items-center gap-3 border border-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#e0bd7e] transition hover:bg-[#c5a46d] hover:text-[#171512]">View on-ground portfolio <ArrowUpRight size={15} /></Link>
+                  <Link to="/portfolio#on-ground-portfolio" className="mt-5 inline-flex items-center gap-3 border border-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#e0bd7e] transition hover:bg-[#c5a46d] hover:text-[#0b0b0d]">View on-ground portfolio <ArrowUpRight size={15} /></Link>
                 </div>
               </section>
             </div>
@@ -140,7 +140,7 @@ export default function ServicesPage() {
         <section className="border-t border-white/10 bg-[#0d0c0a] py-20 lg:py-28">
           <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-8 px-6 lg:flex-row lg:items-end lg:px-12">
             <div className="max-w-3xl"><p className="mb-5 text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">One brief. The right production mix.</p><h2 className="font-display text-4xl font-extrabold leading-tight tracking-[-.06em] sm:text-6xl">Not sure which route <span className="text-[#d5b77e]">fits your idea?</span></h2><p className="mt-5 max-w-xl text-sm leading-relaxed text-white/55">Tell us what you want to create. We’ll recommend the right combination of AI media, on-ground production and automation.</p></div>
-            <Link to="/contact" className="inline-flex w-fit items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#171512] transition hover:bg-[#e0bd7e]">Plan a project <ArrowUpRight size={17} /></Link>
+            <Link to="/contact" className="inline-flex w-fit items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#0b0b0d] transition hover:bg-[#e0bd7e]">Plan a project <ArrowUpRight size={17} /></Link>
           </div>
         </section>
       </main>
