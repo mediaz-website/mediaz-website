@@ -4,21 +4,7 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  Bot,
-  Camera,
-  Clapperboard,
-  Code2,
-  Film,
-  Image,
-  Lightbulb,
-  Megaphone,
-  Mic2,
-  Search,
-  Share2,
-  Video,
-  Workflow,
 } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 type ServiceSlide = {
@@ -26,30 +12,29 @@ type ServiceSlide = {
   slug: string
   description: string
   category: 'AI Media & Technology' | 'On-ground Production'
-  icon: LucideIcon
+  image: string
 }
 
 const serviceSlides: ServiceSlide[] = [
-  { title: 'AI Video Production', slug: 'ai-video-production', description: 'AI-powered brand films, product videos, ads, explainers and reels.', category: 'AI Media & Technology', icon: Clapperboard },
-  { title: 'AI Voiceover & Audio', slug: 'ai-voiceover-audio', description: 'Voiceovers, narration and multilingual audio for digital content.', category: 'AI Media & Technology', icon: Mic2 },
-  { title: 'AI Image & Creative Production', slug: 'ai-image-creative-production', description: 'Campaign visuals, product concepts and scroll-stopping creative assets.', category: 'AI Media & Technology', icon: Image },
-  { title: 'AI Automation & Workflows', slug: 'ai-automation-workflows', description: 'Smart systems that simplify content, approvals and repetitive work.', category: 'AI Media & Technology', icon: Workflow },
-  { title: 'Social Media & Profile Management', slug: 'social-media-management', description: 'Content planning, publishing workflows and profile management.', category: 'AI Media & Technology', icon: Share2 },
-  { title: 'Website Development', slug: 'website-development', description: 'Business websites and landing pages built around your goals.', category: 'AI Media & Technology', icon: Code2 },
-  { title: 'SEO & AEO', slug: 'seo-aeo', description: 'Improve brand discovery across search engines and AI answers.', category: 'AI Media & Technology', icon: Search },
-  { title: 'AI Tools & Integrations', slug: 'ai-tools-integrations', description: 'Connected AI tools and assistants for smarter business workflows.', category: 'AI Media & Technology', icon: Bot },
-  { title: 'Commercial & Advertising Shoots', slug: 'commercial-advertising-shoots', description: 'Campaign films, brand commercials and promotional productions.', category: 'On-ground Production', icon: Megaphone },
-  { title: 'Product & Brand Photography', slug: 'product-brand-photography', description: 'Studio and location photography for products, catalogues and brands.', category: 'On-ground Production', icon: Camera },
-  { title: 'Reels & Video Production', slug: 'reels-video-production', description: 'On-location reels, social videos, interviews and brand stories.', category: 'On-ground Production', icon: Video },
-  { title: 'Podcast & Interview Production', slug: 'podcast-interview-production', description: 'Podcast shoots, founder conversations and multi-camera interviews.', category: 'On-ground Production', icon: Mic2 },
-  { title: 'Events & Live Coverage', slug: 'events-live-coverage', description: 'Event films, highlights and live coverage across India.', category: 'On-ground Production', icon: Film },
-  { title: 'Short Films & Documentaries', slug: 'short-films-documentaries', description: 'Documentaries, short films and purpose-led visual storytelling.', category: 'On-ground Production', icon: Lightbulb },
+  { title: 'AI Video Production', slug: 'ai-video-production', description: 'AI-powered brand films, product videos, ads, explainers and reels.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'AI Voiceover & Audio', slug: 'ai-voiceover-audio', description: 'Voiceovers, narration and multilingual audio for digital content.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'AI Image & Creative Production', slug: 'ai-image-creative-production', description: 'Campaign visuals, product concepts and scroll-stopping creative assets.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'AI Automation & Workflows', slug: 'ai-automation-workflows', description: 'Smart systems that simplify content, approvals and repetitive work.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Social Media & Profile Management', slug: 'social-media-management', description: 'Content planning, publishing workflows and profile management.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Website Development', slug: 'website-development', description: 'Business websites and landing pages built around your goals.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'SEO & AEO', slug: 'seo-aeo', description: 'Improve brand discovery across search engines and AI answers.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'AI Tools & Integrations', slug: 'ai-tools-integrations', description: 'Connected AI tools and assistants for smarter business workflows.', category: 'AI Media & Technology', image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Commercial & Advertising Shoots', slug: 'commercial-advertising-shoots', description: 'Campaign films, brand commercials and promotional productions.', category: 'On-ground Production', image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Product & Brand Photography', slug: 'product-brand-photography', description: 'Studio and location photography for products, catalogues and brands.', category: 'On-ground Production', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Reels & Video Production', slug: 'reels-video-production', description: 'On-location reels, social videos, interviews and brand stories.', category: 'On-ground Production', image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Podcast & Interview Production', slug: 'podcast-interview-production', description: 'Podcast shoots, founder conversations and multi-camera interviews.', category: 'On-ground Production', image: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Events & Live Coverage', slug: 'events-live-coverage', description: 'Event films, highlights and live coverage across India.', category: 'On-ground Production', image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Short Films & Documentaries', slug: 'short-films-documentaries', description: 'Documentaries, short films and purpose-led visual storytelling.', category: 'On-ground Production', image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85' },
 ]
 
 export default function ServicesSlideshow() {
   const [activeIndex, setActiveIndex] = useState(0)
   const activeService = serviceSlides[activeIndex]
-  const ActiveIcon = activeService.icon
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -106,10 +91,13 @@ export default function ServicesSlideshow() {
               className="relative z-10 flex w-full items-center gap-4 sm:gap-7 lg:gap-10"
               aria-live="polite"
             >
-              <div className="flex size-14 shrink-0 items-center justify-center border border-[#c5a46d]/40 bg-[#c5a46d]/10 text-[#e0bd7e] sm:size-20 lg:size-24">
-                <ActiveIcon size={26} strokeWidth={1.35} className="sm:hidden" />
-                <ActiveIcon size={34} strokeWidth={1.25} className="hidden sm:block lg:hidden" />
-                <ActiveIcon size={40} strokeWidth={1.2} className="hidden lg:block" />
+              <div className="h-32 w-28 shrink-0 overflow-hidden border border-white/10 sm:h-40 sm:w-52 lg:h-44 lg:w-64">
+                <img
+                  src={activeService.image}
+                  alt={activeService.title}
+                  loading="eager"
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="mb-2 text-[8px] font-bold uppercase tracking-[0.2em] text-[#c5a46d] sm:text-[9px] sm:tracking-[0.25em]">
