@@ -108,7 +108,7 @@ export default function Navbar() {
                   <Link to="/services#services-grid" className="mb-1 block border-b border-white/10 px-4 py-3 text-sm font-semibold text-[#e0bd7e] transition-colors hover:bg-white/5">All Services <span className="ml-2 text-[9px] uppercase tracking-wider text-white/35">A–Z</span></Link>
                   <div className="max-h-[65vh] overflow-y-auto">
                     {serviceItems.map((service) => (
-                      <Link key={service.slug} to={`/services#${service.slug === "ai-video-production" || service.group === "ai-production" ? `service-${service.slug}` : `service-${service.slug}`}`} className="block px-4 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-[#e0bd7e]">{service.title}</Link>
+                      <Link key={service.slug} to={`/services#${service.slug === "on-ground-production" ? "on-ground-production" : `service-${service.slug}`}`} className="block px-4 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-[#e0bd7e]">{service.title}</Link>
                     ))}
                   </div>
                 </div>
@@ -183,7 +183,7 @@ export default function Navbar() {
                         <div className="border-t border-white/10 py-2 pl-4">
                           <Link to="/services#services-grid" onClick={() => setOpen(false)} className="flex items-center justify-between py-3 text-sm font-semibold text-[#e0bd7e]">All Services <ArrowUpRight size={15} /></Link>
                           {serviceItems.map((service) => (
-                            <Link key={service.slug} to={`/services#service-${service.slug}`} onClick={() => setOpen(false)} className="flex items-center justify-between py-2.5 text-sm text-white/60 transition-colors hover:text-[#e0bd7e]">{service.title}<ArrowUpRight size={14} className="text-[#c5a46d]" /></Link>
+                            <Link key={service.slug} to={`/services#${service.slug === "on-ground-production" ? "on-ground-production" : `service-${service.slug}`}`} onClick={() => setOpen(false)} className="flex items-center justify-between py-2.5 text-sm text-white/60 transition-colors hover:text-[#e0bd7e]">{service.title}<ArrowUpRight size={14} className="text-[#c5a46d]" /></Link>
                           ))}
                         </div>
                       )}
