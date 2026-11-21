@@ -94,14 +94,14 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        <section id="services-grid" className="mx-auto max-w-[1440px] px-6 py-16 lg:px-12 lg:py-24">
+        <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-12 lg:py-24">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="border-l-2 border-[#c5a46d] pl-5"><p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#c5a46d]">AI production</p><p className="mt-2 text-sm text-white/60">Digital-first content, creative technology and workflows. Available worldwide.</p></div>
             <div className="border-l-2 border-white/30 pl-5"><p className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/65">On-ground production</p><p className="mt-2 text-sm text-white/60">Physical shoots, photography, films and event coverage. Available Pan India.</p></div>
           </div>
         </section>
 
-        <section id="ai-production" className="scroll-mt-24 border-y border-white/10 bg-[#1d1a16] py-20 lg:py-28">
+        <section id="services-grid" className="scroll-mt-24 border-y border-white/10 bg-[#1d1a16] py-20 lg:py-28">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
             <Reveal className="mb-12 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
               <div><p className="mb-5 text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">01 / Worldwide availability</p><h2 className="font-display text-5xl font-extrabold leading-[.94] tracking-[-.065em] sm:text-6xl lg:text-8xl">AI Media <span className="text-[#d5b77e]">&</span><br />Technology.</h2></div>
