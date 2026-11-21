@@ -24,7 +24,7 @@ const defaults: HeroContent = {
   eyebrow: 'Independent Creative Production House',
   headlineLine1: 'We Create.',
   headlineLine2: 'You Grow.',
-  description: 'From concept and creative direction to professional shoots, editing and final delivery — visual stories made to move your brand forward.',
+  description: 'Concept, professional shoots and final edits — everything your brand needs to tell its story.',
   primaryCtaText: 'Start a Project',
   primaryCtaUrl: '/contact',
   secondaryCtaText: 'Watch Showreel',
