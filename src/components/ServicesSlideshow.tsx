@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-} from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 type ServiceSlide = {
@@ -34,22 +30,42 @@ const serviceSlides: ServiceSlide[] = [
 
 export default function ServicesSlideshow() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const pointerStartX = useRef<number | null>(null)
   const activeService = serviceSlides[activeIndex]
 
   useEffect(() => {
+    if (isPaused) return
+
     const intervalId = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % serviceSlides.length)
     }, 5000)
 
     return () => window.clearInterval(intervalId)
-  }, [])
+  }, [isPaused])
 
-  const showPrevious = () => {
-    setActiveIndex((current) => (current - 1 + serviceSlides.length) % serviceSlides.length)
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerStartX.current = event.clientX
+    setIsPaused(true)
+    event.currentTarget.setPointerCapture(event.pointerId)
   }
 
-  const showNext = () => {
-    setActiveIndex((current) => (current + 1) % serviceSlides.length)
+  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerStartX.current !== null) {
+      const swipeDistance = event.clientX - pointerStartX.current
+      if (Math.abs(swipeDistance) > 50) {
+        setActiveIndex((current) => (swipeDistance < 0
+          ? (current + 1) % serviceSlides.length
+          : (current - 1 + serviceSlides.length) % serviceSlides.length))
+      }
+    }
+    pointerStartX.current = null
+    setIsPaused(false)
+  }
+
+  const handlePointerCancel = () => {
+    pointerStartX.current = null
+    setIsPaused(false)
   }
 
   return (
@@ -79,7 +95,7 @@ export default function ServicesSlideshow() {
           </div>
         </div>
 
-        <div className="relative flex min-h-[190px] items-center overflow-hidden border border-white/10 bg-gradient-to-r from-[#211e19] via-[#1b1916] to-[#171512] p-5 sm:min-h-[210px] sm:p-8 lg:min-h-[230px] lg:px-12">
+        <div\n          className="relative flex min-h-[190px] items-center overflow-hidden border border-white/10 bg-gradient-to-r from-[#211e19] via-[#1b1916] to-[#171512] p-5 sm:min-h-[210px] sm:p-8 lg:min-h-[230px] lg:px-12 touch-pan-y select-none cursor-grab active:cursor-grabbing"\n          onPointerDown={handlePointerDown}\n          onPointerUp={handlePointerUp}\n          onPointerCancel={handlePointerCancel}\n          onLostPointerCapture={handlePointerCancel}\n        >
           <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-[#c5a46d]/[0.08] to-transparent sm:block" />
           <AnimatePresence mode="wait">
             <motion.div
@@ -129,24 +145,7 @@ export default function ServicesSlideshow() {
               />
             ))}
           </div>
-          <div className="flex shrink-0 items-center gap-2">
-            <button
-              type="button"
-              onClick={showPrevious}
-              aria-label="Previous service"
-              className="flex size-9 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-[#c5a46d] hover:text-[#e0bd7e]"
-            >
-              <ArrowLeft size={15} />
-            </button>
-            <button
-              type="button"
-              onClick={showNext}
-              aria-label="Next service"
-              className="flex size-9 items-center justify-center border border-white/20 text-white/70 transition-colors hover:border-[#c5a46d] hover:text-[#e0bd7e]"
-            >
-              <ArrowRight size={15} />
-            </button>
-          </div>
+
         </div>
       </div>
     </section>
