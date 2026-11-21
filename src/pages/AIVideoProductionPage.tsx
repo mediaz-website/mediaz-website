@@ -149,7 +149,7 @@ export default function AIVideoProductionPage() {
           <div className="mx-auto flex max-w-[1440px] flex-col justify-between gap-8 px-6 lg:flex-row lg:items-end lg:px-12">
             <div className="max-w-3xl">
               <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">Have a project in mind?</p>
-              <h2 className="font-serif text-5xl leading-tight tracking-tight sm:text-6xl">Let’s build something <span className="italic text-[#e0bd7e]">meaningful.</span></h2>
+              <h2 className="font-display text-5xl leading-tight tracking-tight sm:text-6xl">Let’s build something <span className="italic text-[#e0bd7e]">meaningful.</span></h2>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/55">Tell us what you want to create, improve or automate. We’ll help you choose the right production approach.</p>
             </div>
             <Link to="/contact" className="flex w-fit items-center gap-4 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition hover:bg-[#e0bd7e]">Discuss your project <ArrowUpRight size={17} /></Link>
