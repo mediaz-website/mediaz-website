@@ -21,15 +21,15 @@ type HeroContent = {
 }
 
 const defaults: HeroContent = {
-  eyebrow: 'Independent Creative Production House',
+  eyebrow: 'AI-Powered & On-Ground Media Production',
   headlineLine1: 'Stories that',
   headlineLine2: 'move people.',
-  description: 'From concept to shoot to final edit. We create powerful visuals that make brands unforgettable.',
+  description: 'AI media, smart automation, digital solutions and professional on-ground production — from concept to final delivery.',
   primaryCtaText: 'Start a Project',
   primaryCtaUrl: '/contact',
   secondaryCtaText: 'Explore Our Work',
   secondaryCtaUrl: '/portfolio',
-  bottomLeft: 'Films · Photography · Campaigns',
+  bottomLeft: 'AI Media · Automation · Films · Photography',
   bottomCenter: 'Indore · India · Worldwide',
   bottomRight: 'Scroll to explore',
   backgroundVideoUrl: '/mediazz-hero-model.mp4',
