@@ -304,7 +304,7 @@ export default function PortfolioPage() {
               {pageContent.closingEyebrow}
             </p>
 
-            <h2 className="mx-auto max-w-4xl font-serif text-4xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl">
+            <h2 className="mx-auto max-w-4xl font-display text-4xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl">
               {pageContent.closingLine1}
               <br />
               <span className="italic text-[#e0bd7e]">{pageContent.closingLine2}</span>
@@ -367,7 +367,7 @@ export default function PortfolioPage() {
 
               <div className="mt-5 flex w-full items-center justify-between gap-4">
                 <div>
-                  <h3 className="font-serif text-xl text-white sm:text-2xl">
+                  <h3 className="font-display text-xl text-white sm:text-2xl">
                     {selectedProject.title}
                   </h3>
                   <p className="mt-1 text-[10px] tracking-[0.18em] text-white/50 uppercase">
