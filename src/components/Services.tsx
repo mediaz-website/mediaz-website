@@ -56,7 +56,7 @@ export default function Services() {
   const sectionContent = useHomepageSection('services_section', defaultSectionContent)
 
   return (
-    <section id="services" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-36">
+    <section id="services" data-section="what-we-create" aria-label="What We Create" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-36">
       <div className="pointer-events-none absolute -left-48 top-1/4 size-[34rem] rounded-full bg-[#c5a46d]/[0.045] blur-[110px]" />
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-12">
         <Reveal className="mb-9 flex flex-col justify-between gap-5 sm:mb-14 sm:gap-8 lg:mb-20 lg:flex-row lg:items-end">
