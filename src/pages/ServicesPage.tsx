@@ -94,37 +94,45 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-6 py-16 lg:px-12 lg:py-24">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="border-l-2 border-[#c5a46d] pl-5"><p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#c5a46d]">AI production</p><p className="mt-2 text-sm text-white/60">Digital-first content, creative technology and workflows. Available worldwide.</p></div>
-            <div className="border-l-2 border-white/30 pl-5"><p className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/65">On-ground production</p><p className="mt-2 text-sm text-white/60">Physical shoots, photography, films and event coverage. Available Pan India.</p></div>
-          </div>
-        </section>
-
-        <section id="services-grid" className="scroll-mt-24 border-y border-white/10 bg-[#1d1a16] py-20 lg:py-28">
+        <section id="services-grid" className="scroll-mt-24 border-y border-white/10 bg-[#1d1a16] py-16 lg:py-24">
           <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-            <Reveal className="mb-12 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
-              <div><p className="mb-5 text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">01 / Worldwide availability</p><h2 className="font-display text-5xl font-extrabold leading-[.94] tracking-[-.065em] sm:text-6xl lg:text-8xl">AI Media <span className="text-[#d5b77e]">&</span><br />Technology.</h2></div>
-              <div><p className="max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">Create, scale and manage digital media with AI-powered production, creative services and connected workflows. Work with us from anywhere in the world.</p><p className="mt-5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#d5b77e]">Remote collaboration · Worldwide delivery</p></div>
-            </Reveal>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{aiServices.map((item, index) => <CapabilityCard key={item.slug} item={item} index={index} />)}</div>
-            <div className="mt-12 grid gap-6 border border-[#c5a46d]/30 bg-[#c5a46d]/[0.07] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div><p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · AI media & automation</p><h3 className="mt-3 font-display text-2xl font-bold tracking-tight sm:text-3xl">See ideas turned into real digital experiences.</h3><p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/55">Explore AI-generated videos, virtual influencer content, creative experiments and production workflows made by Mediazz Hub.</p></div>
-              <Link to="/portfolio" className="inline-flex w-fit items-center gap-3 bg-[#c5a46d] px-6 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#171512] transition hover:bg-[#e0bd7e]">View AI work in portfolio <ArrowUpRight size={16} /></Link>
+            <div className="mb-10 max-w-2xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">Two ways to create</p>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-[-0.06em] text-white sm:text-5xl">Choose your <span className="text-[#d5b77e]">production world.</span></h2>
+              <p className="mt-4 text-sm leading-relaxed text-white/55">Both production teams, their services and selected work — side by side, in one view.</p>
             </div>
-          </div>
-        </section>
+            <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
+              <section id="ai-production" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#211e19] p-5 sm:p-7 lg:p-8">
+                <div className="mb-7 border-b border-[#c5a46d]/25 pb-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">01 / Worldwide</p>
+                  <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-white sm:text-4xl">AI Media & Technology</h2>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/60">AI-powered videos, images, voiceovers, digital content and intelligent automation — created and delivered remotely for brands worldwide.</p>
+                  <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-[#d5b77e]">AI media production · Remote collaboration · Worldwide delivery</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">{aiServices.map((item, index) => <CapabilityCard key={item.slug} item={item} index={index} />)}</div>
+                <div className="mt-8 border border-[#c5a46d]/30 bg-[#c5a46d]/[0.07] p-5 sm:p-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · AI media & automation</p>
+                  <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl">Ideas transformed with AI.</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">Explore AI-generated videos, Anaya virtual influencer content, creative experiments and production workflows made by Mediazz Hub.</p>
+                  <Link to="/portfolio#ai-production-portfolio" className="mt-5 inline-flex items-center gap-3 bg-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#171512] transition hover:bg-[#e0bd7e]">View AI portfolio <ArrowUpRight size={15} /></Link>
+                </div>
+              </section>
 
-        <section id="on-ground-production" className="scroll-mt-24 bg-[#171512] py-20 lg:py-28">
-          <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-            <Reveal className="mb-12 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
-              <div><p className="mb-5 text-[10px] font-bold uppercase tracking-[0.35em] text-[#d5b77e]">02 / Pan India availability</p><h2 className="font-display text-5xl font-extrabold leading-[.94] tracking-[-.065em] sm:text-6xl lg:text-8xl">On-ground<br /><span className="text-white/40">Production.</span></h2></div>
-              <div><p className="max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">Real locations. Real people. Real stories. Our production team plans and executes shoots across India, from concept and pre-production to final editing.</p><p className="mt-5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#d5b77e]">Shoot planning · On-location execution · Final edits</p></div>
-            </Reveal>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{groundServices.map((item, index) => <CapabilityCard key={item.slug} item={item} index={index} />)}</div>
-            <div className="mt-12 grid gap-6 border border-white/15 bg-white/[0.035] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div><p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · On-ground production</p><h3 className="mt-3 font-display text-2xl font-bold tracking-tight sm:text-3xl">See the craft behind every frame.</h3><p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/55">Browse commercial shoots, product photography, reels, brand films, podcasts and other productions delivered by our crew.</p></div>
-              <Link to="/portfolio" className="inline-flex w-fit items-center gap-3 border border-[#c5a46d] px-6 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#e0bd7e] transition hover:bg-[#c5a46d] hover:text-[#171512]">View production portfolio <ArrowUpRight size={16} /></Link>
+              <section id="on-ground-production" className="scroll-mt-28 border border-white/15 bg-[#191714] p-5 sm:p-7 lg:p-8">
+                <div className="mb-7 border-b border-white/15 pb-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">02 / Pan India</p>
+                  <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight tracking-[-0.05em] text-white sm:text-4xl">On-ground Production</h2>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/60">Physical shoots with real locations, people and production crews — from planning and filming to final editing, available across India.</p>
+                  <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">Shoot planning · On-location execution · Pan India coverage</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">{groundServices.map((item, index) => <CapabilityCard key={item.slug} item={item} index={index} />)}</div>
+                <div className="mt-8 border border-white/15 bg-white/[0.035] p-5 sm:p-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d5b77e]">Actual work · On-ground production</p>
+                  <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-white sm:text-2xl">The craft behind every frame.</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">Browse commercial shoots, product photography, reels, brand films, podcasts and other productions delivered by our crew.</p>
+                  <Link to="/portfolio#on-ground-portfolio" className="mt-5 inline-flex items-center gap-3 border border-[#c5a46d] px-5 py-3.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#e0bd7e] transition hover:bg-[#c5a46d] hover:text-[#171512]">View on-ground portfolio <ArrowUpRight size={15} /></Link>
+                </div>
+              </section>
             </div>
           </div>
         </section>
