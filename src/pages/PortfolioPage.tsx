@@ -9,17 +9,6 @@ import { Reveal } from '../components/Motion'
 import { useSiteContent } from '../hooks/useSiteContent'
 import { supabase } from '../lib/supabase'
 
-const defaultCategories = [
-  'All work',
-  'Commercial & Advertising',
-  'Product Photography',
-  'Brand Campaigns',
-  'Reels & Social Media',
-  'Corporate Videos',
-  'Food & Lifestyle',
-  'AI & Automation',
-]
-
 type PortfolioProject = {
   id: string
   slug?: string
@@ -104,17 +93,6 @@ export default function PortfolioPage() {
   }, [])
 
   const allProjects = [...publishedProjects, ...demoProjects]
-
-  const categories = [
-    ...defaultCategories,
-    ...Array.from(
-      new Set(
-        publishedProjects
-          .map((project) => project.category)
-          .filter((category) => !defaultCategories.includes(category))
-      )
-    ),
-  ]
 
   const isAiProject = (project: PortfolioProject) =>
     project.category === 'AI & Automation' || /ai|automation/i.test(project.category)
