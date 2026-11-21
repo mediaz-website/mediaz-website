@@ -19,7 +19,7 @@ const serviceOptions = [
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
-const sectionDefaults = { eyebrow: "Let's work together", headlineLine1: 'Have an', headlineLine2: 'idea?', description: "Bring us the rough version. The half-formed thought. The impossible deadline. We'll bring the right questions.", email: 'mediazhub@gmail.com' }
+const sectionDefaults = { eyebrow: 'Final Enquiry · Let’s work together', headlineLine1: 'Have an', headlineLine2: 'idea?', description: "Bring us the rough version. The half-formed thought. The impossible deadline. We'll bring the right questions.", email: 'mediazhub@gmail.com' }
 
 export default function Contact() {
   const sectionContent = useHomepageSection('contact_section', sectionDefaults)
