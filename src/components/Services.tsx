@@ -8,7 +8,7 @@ import { images } from '../lib/images'
 import { Reveal } from './Motion'
 import { useHomepageSection } from '../hooks/useHomepageSection'
 
-interface ServicesSectionContent {
+interface ServicesSectionContent extends Record<string, string> {
   eyebrow: string
   headlineLine1: string
   headlineLine2: string
