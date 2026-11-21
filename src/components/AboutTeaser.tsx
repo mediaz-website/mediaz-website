@@ -5,7 +5,7 @@ import { Reveal } from './Motion'
 
 export default function AboutTeaser() {
   return (
-    <section className="relative overflow-hidden border-y border-white/10 bg-[#111113] py-16 sm:py-24 lg:py-32">
+    <section id="about-mediazz" aria-label="About Mediazz Hub" className="relative overflow-hidden border-y border-white/10 bg-[#111113] py-16 sm:py-24 lg:py-32">
       <div className="mx-auto grid max-w-[1440px] items-center gap-9 px-5 sm:px-8 lg:grid-cols-12 lg:gap-14 lg:px-12">
         <Reveal className="relative lg:col-span-6">
           <div className="mediazz-image-frame aspect-[4/3] overflow-hidden bg-[#1c1c20]">
