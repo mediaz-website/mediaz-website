@@ -195,7 +195,7 @@ export default function ServicesPage() {
             <p className="mt-16 text-center text-sm text-white/55">
               Services could not be loaded right now. Please refresh the page.
             </p>
-          ) : services.length === 0 ? (
+          ) : displayedServices.length === 0 ? (
             <p className="mt-16 text-center text-sm text-white/55">
               Our services are being updated. Please check back soon.
             </p>
