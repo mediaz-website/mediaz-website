@@ -261,7 +261,7 @@ export default function PortfolioPage() {
                     </div>
 
                     <span className="absolute left-5 top-5 border border-white/30 bg-black/40 px-3 py-1.5 text-[9px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-sm">
-                      {project.isDemo ? 'Demo Visual' : 'Published Project'}
+                      {project.category === 'AI & Automation' ? 'AI Showcase · Link Pending' : project.isDemo ? 'Demo Visual' : 'Published Project'}
                     </span>
                   </div>
 
