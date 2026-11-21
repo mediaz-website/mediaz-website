@@ -22,6 +22,7 @@ import Portfolio from './components/Portfolio'
 import Testimonials from './components/Testimonials'
 import Process from './components/Process'
 import Contact from './components/Contact'
+import CreativeScroll from './components/CreativeScroll'
 
 // Public website pages
 import AboutPage from './pages/AboutPage'
