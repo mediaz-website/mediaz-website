@@ -118,7 +118,7 @@ export default function ProjectDetailsPage() {
   if (error || !project) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[#171512] px-6 text-center text-white">
-        <h1 className="font-serif text-4xl">Project unavailable</h1>
+        <h1 className="font-display text-4xl">Project unavailable</h1>
         <p className="max-w-md text-sm text-white/50">{error}</p>
         <Link
           to="/portfolio"
@@ -177,7 +177,7 @@ export default function ProjectDetailsPage() {
             <p className="mb-5 text-[10px] font-semibold tracking-[0.3em] text-[#c5a46d] uppercase">
               About the project
             </p>
-            <h2 className="mb-7 font-serif text-3xl leading-tight sm:text-4xl">
+            <h2 className="mb-7 font-display text-3xl leading-tight sm:text-4xl">
               Behind the creative vision.
             </h2>
             <p className="whitespace-pre-line text-sm leading-8 text-white/65 sm:text-base">
@@ -280,7 +280,7 @@ export default function ProjectDetailsPage() {
           <p className="mb-5 text-[10px] font-semibold tracking-[0.3em] text-[#c5a46d] uppercase">
             Have a project in mind?
           </p>
-          <h2 className="mx-auto max-w-3xl font-serif text-4xl leading-tight sm:text-6xl">
+          <h2 className="mx-auto max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
             Let’s create something memorable.
           </h2>
           <Link
