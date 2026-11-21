@@ -95,7 +95,13 @@ export default function ServicesSlideshow() {
           </div>
         </div>
 
-        <div\n          className="relative flex min-h-[190px] items-center overflow-hidden border border-white/10 bg-gradient-to-r from-[#211e19] via-[#1b1916] to-[#171512] p-5 sm:min-h-[210px] sm:p-8 lg:min-h-[230px] lg:px-12 touch-pan-y select-none cursor-grab active:cursor-grabbing"\n          onPointerDown={handlePointerDown}\n          onPointerUp={handlePointerUp}\n          onPointerCancel={handlePointerCancel}\n          onLostPointerCapture={handlePointerCancel}\n        >
+        <div
+          className="relative flex min-h-[190px] items-center overflow-hidden border border-white/10 bg-gradient-to-r from-[#211e19] via-[#1b1916] to-[#171512] p-5 sm:min-h-[210px] sm:p-8 lg:min-h-[230px] lg:px-12 touch-pan-y select-none cursor-grab active:cursor-grabbing"
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
+          onLostPointerCapture={handlePointerCancel}
+        >
           <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-[#c5a46d]/[0.08] to-transparent sm:block" />
           <AnimatePresence mode="wait">
             <motion.div
