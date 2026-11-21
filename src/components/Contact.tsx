@@ -85,26 +85,26 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden border-t border-white/15 bg-[#0b0b0b] py-28 lg:py-40"
+      className="relative overflow-hidden border-t border-white/15 bg-[#0b0b0b] py-16 sm:py-28 lg:py-40"
     >
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-28">
+        <div className="grid gap-10 sm:gap-16 lg:grid-cols-2 lg:gap-28">
           <Reveal>
             <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase">
               {sectionContent.eyebrow}
             </p>
 
-            <h2 className="font-display text-6xl leading-[0.86] font-bold tracking-[-0.07em] text-white sm:text-7xl lg:text-9xl">
+            <h2 className="font-display text-[3.2rem] leading-[.9] font-bold tracking-[-0.07em] text-white sm:text-7xl lg:text-9xl">
               {sectionContent.headlineLine1}
               <br />
               <span className="text-white/35">{sectionContent.headlineLine2}</span>
             </h2>
 
-            <p className="mt-10 max-w-sm text-sm leading-relaxed text-white/55">
+            <p className="mt-6 max-w-sm text-sm sm:mt-10 leading-relaxed text-white/55">
               {sectionContent.description}
             </p>
 
-            <div className="mt-12 border-t border-white/15 pt-5">
+            <div className="mt-8 border-t border-white/15 pt-5 sm:mt-12">
               <a
                 href={`mailto:${sectionContent.email}`}
                 className="group flex w-fit items-center gap-3 text-sm text-white"

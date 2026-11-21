@@ -1,94 +1,47 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Manrope', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
   --font-mono: 'DM Mono', monospace;
-
-  /* Shared Mediazz Hub brand accents */
   --color-brand-gold: #c5a46d;
-  --color-brand-highlight: #e0bd7e;
-  --color-brand-cream: #f5f2ec;
-
-  /* Premium Dark Theme Palette */
-  --color-ink-950: #171512;
-  --color-ink-900: #211e19;
-  --color-ink-800: #29251e;
-  --color-ink-700: #39342c;
-  --color-ink-600: #575047;
-  --color-ink-500: #a49b8e;
-  --color-ink-400: #c0b8ac;
-  --color-ink-300: #d6cfc4;
-  --color-ink-200: #e8e3da;
-  --color-ink-100: #f5f2ec;
+  --color-brand-highlight: #e5c995;
+  --color-brand-cream: #f5f3ef;
+  --color-ink-950: #0b0b0d;
+  --color-ink-900: #141416;
+  --color-ink-800: #1c1c20;
+  --color-ink-700: #29292e;
+  --color-ink-600: #514e49;
+  --color-ink-500: #9d9890;
+  --color-ink-400: #bcb6ad;
+  --color-ink-300: #d5cec3;
+  --color-ink-200: #e8e2d8;
+  --color-ink-100: #f5f3ef;
 }
-
-html {
-  scroll-behavior: smooth;
-  background: #171512;
-}
-
-body {
-  background: #171512;
-  color: #f5f2ec;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Headings: inherit assigned Tailwind colours */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Manrope', sans-serif;
-  color: inherit;
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-}
-
-/* Readable Paragraphs */
-p {
-  line-height: 1.75;
-}
-
-/* Normal Mouse Cursor */
-html, body, a, button, select, input, textarea {
-  cursor: auto;
-}
-
-button, a, select {
-  cursor: pointer;
-}
-
-/* Text Selection */
-::selection {
-  background: #c5a46d;
-  color: #171512;
-}
-
-/* Form Elements */
-input, textarea, select {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-}
-
-/* Smooth Transitions */
-a, button {
-  transition-duration: 200ms;
-}
-
-/* Accessibility */
+:root { color-scheme: dark; font-synthesis: none; }
+html { scroll-behavior: smooth; background: #0b0b0d; scrollbar-color: #8f7449 #111113; }
+body { background: #0b0b0d; color: #f5f3ef; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; font-weight: 400; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', sans-serif; color: inherit; line-height: 1.05; letter-spacing: -.045em; }
+p { line-height: 1.75; }
+button,a,select { cursor: pointer; }
+::selection { background: #c5a46d; color: #0b0b0d; }
+input,textarea,select { font-family: 'DM Sans',sans-serif; font-size: 15px; }
+a,button { transition-duration: 250ms; }
+#root { isolation: isolate; overflow: clip; }
+.mediazz-grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+.mediazz-section-line { height: 1px; background: linear-gradient(90deg,transparent,rgba(197,164,109,.55),transparent); }
+.mediazz-outline { -webkit-text-stroke: 1px rgba(245,243,239,.5); color: transparent; }
+.mediazz-image-frame { position: relative; isolation: isolate; }
+.mediazz-image-frame::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(229,201,149,.24); pointer-events: none; transition: border-color .5s ease; }
+.mediazz-image-frame:hover::after { border-color: rgba(229,201,149,.8); }
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+ html { scroll-behavior: auto; }
+ *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .mediazz-grain { opacity: .018; }
+  .mediazz-image-frame::after { border-color: rgba(229,201,149,.16); }
+  button, a { -webkit-tap-highlight-color: transparent; }
 }

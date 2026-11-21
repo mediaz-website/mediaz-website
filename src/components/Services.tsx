@@ -56,12 +56,13 @@ export default function Services() {
   const sectionContent = useHomepageSection('services_section', defaultSectionContent)
 
   return (
-    <section id="services" className="bg-[#171512] py-24 lg:py-36">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-        <Reveal className="mb-14 flex flex-col justify-between gap-8 lg:mb-20 lg:flex-row lg:items-end">
+    <section id="services" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-36">
+      <div className="pointer-events-none absolute -left-48 top-1/4 size-[34rem] rounded-full bg-[#c5a46d]/[0.045] blur-[110px]" />
+      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-12">
+        <Reveal className="mb-9 flex flex-col justify-between gap-5 sm:mb-14 sm:gap-8 lg:mb-20 lg:flex-row lg:items-end">
           <div>
             <p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-[#c5a46d] uppercase">{sectionContent.eyebrow}</p>
-            <h2 className="max-w-3xl font-display text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-8xl">
+            <h2 className="max-w-3xl font-display text-[2.65rem] leading-[.98] tracking-[-0.05em] text-white sm:text-6xl lg:text-8xl">
               {sectionContent.headlineLine1}<br /><span className="italic text-[#e0bd7e]">{sectionContent.headlineLine2}</span>
             </h2>
           </div>
@@ -78,25 +79,25 @@ export default function Services() {
           <span className="border border-[#c5a46d]/30 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#e0bd7e]">Service previews</span>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4 lg:grid-cols-12 lg:gap-5">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
-              <Reveal key={service.slug} delay={(index % 4) * 0.05} className="h-full">
-                <Link to={`/services#service-${service.slug}`} className="group relative block h-full min-h-[320px] overflow-hidden bg-[#211e19] sm:min-h-[350px]">
-                  <img src={service.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/15" />
+              <Reveal key={service.slug} delay={(index % 4) * 0.05} className={`h-full ${index % 7 === 0 ? "lg:col-span-5" : index % 7 === 1 ? "lg:col-span-7" : "lg:col-span-4"}`}>
+                <Link to={`/services#service-${service.slug}`} className="group relative block h-full min-h-[230px] overflow-hidden rounded-[2px] sm:min-h-[300px] bg-[#211e19] transition-transform duration-700 hover:-translate-y-2 sm:min-h-[350px] lg:min-h-[390px]">
+                  <img src={service.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/5" />
                   <div className="absolute inset-0 border border-white/10 transition duration-500 group-hover:border-[#c5a46d]/70" />
-                  <div className="relative flex min-h-[320px] flex-col justify-between p-6 sm:min-h-[350px]">
+                  <div className="relative flex min-h-[230px] flex-col justify-between p-3 sm:min-h-[350px] sm:p-6">
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-mono text-[10px] tracking-[0.3em] text-white/70">{String(index + 1).padStart(2, '0')}</span>
-                      <span className="flex size-10 items-center justify-center border border-white/30 bg-black/20 text-[#e0bd7e] backdrop-blur-sm"><Icon size={18} strokeWidth={1.5} /></span>
+                      <span className="flex size-8 items-center justify-center border border-white/30 sm:size-10 bg-black/20 text-[#e0bd7e] backdrop-blur-sm"><Icon size={18} strokeWidth={1.5} /></span>
                     </div>
                     <div>
-                      <span className="mb-3 inline-flex border border-white/25 bg-black/25 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-[#e0bd7e]">{service.mode}</span>
-                      <h3 className="font-display text-xl font-semibold tracking-[-0.03em] text-white sm:text-2xl">{service.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/70">{service.description}</p>
-                      <div className="mt-5 flex items-center justify-between border-t border-white/25 pt-4">
+                      <span className="mb-2 inline-flex border border-white/25 bg-black/25 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-[#e0bd7e]">{service.mode}</span>
+                      <h3 className="font-display text-sm font-semibold leading-tight tracking-[-0.03em] text-white sm:text-2xl">{service.title}</h3>
+                      <p className="mt-1.5 line-clamp-2 text-[10px] leading-snug text-white/70 sm:mt-2 sm:text-xs sm:leading-relaxed">{service.description}</p>
+                      <div className="mt-2 flex items-center justify-between border-t border-white/25 pt-2 sm:mt-5 sm:pt-4">
                         <span className="text-[9px] font-semibold tracking-[0.25em] text-white/70 uppercase">Explore service</span>
                         <ArrowUpRight size={17} className="text-[#e0bd7e] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </div>

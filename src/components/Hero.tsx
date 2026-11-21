@@ -78,7 +78,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden bg-[#171512]"
+      className="relative flex min-h-[78svh] items-center overflow-hidden bg-[#0b0b0d] sm:min-h-screen"
     >
       <motion.div style={{ y: imageY }} className="absolute inset-0 h-[112%]">
         {content.backgroundVideoUrl ? (
@@ -98,24 +98,26 @@ export default function Hero() {
         )}
       </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 via-50% to-black/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,8,.97)_0%,rgba(7,7,8,.82)_42%,rgba(7,7,8,.12)_100%)]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-transparent to-black/30" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-[18%] hidden size-[34rem] rounded-full border border-[#e5c995]/20 lg:block"><div className="absolute inset-8 rounded-full border border-dashed border-[#e5c995]/20" /><div className="absolute left-[12%] top-[18%] size-2 rounded-full bg-[#e5c995] shadow-[0_0_28px_8px_rgba(197,164,109,.35)]" /></div>
 
       <motion.div
         style={{ y: textY }}
-        className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 pt-36 lg:px-16"
+        className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-8 pt-28 sm:px-6 sm:pb-16 sm:pt-36 lg:px-16"
       >
-        <div className="max-w-[650px]">
+        <div className="max-w-[760px]">
+          <div className="mb-8 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/35 sm:flex"><span className="h-px w-12 bg-[#c5a46d]" />Independent creative production house <span className="ml-auto text-[#e5c995]">01 / 04</span></div>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-8 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#e4c68d]"
+            className="mb-5 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.22em] text-[#e4c68d] sm:mb-8 sm:gap-3 sm:text-[10px] sm:tracking-[0.35em]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#d5b477]" />
             {content.eyebrow}
           </motion.p>
 
-          <h1 className="font-serif text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.98] tracking-[-0.045em] text-white drop-shadow-lg">
+          <h1 className="font-display text-[clamp(2.8rem,12vw,8.6rem)] sm:text-[clamp(3.5rem,8.2vw,8.6rem)] leading-[0.88] font-bold tracking-[-0.075em] text-white drop-shadow-lg">
             <motion.span
               initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2 }}
@@ -126,7 +128,7 @@ export default function Hero() {
             <motion.span
               initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.4 }}
-              className="block italic text-[#e0bd7e] drop-shadow-lg"
+              className="block italic text-[#e5c995] drop-shadow-lg"
             >
               {content.headlineLine2}
             </motion.span>
@@ -135,7 +137,7 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-8 max-w-md text-sm leading-8 text-white drop-shadow-md sm:text-base"
+            className="mt-5 max-w-md text-[13px] leading-6 text-white drop-shadow-md sm:mt-8 sm:text-base sm:leading-8"
           >
             {content.description}
           </motion.p>
@@ -143,11 +145,11 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-10 flex flex-wrap items-center gap-5"
+            className="mt-7 flex flex-wrap items-center gap-4 sm:mt-10 sm:gap-5"
           >
             <a
               href={content.primaryCtaUrl}
-              className="group flex items-center gap-4 bg-[#c5a46d] px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#171512] transition-all duration-300 hover:bg-[#e6cb99] hover:shadow-lg"
+              className="group flex min-h-12 items-center gap-3 bg-[#c5a46d] px-5 py-3.5 text-[11px] sm:gap-4 sm:px-7 sm:py-4 sm:text-xs font-bold uppercase tracking-wider text-[#171512] transition-all duration-300 hover:bg-[#e6cb99] hover:shadow-lg"
             >
               {content.primaryCtaText}
               <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -163,7 +165,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-20 flex items-center justify-between border-t border-white/40 pt-5 text-[9px] font-semibold uppercase tracking-[0.25em] text-white sm:mt-24">
+        <div className="mt-10 flex items-center justify-between gap-3 border-t border-white/25 pt-4 text-[8px] sm:mt-16 sm:pt-5 sm:text-[9px] font-semibold uppercase tracking-[0.25em] text-white/70 sm:mt-20">
           <span>{content.bottomLeft}</span>
           <span className="hidden sm:block">{content.bottomCenter}</span>
           <span className="flex items-center gap-2">
