@@ -146,7 +146,7 @@ export default function ServicesPage() {
       icon: 'sparkles',
       sort_order: 999,
     },
-  ]
+  ].sort((a, b) => a.title.localeCompare(b.title))
 
   return (
     <>
