@@ -4,14 +4,28 @@ import { ArrowUpRight, Menu, X, MessageCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { useSiteContent } from '../hooks/useSiteContent'
-import { supabase } from '../lib/supabase'
 
-interface NavService { title: string; slug: string }
+const serviceItems = [
+  { title: 'AI Automation & Workflows', slug: 'ai-automation-workflows', group: 'ai-production' },
+  { title: 'AI Image & Creative Production', slug: 'ai-image-creative-production', group: 'ai-production' },
+  { title: 'AI Tools & Integrations', slug: 'ai-tools-integrations', group: 'ai-production' },
+  { title: 'AI Video Production', slug: 'ai-video-production', group: 'ai-production' },
+  { title: 'AI Voiceover & Audio', slug: 'ai-voiceover-audio', group: 'ai-production' },
+  { title: 'Commercial & Advertising Shoots', slug: 'commercial-advertising-shoots', group: 'on-ground-production' },
+  { title: 'Events & Live Coverage', slug: 'events-live-coverage', group: 'on-ground-production' },
+  { title: 'On-ground Production', slug: 'on-ground-production', group: 'on-ground-production' },
+  { title: 'Podcast & Interview Production', slug: 'podcast-interview-production', group: 'on-ground-production' },
+  { title: 'Product & Brand Photography', slug: 'product-brand-photography', group: 'on-ground-production' },
+  { title: 'Reels & Video Production', slug: 'reels-video-production', group: 'on-ground-production' },
+  { title: 'SEO & AEO', slug: 'seo-aeo', group: 'ai-production' },
+  { title: 'Short Films & Documentaries', slug: 'short-films-documentaries', group: 'on-ground-production' },
+  { title: 'Social Media & Profile Management', slug: 'social-media-management', group: 'ai-production' },
+  { title: 'Website Development', slug: 'website-development', group: 'ai-production' },
+]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const [serviceItems, setServiceItems] = useState<NavService[]>([])
   const location = useLocation()
   const globalContent = useSiteContent('global', 'main', { navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact', navCta: 'Start a Project' })
   const links = [
@@ -21,18 +35,6 @@ export default function Navbar() {
     { label: globalContent.navPortfolio, href: '/portfolio' },
     { label: globalContent.navContact, href: '/contact' },
   ]
-
-  useEffect(() => {
-    let active = true
-    async function loadServices() {
-      const { data } = await supabase.from('services').select('title, slug').eq('is_published', true)
-      const items = (data || []).filter((item) => item.slug !== 'ai-video-production' && item.slug !== 'ai-media-production')
-      items.push({ title: 'AI Media & Technology', slug: 'ai-media-production' })
-      if (active) setServiceItems(items.sort((a, b) => a.title.localeCompare(b.title)))
-    }
-    loadServices()
-    return () => { active = false }
-  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -103,10 +105,10 @@ export default function Navbar() {
               </NavLink>
               {link.href === '/services' && (
                 <div className="invisible absolute left-0 top-full z-50 mt-3 w-80 translate-y-2 border border-white/10 bg-[#171512] p-2 opacity-0 shadow-2xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  <Link to="/services#services-grid" className="mb-1 block border-b border-white/10 px-4 py-3 text-sm font-semibold text-[#e0bd7e] transition-colors hover:bg-white/5">All Services</Link>
+                  <Link to="/services#services-grid" className="mb-1 block border-b border-white/10 px-4 py-3 text-sm font-semibold text-[#e0bd7e] transition-colors hover:bg-white/5">All Services <span className="ml-2 text-[9px] uppercase tracking-wider text-white/35">A–Z</span></Link>
                   <div className="max-h-[65vh] overflow-y-auto">
                     {serviceItems.map((service) => (
-                      <Link key={service.slug} to={`/services#service-${service.slug}`} className="block px-4 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-[#e0bd7e]">{service.title}</Link>
+                      <Link key={service.slug} to={`/services#${service.slug === "ai-video-production" || service.group === "ai-production" ? `service-${service.slug}` : `service-${service.slug}`}`} className="block px-4 py-2.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-[#e0bd7e]">{service.title}</Link>
                     ))}
                   </div>
                 </div>
