@@ -65,7 +65,7 @@ export default function Navbar() {
           : 'bg-[#0b0b0d]/45'
       }`}
     >
-      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-3 lg:px-12 lg:py-4">
+      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-2.5 sm:px-6 sm:py-3 lg:px-12 lg:py-4">
 
         <Link
           to="/"
@@ -75,7 +75,7 @@ export default function Navbar() {
           <img
             src="/mediazz-logo.png"
             alt="Mediazz Hub"
-            className="h-12 w-auto object-contain sm:h-14"
+            className="h-10 w-auto object-contain sm:h-14"
           />
         </Link>
 
@@ -150,7 +150,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="absolute inset-x-0 top-full overflow-y-auto border-t border-white/10 bg-[#171512] md:hidden"
           >
-            <div className="flex min-h-full flex-col justify-between px-7 py-8">
+            <div className="flex min-h-full flex-col justify-between px-5 py-6 sm:px-7 sm:py-8">
 
               <div>
                 <p className="mb-7 text-[10px] font-bold tracking-[0.3em] text-[#c5a46d] uppercase">
@@ -171,7 +171,7 @@ export default function Navbar() {
                         end={link.href === '/'}
                         onClick={() => setOpen(false)}
                         className={({ isActive }) =>
-                          `flex items-center justify-between py-5 font-serif text-3xl transition-colors ${
+                          `flex items-center justify-between py-5 font-display text-2xl transition-colors sm:text-3xl ${
                             isActive ? 'text-[#e0bd7e]' : 'text-white/75 hover:text-white'
                           }`
                         }
