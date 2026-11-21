@@ -166,7 +166,7 @@ export default function Services() {
             </p>
 
             <Link
-              to="/services"
+              to="/services#services-grid"
               className="mt-6 inline-flex items-center gap-3 border-b border-[#c5a46d]/60 pb-2 text-[10px] font-semibold tracking-[0.2em] text-[#e0bd7e] uppercase transition-colors hover:text-white"
             >
               {sectionContent.topLinkText}
@@ -194,7 +194,7 @@ export default function Services() {
               return (
                 <Reveal key={service.id} delay={(index % 4) * 0.06} className="h-full">
                   <Link
-                    to={service.slug === 'ai-media-production' ? '/services/ai-media-production' : `/services#service-${service.slug}`}
+                    to={`/services#service-${service.slug}`}
                     className="group relative block h-full min-h-[320px] overflow-hidden bg-[#211e19] sm:min-h-[350px]"
                   >
                     <img
@@ -255,7 +255,7 @@ export default function Services() {
 
         <Reveal className="mt-12 flex justify-center lg:mt-16">
           <Link
-            to="/services"
+            to="/services#services-grid"
             className="group inline-flex items-center gap-4 border border-[#c5a46d]/60 px-8 py-5 text-[10px] font-bold tracking-[0.2em] text-white uppercase transition duration-300 hover:bg-[#c5a46d] hover:text-[#171512]"
           >
             {sectionContent.bottomLinkText}
