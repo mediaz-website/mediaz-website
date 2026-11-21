@@ -19,9 +19,9 @@ interface ServicesSectionContent extends Record<string, string> {
 
 const defaultSectionContent: ServicesSectionContent = {
   eyebrow: 'What we create',
-  headlineLine1: 'The art of',
-  headlineLine2: 'visual storytelling.',
-  description: 'AI-powered media, production automation, digital solutions and professional on-ground shoots — connected under one creative partner.',
+  headlineLine1: 'End-to-end',
+  headlineLine2: 'creative production.',
+  description: 'From concept planning and creative strategy to commercial shoots, product photography, reels, editing and final delivery — supported by AI and digital capabilities when they add value.'
   topLinkText: 'Explore all capabilities',
   bottomLinkText: 'Discover all services',
 }
