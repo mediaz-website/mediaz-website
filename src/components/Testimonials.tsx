@@ -146,6 +146,7 @@ export default function Testimonials() {
             </article>
           ))}
         </div>
+        )}
       </div>
     </section>
   )
