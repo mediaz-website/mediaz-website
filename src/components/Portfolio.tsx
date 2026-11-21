@@ -16,7 +16,7 @@ const sectionDefaults = { eyebrow: 'Selected work', headlineLine1: 'Made to be',
 export default function Portfolio() {
   const content = useHomepageSection('portfolio_section', sectionDefaults)
   return (
-    <section id="work" className="relative overflow-hidden bg-[#111113] py-16 sm:py-28 lg:py-40">
+    <section id="work" data-section="selected-work" aria-label="Selected Work" className="relative overflow-hidden bg-[#111113] py-16 sm:py-28 lg:py-40">
       <div className="pointer-events-none absolute -right-48 top-1/3 size-[38rem] rounded-full border border-[#c5a46d]/10" /><div className="relative mx-auto max-w-[1440px] px-6 lg:px-12">
         <Reveal className="mb-9 flex flex-col justify-between gap-5 sm:mb-16 sm:gap-8 lg:mb-24 lg:flex-row lg:items-end">
           <div><p className="mb-5 text-[10px] font-semibold tracking-[0.35em] text-white/45 uppercase">{content.eyebrow}</p><h2 className="font-display text-[2.65rem] leading-[.95] font-bold tracking-[-0.06em] text-white sm:text-6xl lg:text-8xl">{content.headlineLine1}<br /><span className="text-white/35">{content.headlineLine2}</span></h2></div>

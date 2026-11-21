@@ -30,10 +30,9 @@ export default function Navbar() {
   const globalContent = useSiteContent('global', 'main', { navHome: 'Home', navAbout: 'About', navServices: 'Services', navPortfolio: 'Portfolio', navContact: 'Contact', navCta: 'Start a Project' })
   const links = [
     { label: globalContent.navHome, href: '/' },
-    { label: globalContent.navAbout, href: '/about' },
     { label: globalContent.navServices, href: '/services' },
     { label: globalContent.navPortfolio, href: '/portfolio' },
-    { label: globalContent.navContact, href: '/contact' },
+    { label: globalContent.navAbout, href: '/about' },
   ]
 
   useEffect(() => {

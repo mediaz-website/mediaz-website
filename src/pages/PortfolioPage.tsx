@@ -171,7 +171,7 @@ export default function PortfolioPage() {
         image={images.fashion}
       />
 
-      <main className="bg-[#171512]">
+      <main className="bg-[#0b0b0d]">
         <section className="mx-auto max-w-[1440px] px-6 py-24 lg:px-12 lg:py-36">
           <SectionHeading
             eyebrow={pageContent.sectionEyebrow}
@@ -186,7 +186,7 @@ export default function PortfolioPage() {
           />
 
           <div className="mb-10 mt-12 grid gap-5 md:grid-cols-2">
-            <div id="ai-production-portfolio" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#211e19] p-6 sm:p-8">
+            <div id="ai-production-portfolio" className="scroll-mt-28 border border-[#c5a46d]/35 bg-[#141416] p-6 sm:p-8">
               <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-[#d5b77e]">01 / Worldwide</p>
               <h2 className="mt-3 font-display text-3xl font-extrabold text-white">AI Production</h2>
               <p className="mt-3 text-sm leading-relaxed text-white/60">AI-created videos, images, voiceovers and digital media, supported by smart workflows and automation for brands worldwide.</p>
@@ -205,11 +205,11 @@ export default function PortfolioPage() {
           )}
 
           <div className="grid items-start gap-12 lg:grid-cols-2">
-            <section className="border border-[#c5a46d]/25 bg-[#211e19]/50 p-4 sm:p-6">
+            <section className="border border-[#c5a46d]/25 bg-[#141416]/50 p-4 sm:p-6">
               <h3 className="mb-4 font-display text-2xl font-bold text-white">AI Production Work</h3>
               <div className="mb-6 flex flex-wrap gap-2 border-b border-white/10 pb-5">
                 {aiCategories.map((category) => (
-                  <button key={category} type="button" onClick={() => { setActiveAiCategory(category); setSelectedIndex(null) }} className={`rounded-full border px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.1em] transition-colors ${activeAiCategory === category ? 'border-[#c5a46d] bg-[#c5a46d] text-[#171512]' : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'}`}>{category}</button>
+                  <button key={category} type="button" onClick={() => { setActiveAiCategory(category); setSelectedIndex(null) }} className={`rounded-full border px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.1em] transition-colors ${activeAiCategory === category ? 'border-[#c5a46d] bg-[#c5a46d] text-[#0b0b0d]' : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'}`}>{category}</button>
                 ))}
               </div>
               <motion.div layout className="grid gap-10 sm:grid-cols-2">
@@ -230,7 +230,7 @@ export default function PortfolioPage() {
                   aria-label={`View ${project.title}`}
                   className="block w-full text-left"
                 >
-                  <div className="relative aspect-[1.15] overflow-hidden bg-[#211e19]">
+                  <div className="relative aspect-[1.15] overflow-hidden bg-[#141416]">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -274,7 +274,7 @@ export default function PortfolioPage() {
               <h3 className="mb-4 font-display text-2xl font-bold text-white">On-ground Production Work</h3>
               <div className="mb-6 flex flex-wrap gap-2 border-b border-white/10 pb-5">
                 {groundCategories.map((category) => (
-                  <button key={category} type="button" onClick={() => { setActiveGroundCategory(category); setSelectedIndex(null) }} className={`rounded-full border px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.1em] transition-colors ${activeGroundCategory === category ? 'border-[#c5a46d] bg-[#c5a46d] text-[#171512]' : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'}`}>{category}</button>
+                  <button key={category} type="button" onClick={() => { setActiveGroundCategory(category); setSelectedIndex(null) }} className={`rounded-full border px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.1em] transition-colors ${activeGroundCategory === category ? 'border-[#c5a46d] bg-[#c5a46d] text-[#0b0b0d]' : 'border-white/20 text-white/55 hover:border-[#c5a46d] hover:text-white'}`}>{category}</button>
                 ))}
               </div>
               <motion.div layout className="grid gap-10 sm:grid-cols-2">
@@ -288,7 +288,7 @@ export default function PortfolioPage() {
                         navigate('/portfolio/' + project.slug)
                       }
                     }} aria-label={'View ' + project.title} className="block w-full text-left">
-                      <div className="relative aspect-[1.15] overflow-hidden bg-[#211e19]">
+                      <div className="relative aspect-[1.15] overflow-hidden bg-[#141416]">
                         <img src={project.image} alt={project.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-500 group-hover:bg-black/25"><div className="flex size-16 items-center justify-center rounded-full border border-white/70 bg-black/30 text-white opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:opacity-100"><ArrowUpRight size={23} /></div></div>
                         <span className="absolute left-5 top-5 border border-white/30 bg-black/40 px-3 py-1.5 text-[9px] font-semibold tracking-[0.18em] text-white uppercase backdrop-blur-sm">{project.isDemo ? 'Demo Visual' : 'Published Project'}</span>
@@ -329,7 +329,7 @@ export default function PortfolioPage() {
 
             <Link
               to="/contact"
-              className="mt-9 inline-flex items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition-colors hover:bg-[#e0bd7e]"
+              className="mt-9 inline-flex items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#0b0b0d] uppercase transition-colors hover:bg-[#e0bd7e]"
             >
               {pageContent.closingCta}
               <ArrowUpRight size={16} />

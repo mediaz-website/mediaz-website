@@ -109,7 +109,7 @@ export default function ProjectDetailsPage() {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#171512] text-sm tracking-widest text-white/50 uppercase">
+      <main className="flex min-h-screen items-center justify-center bg-[#0b0b0d] text-sm tracking-widest text-white/50 uppercase">
         Loading project...
       </main>
     )
@@ -117,12 +117,12 @@ export default function ProjectDetailsPage() {
 
   if (error || !project) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[#171512] px-6 text-center text-white">
+      <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[#0b0b0d] px-6 text-center text-white">
         <h1 className="font-display text-4xl">Project unavailable</h1>
         <p className="max-w-md text-sm text-white/50">{error}</p>
         <Link
           to="/portfolio"
-          className="inline-flex items-center gap-2 bg-[#c5a46d] px-6 py-4 text-xs font-bold tracking-widest text-[#171512] uppercase"
+          className="inline-flex items-center gap-2 bg-[#c5a46d] px-6 py-4 text-xs font-bold tracking-widest text-[#0b0b0d] uppercase"
         >
           <ArrowLeft size={16} /> Back to Portfolio
         </Link>
@@ -137,7 +137,7 @@ export default function ProjectDetailsPage() {
         description={project.short_description || project.project_description || 'Explore this Mediazz Hub production project.'}
       />
 
-      <main className="min-h-screen bg-[#171512] text-white">
+      <main className="min-h-screen bg-[#0b0b0d] text-white">
         <section className="relative flex min-h-[65vh] items-end overflow-hidden bg-[#0b0b0b] lg:min-h-[78vh]">
           {project.cover_image_url && (
             <img
@@ -146,7 +146,7 @@ export default function ProjectDetailsPage() {
               className="absolute inset-0 h-full w-full object-cover opacity-55"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#171512] via-black/35 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-black/35 to-black/20" />
 
           <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 lg:px-12 lg:pb-24">
             <Link
@@ -238,7 +238,7 @@ export default function ProjectDetailsPage() {
                     <button
                       type="button"
                       onClick={() => setSelectedImage(index)}
-                      className="group relative block aspect-[4/3] w-full overflow-hidden bg-[#211e19]"
+                      className="group relative block aspect-[4/3] w-full overflow-hidden bg-[#141416]"
                     >
                       <img
                         src={url}
@@ -285,7 +285,7 @@ export default function ProjectDetailsPage() {
           </h2>
           <Link
             to="/contact"
-            className="mt-9 inline-flex items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#171512] uppercase transition hover:bg-[#e0bd7e]"
+            className="mt-9 inline-flex items-center gap-3 bg-[#c5a46d] px-7 py-5 text-[10px] font-bold tracking-[0.2em] text-[#0b0b0d] uppercase transition hover:bg-[#e0bd7e]"
           >
             Start a conversation <ArrowUpRight size={16} />
           </Link>

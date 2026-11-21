@@ -19,9 +19,9 @@ interface ServicesSectionContent extends Record<string, string> {
 
 const defaultSectionContent: ServicesSectionContent = {
   eyebrow: 'What we create',
-  headlineLine1: 'The art of',
-  headlineLine2: 'visual storytelling.',
-  description: 'AI-powered media, production automation, digital solutions and professional on-ground shoots — connected under one creative partner.',
+  headlineLine1: 'End-to-end',
+  headlineLine2: 'creative production.',
+  description: 'From concept planning and creative strategy to commercial shoots, product photography, reels, editing and final delivery — supported by AI and digital capabilities when they add value.',
   topLinkText: 'Explore all capabilities',
   bottomLinkText: 'Discover all services',
 }
@@ -56,7 +56,7 @@ export default function Services() {
   const sectionContent = useHomepageSection('services_section', defaultSectionContent)
 
   return (
-    <section id="services" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-36">
+    <section id="services" data-section="what-we-create" aria-label="What We Create" className="relative overflow-hidden bg-[#0b0b0d] py-16 sm:py-24 lg:py-36">
       <div className="pointer-events-none absolute -left-48 top-1/4 size-[34rem] rounded-full bg-[#c5a46d]/[0.045] blur-[110px]" />
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-12">
         <Reveal className="mb-9 flex flex-col justify-between gap-5 sm:mb-14 sm:gap-8 lg:mb-20 lg:flex-row lg:items-end">
@@ -79,16 +79,16 @@ export default function Services() {
           <span className="border border-[#c5a46d]/30 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#e0bd7e]">Service previews</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4 lg:grid-cols-12 lg:gap-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-6">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
-              <Reveal key={service.slug} delay={(index % 4) * 0.05} className={`h-full ${index % 7 === 0 ? "lg:col-span-5" : index % 7 === 1 ? "lg:col-span-7" : "lg:col-span-4"}`}>
-                <Link to={`/services#service-${service.slug}`} className="group relative block h-full min-h-[230px] overflow-hidden rounded-[2px] sm:min-h-[300px] bg-[#211e19] transition-transform duration-700 hover:-translate-y-2 sm:min-h-[350px] lg:min-h-[390px]">
+              <Reveal key={service.slug} delay={(index % 4) * 0.05} className="h-full">
+                <Link to={`/services#service-${service.slug}`} className="group relative block h-full min-h-[280px] overflow-hidden rounded-[2px] bg-[#211e19] transition-transform duration-700 hover:-translate-y-2 sm:min-h-[340px] lg:min-h-[380px]">
                   <img src={service.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/5" />
                   <div className="absolute inset-0 border border-white/10 transition duration-500 group-hover:border-[#c5a46d]/70" />
-                  <div className="relative flex min-h-[230px] flex-col justify-between p-3 sm:min-h-[350px] sm:p-6">
+                  <div className="relative flex min-h-[280px] flex-col justify-between p-4 sm:min-h-[340px] sm:p-6 lg:min-h-[380px]">
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-mono text-[10px] tracking-[0.3em] text-white/70">{String(index + 1).padStart(2, '0')}</span>
                       <span className="flex size-8 items-center justify-center border border-white/30 sm:size-10 bg-black/20 text-[#e0bd7e] backdrop-blur-sm"><Icon size={18} strokeWidth={1.5} /></span>
