@@ -64,27 +64,34 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-7 md:flex lg:gap-9">
           {links.map((link) => (
-            <NavLink
-              key={link.href}
-              to={link.href}
-              end={link.href === '/'}
-              className={({ isActive }) =>
-                `relative py-2 text-[13px] font-semibold tracking-wide transition-colors duration-300 ${
-                  isActive ? 'text-[#e0bd7e]' : 'text-white/70 hover:text-white'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  {link.label}
-                  <span
-                    className={`absolute -bottom-1 left-0 h-[2px] bg-[#c5a46d] transition-all duration-300 ${
-                      isActive ? 'w-full' : 'w-0'
-                    }`}
-                  />
-                </>
+            <div key={link.href} className={link.href === '/services' ? 'group relative' : 'relative'}>
+              <NavLink
+                to={link.href}
+                end={link.href === '/'}
+                className={({ isActive }) =>
+                  `relative py-2 text-[13px] font-semibold tracking-wide transition-colors duration-300 ${
+                    isActive ? 'text-[#e0bd7e]' : 'text-white/70 hover:text-white'
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {link.label}
+                    <span
+                      className={`absolute -bottom-1 left-0 h-[2px] bg-[#c5a46d] transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0'
+                      }`}
+                    />
+                  </>
+                )}
+              </NavLink>
+              {link.href === '/services' && (
+                <div className="invisible absolute left-0 top-full z-50 mt-3 min-w-60 translate-y-2 border border-white/10 bg-[#171512] p-2 opacity-0 shadow-2xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <Link to="/services" className="block px-4 py-3 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-[#e0bd7e]">All Services</Link>
+                  <Link to="/services/ai-video-production" className="block px-4 py-3 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-[#e0bd7e]">AI Video Production</Link>
+                </div>
               )}
-            </NavLink>
+            </div>
           ))}
 
           <Link
@@ -150,6 +157,16 @@ export default function Navbar() {
                         {link.label}
                         <ArrowUpRight size={19} className="text-[#c5a46d]" />
                       </NavLink>
+                      {link.href === '/services' && (
+                        <Link
+                          to="/services/ai-video-production"
+                          onClick={() => setOpen(false)}
+                          className="flex items-center justify-between border-t border-white/10 py-4 pl-4 text-base font-medium text-white/60 transition-colors hover:text-[#e0bd7e]"
+                        >
+                          AI Video Production
+                          <ArrowUpRight size={16} className="text-[#c5a46d]" />
+                        </Link>
+                      )}
                     </motion.div>
                   ))}
                 </div>
