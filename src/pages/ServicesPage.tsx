@@ -28,7 +28,7 @@ const groundServices = [
   { slug: 'short-films-documentaries', title: 'Short Films & Documentaries', text: 'Documentaries, short films, institutional films and visual storytelling.', icon: Clapperboard, tag: 'Film & storytelling' },
 ]
 
-function CapabilityCard({ item, index, tone }: { item: typeof aiServices[number] | typeof groundServices[number]; index: number; tone: 'ai' | 'ground' }) {
+function CapabilityCard({ item, index, }: { item: typeof aiServices[number] | typeof groundServices[number]; index: number }) {
   const Icon = item.icon
   return (
     <Reveal delay={(index % 4) * 0.05} className="h-full">
