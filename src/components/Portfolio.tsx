@@ -8,6 +8,7 @@ const projects = [
   { title: 'Form / Function', type: 'Product · Still Life', image: images.clothing, className: 'lg:col-span-5 lg:mt-24' },
   { title: 'After Hours', type: 'Fashion · Campaign', image: images.neonFashion, className: 'lg:col-span-5' },
   { title: 'On the Table', type: 'Food · Lifestyle', image: images.food, className: 'lg:col-span-7 lg:mt-24' },
+  { title: 'Anaya · AI Influencer Showcase', type: 'AI Media · Video Production', image: images.creative, className: 'lg:col-span-7' },
 ]
 
 const sectionDefaults = { eyebrow: 'Selected work', headlineLine1: 'Made to be', headlineLine2: 'remembered.', ctaText: 'Start a conversation' }
