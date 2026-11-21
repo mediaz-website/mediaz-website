@@ -16,7 +16,7 @@ import {
   WandSparkles,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { serviceDetails } from '../lib/services'
 import { PageHero, PageMeta, SectionHeading } from '../components/PageFrame'
@@ -70,6 +70,7 @@ function getFallbackImage(title: string, index: number): string {
 }
 
 export default function ServicesPage() {
+  const location = useLocation()
   const pageContent = useSiteContent('services', 'main', {
     heroEyebrow: 'What we create', heroLine1: 'One creative house.', heroLine2: 'Endless possibilities.',
     heroDescription: 'From AI-powered media and smart automation to professional on-ground shoots, digital solutions and final delivery — we bring every part of your brand communication together.',
@@ -119,9 +120,9 @@ export default function ServicesPage() {
   }, [])
 
   useEffect(() => {
-    if (loading || !window.location.hash) return
+    if (loading || !location.hash) return
 
-    const targetId = decodeURIComponent(window.location.hash.substring(1))
+    const targetId = decodeURIComponent(location.hash.substring(1))
 
     const timer = window.setTimeout(() => {
       document.getElementById(targetId)?.scrollIntoView({
@@ -131,7 +132,7 @@ export default function ServicesPage() {
     }, 400)
 
     return () => window.clearTimeout(timer)
-  }, [loading, services])
+  }, [loading, services, location.hash])
 
   const displayedServices = [
     ...services.filter((service) => service.slug !== 'ai-video-production' && service.slug !== 'ai-media-production'),
@@ -167,7 +168,7 @@ export default function ServicesPage() {
       />
 
       <main className="bg-ink-950">
-        <section className="mx-auto max-w-[1440px] px-6 py-24 lg:px-12 lg:py-36">
+        <section id="services-grid" className="mx-auto scroll-mt-28 max-w-[1440px] px-6 py-24 lg:px-12 lg:py-36">
           <SectionHeading
             eyebrow={pageContent.sectionEyebrow}
             title={
