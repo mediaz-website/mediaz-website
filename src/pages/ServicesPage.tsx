@@ -133,6 +133,22 @@ export default function ServicesPage() {
     return () => window.clearTimeout(timer)
   }, [loading, services])
 
+  const displayedServices = services.some((service) => service.slug === 'ai-video-production')
+    ? services
+    : [
+        ...services,
+        {
+          id: 'ai-video-production-static',
+          title: 'AI Video Production',
+          slug: 'ai-video-production',
+          short_description: 'AI-powered videos for brands, products and campaigns.',
+          description: 'AI promotional videos, product videos, AI ads, avatar videos and social media reels.',
+          image_url: null,
+          icon: 'sparkles',
+          sort_order: 999,
+        },
+      ]
+
   return (
     <>
       <PageMeta
@@ -185,7 +201,7 @@ export default function ServicesPage() {
             </p>
           ) : (
             <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {services.map((service, index) => {
+              {displayedServices.map((service, index) => {
                 const Icon = getServiceIcon(service.icon)
                 const image =
                   service.image_url || getFallbackImage(service.title, index)
@@ -239,7 +255,7 @@ export default function ServicesPage() {
                         )}
 
                         <Link
-                          to="/contact"
+                          to={service.slug === 'ai-video-production' ? '/services/ai-video-production' : '/contact'}
                           className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 mt-7 text-[10px] font-semibold tracking-[0.2em] text-white uppercase transition-colors hover:text-[#e0bd7e]"
                         >
                           {pageContent.cardCta}
