@@ -79,7 +79,7 @@ export default function Services() {
           <span className="border border-[#c5a46d]/30 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#e0bd7e]">Service previews</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-12 lg:gap-5">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4 lg:grid-cols-12 lg:gap-5">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
@@ -88,16 +88,16 @@ export default function Services() {
                   <img src={service.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-1000 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/5" />
                   <div className="absolute inset-0 border border-white/10 transition duration-500 group-hover:border-[#c5a46d]/70" />
-                  <div className="relative flex min-h-[230px] flex-col justify-between p-5 sm:min-h-[320px] sm:p-6 sm:min-h-[350px]">
+                  <div className="relative flex min-h-[230px] flex-col justify-between p-3 sm:min-h-[350px] sm:p-6">
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-mono text-[10px] tracking-[0.3em] text-white/70">{String(index + 1).padStart(2, '0')}</span>
-                      <span className="flex size-10 items-center justify-center border border-white/30 bg-black/20 text-[#e0bd7e] backdrop-blur-sm"><Icon size={18} strokeWidth={1.5} /></span>
+                      <span className="flex size-8 items-center justify-center border border-white/30 sm:size-10 bg-black/20 text-[#e0bd7e] backdrop-blur-sm"><Icon size={18} strokeWidth={1.5} /></span>
                     </div>
                     <div>
-                      <span className="mb-3 inline-flex border border-white/25 bg-black/25 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-[#e0bd7e]">{service.mode}</span>
-                      <h3 className="font-display text-lg font-semibold tracking-[-0.03em] text-white sm:text-2xl">{service.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/70">{service.description}</p>
-                      <div className="mt-3 flex items-center justify-between border-t border-white/25 pt-3 sm:mt-5 sm:pt-4">
+                      <span className="mb-2 inline-flex border border-white/25 bg-black/25 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-[#e0bd7e]">{service.mode}</span>
+                      <h3 className="font-display text-sm font-semibold leading-tight tracking-[-0.03em] text-white sm:text-2xl">{service.title}</h3>
+                      <p className="mt-1.5 line-clamp-2 text-[10px] leading-snug text-white/70 sm:mt-2 sm:text-xs sm:leading-relaxed">{service.description}</p>
+                      <div className="mt-2 flex items-center justify-between border-t border-white/25 pt-2 sm:mt-5 sm:pt-4">
                         <span className="text-[9px] font-semibold tracking-[0.25em] text-white/70 uppercase">Explore service</span>
                         <ArrowUpRight size={17} className="text-[#e0bd7e] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </div>
