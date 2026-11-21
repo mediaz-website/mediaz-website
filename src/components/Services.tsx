@@ -1,6 +1,6 @@
 import {
   ArrowUpRight, Bot, Camera, Clapperboard, Code2, Film, Image,
-  Lightbulb, Megaphone, Mic2, Search, Share2, Sparkles, Video, Workflow,
+  Lightbulb, Megaphone, Mic2, Search, Share2, Video, Workflow,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
