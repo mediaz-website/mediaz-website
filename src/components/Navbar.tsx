@@ -159,11 +159,11 @@ export default function Navbar() {
                       </NavLink>
                       {link.href === '/services' && (
                         <Link
-                          to="/services/ai-video-production"
+                          to="/services/ai-media-production"
                           onClick={() => setOpen(false)}
                           className="flex items-center justify-between border-t border-white/10 py-4 pl-4 text-base font-medium text-white/60 transition-colors hover:text-[#e0bd7e]"
                         >
-                          AI Video Production
+                          AI Media & Technology
                           <ArrowUpRight size={16} className="text-[#c5a46d]" />
                         </Link>
                       )}
