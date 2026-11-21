@@ -17,12 +17,9 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Services from './components/Services'
-import Showreel from './components/Showreel'
 import Portfolio from './components/Portfolio'
-import Process from './components/Process'
+import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
-import AboutTeaser from './components/AboutTeaser'
-import CreativeScroll from './components/CreativeScroll'
 
 // Public website pages
 import AboutPage from './pages/AboutPage'
@@ -50,11 +47,9 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Showreel />
       <Services />
       <Portfolio />
-      <Process />
-      <AboutTeaser />
+      <Testimonials />
       <Contact />
     </>
   )
@@ -82,7 +77,6 @@ function PublicWebsite() {
 
   return (
     <div className="min-h-screen">
-      <CreativeScroll />
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
