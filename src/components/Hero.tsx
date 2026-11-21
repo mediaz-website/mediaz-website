@@ -99,13 +99,15 @@ export default function Hero() {
       </motion.div>
 
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,8,.97)_0%,rgba(7,7,8,.82)_42%,rgba(7,7,8,.12)_100%)]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-transparent to-black/30" />\n      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-[18%] hidden size-[34rem] rounded-full border border-[#e5c995]/20 lg:block"><div className="absolute inset-8 rounded-full border border-dashed border-[#e5c995]/20" /><div className="absolute left-[12%] top-[18%] size-2 rounded-full bg-[#e5c995] shadow-[0_0_28px_8px_rgba(197,164,109,.35)]" /></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-transparent to-black/30" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-[18%] hidden size-[34rem] rounded-full border border-[#e5c995]/20 lg:block"><div className="absolute inset-8 rounded-full border border-dashed border-[#e5c995]/20" /><div className="absolute left-[12%] top-[18%] size-2 rounded-full bg-[#e5c995] shadow-[0_0_28px_8px_rgba(197,164,109,.35)]" /></div>
 
       <motion.div
         style={{ y: textY }}
         className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 pt-36 lg:px-16"
       >
-        <div className="max-w-[760px]">\n          <div className="mb-8 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/35 sm:flex"><span className="h-px w-12 bg-[#c5a46d]" />Independent creative production house <span className="ml-auto text-[#e5c995]">01 / 04</span></div>
+        <div className="max-w-[760px]">
+          <div className="mb-8 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/35 sm:flex"><span className="h-px w-12 bg-[#c5a46d]" />Independent creative production house <span className="ml-auto text-[#e5c995]">01 / 04</span></div>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
