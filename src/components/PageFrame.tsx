@@ -25,18 +25,18 @@ export function PageHero({ eyebrow, title, description, image = images.hero }: {
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.14])
   const copyY = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
   return (
-    <section ref={ref} className="relative flex min-h-[78vh] items-end overflow-hidden border-b border-white/10 bg-[#0b0b0d] pt-36 sm:min-h-[84vh] lg:min-h-[92vh]">
+    <section ref={ref} className="relative flex min-h-[68svh] items-end overflow-hidden border-b border-white/10 bg-[#0b0b0d] pt-28 sm:min-h-[84vh] sm:pt-36 lg:min-h-[92vh]">
       <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0 h-[115%]">
         <img src={image} alt="" className="h-full w-full object-cover opacity-55" />
       </motion.div>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,#0b0b0d_0%,rgba(11,11,13,.9)_34%,rgba(11,11,13,.18)_100%)]" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-transparent to-black/35" />
       <div className="pointer-events-none absolute right-[8%] top-[24%] hidden size-72 rounded-full border border-[#c5a46d]/20 lg:block"><div className="absolute inset-5 rounded-full border border-dashed border-[#c5a46d]/20" /><div className="absolute -right-2 top-1/2 size-3 rounded-full bg-[#e5c995] shadow-[0_0_30px_8px_rgba(197,164,109,.3)]" /></div>
-      <motion.div style={{ y: copyY }} className="relative z-10 mx-auto grid w-full max-w-[1440px] gap-10 px-6 pb-10 sm:pb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:pb-16">
+      <motion.div style={{ y: copyY }} className="relative z-10 mx-auto grid w-full max-w-[1440px] gap-6 px-5 pb-7 sm:gap-10 sm:px-6 sm:pb-14 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:pb-16">
         <Reveal>
-          <p className="mb-6 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#e5c995]"><span className="h-px w-10 bg-[#c5a46d]" />{eyebrow}</p>
-          <h1 className="max-w-5xl font-display text-[clamp(3.3rem,8.8vw,8.8rem)] font-bold leading-[.88] tracking-[-.075em] text-white">{title}</h1>
-          <p className="mt-8 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">{description}</p>
+          <p className="mb-4 flex items-center gap-2 text-[9px] sm:mb-6 sm:gap-3 sm:text-[10px] font-bold uppercase tracking-[0.35em] text-[#e5c995]"><span className="h-px w-10 bg-[#c5a46d]" />{eyebrow}</p>
+          <h1 className="max-w-5xl font-display text-[clamp(2.7rem,11vw,8.8rem)] sm:text-[clamp(3.3rem,8.8vw,8.8rem)] font-bold leading-[.88] tracking-[-.075em] text-white">{title}</h1>
+          <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-white/70 sm:mt-8 sm:text-base">{description}</p>
         </Reveal>
         <Reveal delay={0.16} className="hidden min-w-48 border-l border-[#c5a46d]/50 pl-5 pb-1 lg:block">
           <span className="block text-[9px] font-bold uppercase tracking-[0.25em] text-[#e5c995]">Mediazz Hub</span>
