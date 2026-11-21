@@ -129,7 +129,7 @@ export default function ContactPage() {
               {pageContent.heroEyebrow}
             </p>
 
-            <h1 className="font-serif text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
+            <h1 className="font-display text-5xl leading-[1.05] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
               {pageContent.heroLine1}
               <br />
               <span className="italic text-[#e0bd7e]">{pageContent.heroLine2}</span>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                   Enquiry received
                 </p>
 
-                <h2 className="mt-4 font-serif text-5xl text-white sm:text-6xl">
+                <h2 className="mt-4 font-display text-5xl text-white sm:text-6xl">
                   Thank you<span className="text-[#e0bd7e]">.</span>
                 </h2>
 
@@ -175,7 +175,7 @@ export default function ContactPage() {
                   Now let's connect
                 </p>
 
-                <h3 className="mt-4 font-serif text-3xl text-white">
+                <h3 className="mt-4 font-display text-3xl text-white">
                   Get in touch with us.
                 </h3>
 
@@ -254,7 +254,7 @@ export default function ContactPage() {
                     {pageContent.sideEyebrow}
                   </p>
 
-                  <h2 className="mt-5 font-serif text-3xl leading-tight text-white sm:text-4xl">
+                  <h2 className="mt-5 font-display text-3xl leading-tight text-white sm:text-4xl">
                     {pageContent.sideHeading}
                   </h2>
 
@@ -309,7 +309,7 @@ export default function ContactPage() {
                       <p className="text-xs font-bold tracking-[0.3em] text-[#c5a46d] uppercase">
                         {pageContent.formEyebrow}
                       </p>
-                      <h2 className="mt-3 font-serif text-3xl font-semibold text-white sm:text-4xl">
+                      <h2 className="mt-3 font-display text-3xl font-semibold text-white sm:text-4xl">
                         {pageContent.formHeading}
                       </h2>
                     </div>
