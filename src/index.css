@@ -39,3 +39,9 @@ a,button { transition-duration: 250ms; }
  html { scroll-behavior: auto; }
  *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .mediazz-grain { opacity: .018; }
+  .mediazz-image-frame::after { border-color: rgba(229,201,149,.16); }
+  button, a { -webkit-tap-highlight-color: transparent; }
+}
