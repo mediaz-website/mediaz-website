@@ -78,7 +78,7 @@ export default function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative flex min-h-[92svh] items-center overflow-hidden bg-[#0b0b0d] sm:min-h-screen"
+      className="relative flex min-h-[78svh] items-center overflow-hidden bg-[#0b0b0d] sm:min-h-screen"
     >
       <motion.div style={{ y: imageY }} className="absolute inset-0 h-[112%]">
         {content.backgroundVideoUrl ? (
@@ -104,20 +104,20 @@ export default function Hero() {
 
       <motion.div
         style={{ y: textY }}
-        className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 pt-36 lg:px-16"
+        className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-8 pt-28 sm:px-6 sm:pb-16 sm:pt-36 lg:px-16"
       >
         <div className="max-w-[760px]">
           <div className="mb-8 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/35 sm:flex"><span className="h-px w-12 bg-[#c5a46d]" />Independent creative production house <span className="ml-auto text-[#e5c995]">01 / 04</span></div>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-8 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#e4c68d]"
+            className="mb-5 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.22em] text-[#e4c68d] sm:mb-8 sm:gap-3 sm:text-[10px] sm:tracking-[0.35em]"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#d5b477]" />
             {content.eyebrow}
           </motion.p>
 
-          <h1 className="font-display text-[clamp(3.5rem,8.2vw,8.6rem)] leading-[0.88] font-bold tracking-[-0.075em] text-white drop-shadow-lg">
+          <h1 className="font-display text-[clamp(2.8rem,12vw,8.6rem)] sm:text-[clamp(3.5rem,8.2vw,8.6rem)] leading-[0.88] font-bold tracking-[-0.075em] text-white drop-shadow-lg">
             <motion.span
               initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2 }}
@@ -137,7 +137,7 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-8 max-w-md text-sm leading-8 text-white drop-shadow-md sm:text-base"
+            className="mt-5 max-w-md text-[13px] leading-6 text-white drop-shadow-md sm:mt-8 sm:text-base sm:leading-8"
           >
             {content.description}
           </motion.p>
@@ -145,11 +145,11 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-10 flex flex-wrap items-center gap-5"
+            className="mt-7 flex flex-wrap items-center gap-4 sm:mt-10 sm:gap-5"
           >
             <a
               href={content.primaryCtaUrl}
-              className="group flex items-center gap-4 bg-[#c5a46d] px-7 py-4 text-xs font-bold uppercase tracking-wider text-[#171512] transition-all duration-300 hover:bg-[#e6cb99] hover:shadow-lg"
+              className="group flex min-h-12 items-center gap-3 bg-[#c5a46d] px-5 py-3.5 text-[11px] sm:gap-4 sm:px-7 sm:py-4 sm:text-xs font-bold uppercase tracking-wider text-[#171512] transition-all duration-300 hover:bg-[#e6cb99] hover:shadow-lg"
             >
               {content.primaryCtaText}
               <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -165,7 +165,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-16 flex items-center justify-between border-t border-white/25 pt-5 text-[9px] font-semibold uppercase tracking-[0.25em] text-white/70 sm:mt-20">
+        <div className="mt-10 flex items-center justify-between gap-3 border-t border-white/25 pt-4 text-[8px] sm:mt-16 sm:pt-5 sm:text-[9px] font-semibold uppercase tracking-[0.25em] text-white/70 sm:mt-20">
           <span>{content.bottomLeft}</span>
           <span className="hidden sm:block">{content.bottomCenter}</span>
           <span className="flex items-center gap-2">
