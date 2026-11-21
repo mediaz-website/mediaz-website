@@ -81,7 +81,7 @@ export default function Hero() {
       <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-[18%] hidden size-[34rem] rounded-full border border-[#e5c995]/20 lg:block"><div className="absolute inset-8 rounded-full border border-dashed border-[#e5c995]/20" /><div className="absolute left-[12%] top-[18%] size-2 rounded-full bg-[#e5c995] shadow-[0_0_28px_8px_rgba(197,164,109,.35)]" /></div>
       <motion.div style={{ y: textY }} className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-8 pt-28 sm:px-6 sm:pb-16 sm:pt-36 lg:px-16">
         <div className="max-w-[760px]">
-          <div className="mb-8 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/45 sm:flex"><span className="h-px w-12 bg-[#c5a46d]" />Concept · Shoot · Final Editing <span className="ml-auto text-[#e5c995]">01 / 07</span></div>
+          <div className="mb-8 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/45 sm:flex"><span className="h-px w-12 bg-[#c5a46d]" />Concept · Shoot · Final Editing</div>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="mb-5 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.22em] text-[#e4c68d] sm:mb-8 sm:gap-3 sm:text-[10px] sm:tracking-[0.35em]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#d5b477]" />{content.eyebrow}
           </motion.p>
