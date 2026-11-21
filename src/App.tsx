@@ -16,13 +16,12 @@ import { supabase } from './lib/supabase'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
-import ServicesSlideshow from './components/ServicesSlideshow'
 import Services from './components/Services'
 import Showreel from './components/Showreel'
 import Portfolio from './components/Portfolio'
-import Testimonials from './components/Testimonials'
 import Process from './components/Process'
 import Contact from './components/Contact'
+import AboutTeaser from './components/AboutTeaser'
 import CreativeScroll from './components/CreativeScroll'
 
 // Public website pages
@@ -51,12 +50,11 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <ServicesSlideshow />
-      <Services />
       <Showreel />
+      <Services />
       <Portfolio />
-      <Testimonials />
       <Process />
+      <AboutTeaser />
       <Contact />
     </>
   )
