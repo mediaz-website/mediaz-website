@@ -30,6 +30,8 @@ import AIVideoProductionPage from './pages/AIVideoProductionPage'
 import PortfolioPage from './pages/PortfolioPage'
 import ProjectDetailsPage from './pages/ProjectDetailsPage'
 import ContactPage from './pages/ContactPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsOfServicePage from './pages/TermsOfServicePage'
 
 // Admin pages
 import AdminLoginPage from './pages/AdminLoginPage'
@@ -92,6 +94,8 @@ function PublicWebsite() {
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:slug" element={<ProjectDetailsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>

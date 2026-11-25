@@ -64,6 +64,8 @@ export default function Footer() {
                 { label: content.navServices, href: '/services' },
                 { label: content.navPortfolio, href: '/portfolio' },
                 { label: content.navContact, href: '/contact' },
+                { label: 'Privacy Policy', href: '/privacy-policy' },
+                { label: 'Terms of Service', href: '/terms-of-service' },
               ].map((item) => (
                 <Link
                   key={item.href}
