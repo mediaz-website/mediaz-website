@@ -22,8 +22,8 @@ type HeroContent = {
 
 const defaults: HeroContent = {
   eyebrow: 'Independent Creative Production House',
-  headlineLine1: 'We Create.',
-  headlineLine2: 'You Grow.',
+  headlineLine1: 'Creative Media',
+  headlineLine2: 'Production',
   description: 'Concept, professional shoots and final edits — everything your brand needs to tell its story.',
   primaryCtaText: 'Start a Project',
   primaryCtaUrl: '/contact',
