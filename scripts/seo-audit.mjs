@@ -20,7 +20,7 @@ async function fetchText(url, options = {}) {
 }
 
 function metaContent(html, name) {
-  const tag = html.match(new RegExp('<meta\\b(?=[^>]*(?:name|property)=["\\']' + name + '["\\'])[^>]*>', 'i'))?.[0]
+    const tag = html.match(new RegExp(`<meta\\\\b(?=[^>]*(?:name|property)=[\"']${name}[\"'])[^>]*>`, 'i'))?.[0]
   return tag?.match(/content=["']([^"']*)["']/i)?.[1]?.trim() || ''
 }
 
