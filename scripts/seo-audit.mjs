@@ -201,11 +201,12 @@ try {
     console.log('Google Search Console connected. Rows received:', gsc.rows.length)
     console.log('Submitted sitemaps:', gsc.sitemaps.length)
     gsc.urlInspections = []
+    const inspectionToken = await getAccessTokenForInspection()
     for (const page of pageResults.slice(0, 20)) {
       try {
         const inspection = await fetchText('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
           method: 'POST',
-          headers: { authorization: 'Bearer ' + (await getAccessTokenForInspection()).access_token, 'content-type': 'application/json' },
+          headers: { authorization: 'Bearer ' + inspectionToken.access_token, 'content-type': 'application/json' },
           body: JSON.stringify({ inspectionUrl: page.url, siteUrl: gsc.property, languageCode: 'en-US' }),
         })
         const data = JSON.parse(inspection.text)
