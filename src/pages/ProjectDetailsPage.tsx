@@ -135,6 +135,7 @@ export default function ProjectDetailsPage() {
       <PageMeta
         title={project.title}
         description={project.short_description || project.project_description || 'Explore this Mediazz Hub production project.'}
+        image={project.cover_image_url || undefined}
         schema={{
           "@context": "https://schema.org",
           "@type": "CreativeWork",
