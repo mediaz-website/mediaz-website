@@ -5,16 +5,50 @@ import type { ReactNode } from 'react'
 import { images } from '../lib/images'
 import { Reveal } from './Motion'
 
-export function PageMeta({ title, description, schema }: { title: string; description: string; schema?: Record<string, unknown> | Record<string, unknown>[] }) {
+export function PageMeta({ title, description, image, schema }: { title: string; description: string; image?: string; schema?: Record<string, unknown> | Record<string, unknown>[] }) {
   useEffect(() => {
-    document.title = `${title} | Mediazz Hub`
-    const meta = document.querySelector('meta[name="description"]')
-    meta?.setAttribute('content', description)
+    const fullTitle = `${title} | Mediazz Hub`
     const canonicalUrl = `${window.location.origin}${window.location.pathname}`
+    document.title = fullTitle
+
+    const setMeta = (selector: string, attribute: 'name' | 'property', key: string, value: string) => {
+      let element = document.head.querySelector<HTMLMetaElement>(selector)
+      if (!element) {
+        element = document.createElement('meta')
+        element.setAttribute(attribute, key)
+        document.head.appendChild(element)
+      }
+      element.content = value
+    }
+
+    setMeta('meta[name="description"]', 'name', 'description', description)
+    setMeta('meta[property="og:type"]', 'property', 'og:type', 'website')
+    setMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'Mediazz Hub')
+    setMeta('meta[property="og:locale"]', 'property', 'og:locale', 'en_IN')
+    setMeta('meta[property="og:title"]', 'property', 'og:title', fullTitle)
+    setMeta('meta[property="og:description"]', 'property', 'og:description', description)
+    setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl)
+    setMeta('meta[name="twitter:card"]', 'name', 'twitter:card', image ? 'summary_large_image' : 'summary')
+    setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', fullTitle)
+    setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description)
+
+    const imageMeta = document.head.querySelector<HTMLMetaElement>('meta[property="og:image"]')
+    if (image) {
+      setMeta('meta[property="og:image"]', 'property', 'og:image', image)
+      setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', image)
+    } else {
+      imageMeta?.remove()
+      document.head.querySelector('meta[name="twitter:image"]')?.remove()
+    }
+
     let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
-    if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical) }
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
     canonical.href = canonicalUrl
-  }, [description, title])
+  }, [description, image, title])
   return schema ? <script id="page-jsonld" type="application/ld+json">{JSON.stringify(schema)}</script> : null
 }
 
