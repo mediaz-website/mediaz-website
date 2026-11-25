@@ -34,7 +34,7 @@ function inspectHtml(html) {
     title: html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/<[^>]+>/g, '').trim() || '',
     description: metaContent(html, 'description'),
     canonical: html.match(/<link\b(?=[^>]*rel=["']canonical["'])[^>]*href=["']([^"']+)["']/i)?.[1] || '',
-    h1Count: (html.match(/<h1\\b/gi) || []).length,
+    h1Count: (html.match(/<h1\b/gi) || []).length,
     robots: metaContent(html, 'robots'),
     jsonLdCount: (html.match(/application\/ld\+json/gi) || []).length,
   }
@@ -150,7 +150,7 @@ for (const url of urls) {
     if (!response.ok) findings.push({ severity: 'error', item: url, detail: 'HTTP ' + response.status })
     if (!seo.title) findings.push({ severity: 'warning', item: url, detail: 'Missing title tag' })
     if (!seo.description) findings.push({ severity: 'warning', item: url, detail: 'Missing meta description' })
-    const isClientRenderedApp = /<div\\s+id=[\"']root[\"']\\s*>\\s*<\\/div>/i.test(text) && /type=[\"']module[\"'][^>]*src=/i.test(text)
+    const isClientRenderedApp = /<div\s+id=["']root["']\s*>\s*<\/div>/i.test(text) && /type=[\"']module[\"'][^>]*src=/i.test(text)
     if (isClientRenderedApp) {
       if (!seo.canonical) findings.push({ severity: 'info', item: url, detail: 'Canonical is added by the client-side PageMeta component; initial HTML audit cannot verify the rendered value' })
       if (seo.h1Count !== 1) findings.push({ severity: 'info', item: url, detail: 'H1 is rendered by React; initial HTML audit cannot verify the rendered heading count' })
