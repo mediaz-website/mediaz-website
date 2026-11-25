@@ -71,6 +71,17 @@ export default function AboutPage() {
       <PageMeta
         title={content.seoTitle}
         description={content.seoDescription}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "@id": "https://mediazhub.com/about#webpage",
+          "url": "https://mediazhub.com/about",
+          "name": "About Mediazz Hub",
+          "description": content.seoDescription,
+          "about": { "@id": "https://mediazhub.com/#organization" },
+          "publisher": { "@id": "https://mediazhub.com/#organization" },
+          "inLanguage": "en-IN"
+        }}
       />
 
       <main className="overflow-hidden bg-[#0b0b0d] text-white">
