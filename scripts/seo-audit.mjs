@@ -26,12 +26,12 @@ function metaContent(html, name) {
 
 function inspectHtml(html) {
   return {
-    title: html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1]?.replace(/<[^>]+>/g, '').trim() || '',
+    title: html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/<[^>]+>/g, '').trim() || '',
     description: metaContent(html, 'description'),
-    canonical: html.match(/<link\\b(?=[^>]*rel=["']canonical["'])[^>]*href=["']([^"']+)["']/i)?.[1] || '',
+    canonical: html.match(/<link\b(?=[^>]*rel=["']canonical["'])[^>]*href=["']([^"']+)["']/i)?.[1] || '',
     h1Count: (html.match(/<h1\\b/gi) || []).length,
     robots: metaContent(html, 'robots'),
-    jsonLdCount: (html.match(/application\\/ld\\+json/gi) || []).length,
+    jsonLdCount: (html.match(/application\/ld\+json/gi) || []).length,
   }
 }
 
@@ -131,7 +131,7 @@ try {
   findings.push({ severity: 'error', item: 'sitemap.xml', detail: String(error) })
 }
 
-const urls = [...sitemapText.matchAll(/<loc>\\s*([^<]+)\\s*<\\/loc>/gi)]
+const urls = [...sitemapText.matchAll(/<loc>\s*([^<]+)\s*<\/loc>/gi)]
   .map(match => match[1].trim())
   .filter(url => url.startsWith(baseUrl))
 
@@ -218,6 +218,6 @@ const lines = [
   '',
   '> Technical baseline and Google Search Console query data. Search positions are averages, not guaranteed rankings.',
 ]
-await fs.writeFile('seo-audit-report.md', lines.join('\\n'))
+await fs.writeFile('seo-audit-report.md', lines.join('\n'))
 console.log(JSON.stringify(counts, null, 2))
 if (counts.errors > 0) process.exitCode = 1
