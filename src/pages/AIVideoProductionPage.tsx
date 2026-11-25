@@ -43,6 +43,18 @@ export default function AIVideoProductionPage() {
       <PageMeta
         title="AI Media Production & Technology Solutions in Indore"
         description="Mediazz Hub provides AI media production and video editing worldwide, alongside professional on-ground shoots across India, AI voiceovers, images, automation and digital solutions."
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "@id": "https://mediazhub.com/services/ai-media-production#service",
+          "name": "AI Media Production & Technology Solutions",
+          "serviceType": ["AI video production", "AI image production", "AI voiceovers", "Media production automation", "Video editing"],
+          "description": "AI media production and video editing for clients worldwide, alongside professional on-ground production services across India.",
+          "url": "https://mediazhub.com/services/ai-media-production",
+          "provider": { "@id": "https://mediazhub.com/#organization" },
+          "areaServed": ["India", "Worldwide"],
+          "audience": { "@type": "Audience", "audienceType": "Brands, businesses, creators and agencies" }
+        }}
       />
       <PageHero
         eyebrow="AI Media · Technology · Production"
