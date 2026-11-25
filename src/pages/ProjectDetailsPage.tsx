@@ -135,6 +135,22 @@ export default function ProjectDetailsPage() {
       <PageMeta
         title={project.title}
         description={project.short_description || project.project_description || 'Explore this Mediazz Hub production project.'}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          "@id": `https://mediazhub.com/portfolio/${project.slug}#creativework`,
+          "url": `https://mediazhub.com/portfolio/${project.slug}`,
+          "name": project.title,
+          "description": project.short_description || project.project_description || "A creative production project by Mediazz Hub.",
+          ...(project.cover_image_url ? { "image": project.cover_image_url } : {}),
+          ...(project.project_date ? { "dateCreated": project.project_date } : {}),
+          ...(project.location ? { "contentLocation": { "@type": "Place", "name": project.location } } : {}),
+          ...(project.client_name ? { "accountablePerson": { "@type": "Organization", "name": project.client_name } } : {}),
+          "creator": { "@id": "https://mediazhub.com/#organization" },
+          "publisher": { "@id": "https://mediazhub.com/#organization" },
+          "genre": project.category || "Media Production",
+          "inLanguage": "en-IN"
+        }}
       />
 
       <main className="min-h-screen bg-[#0b0b0d] text-white">
