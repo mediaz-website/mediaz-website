@@ -44,6 +44,22 @@ function base64url(value) {
   return Buffer.from(value).toString('base64url')
 }
 
+async function getAccessTokenForInspection() {
+  const credentials = JSON.parse(process.env.GSC_SERVICE_ACCOUNT_JSON || '{}')
+  const now = Math.floor(Date.now() / 1000)
+  const header = base64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }))
+  const claim = base64url(JSON.stringify({ iss: credentials.client_email, scope: 'https://www.googleapis.com/auth/webmasters.readonly', aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 }))
+  const unsignedToken = header + '.' + claim
+  const signer = createSign('RSA-SHA256')
+  signer.update(unsignedToken)
+  signer.end()
+  const assertion = unsignedToken + '.' + signer.sign(credentials.private_key, 'base64url')
+  const tokenResult = await fetchText('https://oauth2.googleapis.com/token', { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion }) })
+  const tokenData = JSON.parse(tokenResult.text)
+  if (!tokenResult.response.ok || !tokenData.access_token) throw new Error('Google token request failed: ' + (tokenData.error_description || tokenData.error || tokenResult.response.status))
+  return tokenData
+}
+
 async function getSearchConsoleData() {
   const rawCredentials = process.env.GSC_SERVICE_ACCOUNT_JSON
   if (!rawCredentials) return { status: 'not_configured', rows: [], property: '' }
@@ -93,6 +109,11 @@ async function getSearchConsoleData() {
     throw new Error('No matching Search Console property found. Accessible properties: ' + (available.join(', ') || 'none'))
   }
 
+  const sitemapResult = await fetchText('https://searchconsole.googleapis.com/webmasters/v3/sites/' + encodeURIComponent(property) + '/sitemaps', { headers })
+  const sitemapData = JSON.parse(sitemapResult.text)
+  if (!sitemapResult.response.ok) throw new Error('Search Console sitemaps request failed: ' + sitemapResult.response.status + ' ' + (sitemapData.error?.message || ''))
+  const submittedSitemaps = sitemapData.sitemap || []
+
   const end = new Date()
   end.setUTCDate(end.getUTCDate() - 2)
   const start = new Date(end)
@@ -120,6 +141,7 @@ async function getSearchConsoleData() {
     startDate: formatDate(start),
     endDate: formatDate(end),
     rows: queryData.rows || [],
+    sitemaps: submittedSitemaps,
   }
 }
 
@@ -177,6 +199,23 @@ try {
   gsc = await getSearchConsoleData()
   if (gsc.status === 'connected') {
     console.log('Google Search Console connected. Rows received:', gsc.rows.length)
+    console.log('Submitted sitemaps:', gsc.sitemaps.length)
+    gsc.urlInspections = []
+    for (const page of pageResults.slice(0, 20)) {
+      try {
+        const inspection = await fetchText('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
+          method: 'POST',
+          headers: { authorization: 'Bearer ' + (await getAccessTokenForInspection()).access_token, 'content-type': 'application/json' },
+          body: JSON.stringify({ inspectionUrl: page.url, siteUrl: gsc.property, languageCode: 'en-US' }),
+        })
+        const data = JSON.parse(inspection.text)
+        if (!inspection.response.ok) throw new Error(data.error?.message || 'HTTP ' + inspection.response.status)
+        const status = data.inspectionResult?.indexStatusResult || {}
+        gsc.urlInspections.push({ url: page.url, verdict: status.verdict || '', coverageState: status.coverageState || '', indexingState: status.indexingState || '', lastCrawlTime: status.lastCrawlTime || '', googleCanonical: status.googleCanonical || '', userCanonical: status.userCanonical || '', sitemap: status.sitemap || [] })
+      } catch (error) {
+        gsc.urlInspections.push({ url: page.url, error: String(error) })
+      }
+    }
   } else {
     console.log('Google Search Console secret not configured; skipping performance data.')
   }
@@ -218,6 +257,12 @@ const lines = [
     '|---|---|---:|---:|---:|---:|',
     ...gsc.rows.slice(0, 100).map(row => '| ' + (row.keys?.[0] || '').replace(/\\|/g, ' ') + ' | ' + (row.keys?.[1] || '').replace(/\\|/g, ' ') + ' | ' + (row.clicks || 0) + ' | ' + (row.impressions || 0) + ' | ' + ((row.ctr || 0) * 100).toFixed(2) + '% | ' + (row.position || 0).toFixed(1) + ' |'),
   ] : []),
+  '',
+  '## Search Console sitemap status',
+  ...(gsc.status === 'connected' ? (gsc.sitemaps || []).map(map => '- ' + map.path + ' — type: ' + map.type + ', pending: ' + map.isPending + ', errors: ' + map.errors + ', warnings: ' + map.warnings + ', submitted URLs: ' + (map.contents || []).reduce((sum, item) => sum + (item.submitted || 0), 0)) : ['- Not available']),
+  '',
+  '## Google index inspection',
+  ...(gsc.status === 'connected' ? (gsc.urlInspections || []).map(item => '- ' + item.url + ' — ' + (item.error || [item.verdict, item.coverageState, item.indexingState, item.lastCrawlTime ? 'last crawl ' + item.lastCrawlTime : ''].filter(Boolean).join('; '))) : ['- Not available']),
   '',
   '## Findings',
   ...(findings.length ? findings.map(item => '- **' + item.severity.toUpperCase() + '** — ' + item.item + ': ' + item.detail) : ['- No technical issues detected by this basic audit.']),
