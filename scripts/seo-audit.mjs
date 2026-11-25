@@ -150,8 +150,14 @@ for (const url of urls) {
     if (!response.ok) findings.push({ severity: 'error', item: url, detail: 'HTTP ' + response.status })
     if (!seo.title) findings.push({ severity: 'warning', item: url, detail: 'Missing title tag' })
     if (!seo.description) findings.push({ severity: 'warning', item: url, detail: 'Missing meta description' })
-    if (!seo.canonical) findings.push({ severity: 'warning', item: url, detail: 'Missing canonical URL' })
-    if (seo.h1Count !== 1) findings.push({ severity: 'warning', item: url, detail: 'Expected one H1; found ' + seo.h1Count })
+    const isClientRenderedApp = /<div\\s+id=[\"']root[\"']\\s*>\\s*<\\/div>/i.test(text) && /type=[\"']module[\"'][^>]*src=/i.test(text)
+    if (isClientRenderedApp) {
+      if (!seo.canonical) findings.push({ severity: 'info', item: url, detail: 'Canonical is added by the client-side PageMeta component; initial HTML audit cannot verify the rendered value' })
+      if (seo.h1Count !== 1) findings.push({ severity: 'info', item: url, detail: 'H1 is rendered by React; initial HTML audit cannot verify the rendered heading count' })
+    } else {
+      if (!seo.canonical) findings.push({ severity: 'warning', item: url, detail: 'Missing canonical URL' })
+      if (seo.h1Count !== 1) findings.push({ severity: 'warning', item: url, detail: 'Expected one H1; found ' + seo.h1Count })
+    }
     if (/noindex/i.test(seo.robots)) findings.push({ severity: 'warning', item: url, detail: 'Page has noindex directive' })
     if (!seo.jsonLdCount) findings.push({ severity: 'info', item: url, detail: 'No JSON-LD found in initial HTML' })
   } catch (error) {
