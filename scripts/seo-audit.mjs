@@ -224,5 +224,7 @@ const lines = [
   '> Technical baseline and Google Search Console query data. Search positions are averages, not guaranteed rankings.',
 ]
 await fs.writeFile('seo-audit-report.md', lines.join('\n'))
+console.log('SEO audit findings:')
+for (const item of findings) console.log('[' + item.severity.toUpperCase() + '] ' + item.item + ': ' + item.detail)
 console.log(JSON.stringify(counts, null, 2))
 if (counts.errors > 0) process.exitCode = 1
