@@ -156,6 +156,17 @@ export default function PortfolioPage() {
       <PageMeta
         title="Portfolio"
         description="Explore Mediazz Hub's portfolio of on-ground media production, AI videos, digital creatives and media automation projects."
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": "https://mediazhub.com/portfolio#webpage",
+          "url": "https://mediazhub.com/portfolio",
+          "name": "Mediazz Hub Portfolio",
+          "description": "A showcase of on-ground media production, AI videos, digital creatives and media automation projects.",
+          "about": { "@id": "https://mediazhub.com/#organization" },
+          "publisher": { "@id": "https://mediazhub.com/#organization" },
+          "inLanguage": "en-IN"
+        }}
       />
 
       <PageHero
