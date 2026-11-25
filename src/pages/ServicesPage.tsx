@@ -62,7 +62,28 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageMeta title="Services" description="Explore Mediazz Hub's AI media production and on-ground production services, from AI videos and automation to commercial shoots, photography and films." />
+      <PageMeta
+        title="Services"
+        description="Explore Mediazz Hub's AI media production and on-ground production services, from AI videos and automation to commercial shoots, photography and films."
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": "https://mediazhub.com/services#webpage",
+          "url": "https://mediazhub.com/services",
+          "name": "Media Production Services",
+          "description": "AI media production and on-ground creative production services from Mediazz Hub.",
+          "mainEntity": [
+            { "@type": "Service", "name": "Commercial & Advertising Films", "provider": { "@id": "https://mediazhub.com/#organization" }, "areaServed": "India" },
+            { "@type": "Service", "name": "Product Photography & Videography", "provider": { "@id": "https://mediazhub.com/#organization" }, "areaServed": "India" },
+            { "@type": "Service", "name": "Brand Shoots & Reels Production", "provider": { "@id": "https://mediazhub.com/#organization" }, "areaServed": "India" },
+            { "@type": "Service", "name": "Podcast & Interview Production", "provider": { "@id": "https://mediazhub.com/#organization" }, "areaServed": "India" },
+            { "@type": "Service", "name": "AI Media Production & Automation", "provider": { "@id": "https://mediazhub.com/#organization" }, "areaServed": ["India", "Worldwide"] },
+            { "@type": "Service", "name": "Creative Strategy & Campaign Production", "provider": { "@id": "https://mediazhub.com/#organization" }, "areaServed": "India" }
+          ],
+          "publisher": { "@id": "https://mediazhub.com/#organization" },
+          "inLanguage": "en-IN"
+        }}
+      />
       <main className="overflow-hidden bg-[#0b0b0d] text-white">
         <section className="relative flex min-h-[78vh] items-end border-b border-white/10 px-6 pb-14 pt-36 lg:min-h-[82vh] lg:px-12 lg:pb-20">
           <div className="absolute inset-0">

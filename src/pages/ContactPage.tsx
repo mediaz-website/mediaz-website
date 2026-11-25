@@ -119,6 +119,36 @@ export default function ContactPage() {
       <PageMeta
         title="Start a Project"
         description="Share your creative production brief with Mediazz Hub."
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "@id": "https://mediazhub.com/contact#webpage",
+          "url": "https://mediazhub.com/contact",
+          "name": "Contact Mediazz Hub",
+          "description": "Contact Mediazz Hub in Indore for creative media production, shoots, AI media and digital production services.",
+          "mainEntity": {
+            "@type": "Organization",
+            "@id": "https://mediazhub.com/#organization",
+            "name": "Mediazz Hub",
+            "email": "mediazzhub@gmail.com",
+            "telephone": "+91-83580-63254",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Indore",
+              "addressRegion": "Madhya Pradesh",
+              "addressCountry": "IN"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91-83580-63254",
+              "email": "mediazzhub@gmail.com",
+              "contactType": "project enquiries",
+              "areaServed": ["India", "Worldwide"],
+              "availableLanguage": ["English", "Hindi"]
+            }
+          },
+          "inLanguage": "en-IN"
+        }}
       />
 
       <main className="min-h-screen bg-[#0b0b0d] px-6 pb-24 pt-36 text-white sm:px-8 lg:pb-32 lg:pt-44">

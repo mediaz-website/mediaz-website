@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import { images } from '../lib/images'
 import { Reveal } from './Motion'
 
-export function PageMeta({ title, description }: { title: string; description: string }) {
+export function PageMeta({ title, description, schema }: { title: string; description: string; schema?: Record<string, unknown> | Record<string, unknown>[] }) {
   useEffect(() => {
     document.title = `${title} | Mediazz Hub`
     const meta = document.querySelector('meta[name="description"]')
@@ -15,7 +15,7 @@ export function PageMeta({ title, description }: { title: string; description: s
     if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical) }
     canonical.href = canonicalUrl
   }, [description, title])
-  return null
+  return schema ? <script id="page-jsonld" type="application/ld+json">{JSON.stringify(schema)}</script> : null
 }
 
 export function PageHero({ eyebrow, title, description, image = images.hero }: { eyebrow: string; title: ReactNode; description: string; image?: string }) {
