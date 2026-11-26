@@ -13,7 +13,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -56,6 +56,8 @@ jobs:
             seo-monitor-report.json
             ga4-report.md
             ga4-report.json
+            keyword-research-report.md
+            keyword-research-report.json
             gemini-seo-recommendations.md
             gemini-seo-recommendations.json
           if-no-files-found: warn
