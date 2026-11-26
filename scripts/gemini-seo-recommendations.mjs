@@ -59,56 +59,116 @@ Rules: Do not invent metrics, rankings, traffic, queries or problems. If data ha
 DATA:
 ${JSON.stringify(compact)}`
 
-  const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=' + encodeURIComponent(apiKey)
-  const requestBody = JSON.stringify({
-    contents: [{ role: 'user', parts: [{ text: prompt }] }],
-    generationConfig: { temperature: 0.2, maxOutputTokens: 6000 },
-  })
+  const models = ['gemini-3.8-flash', 'gemini-3.5-flash-lite']
+  const maxAttemptsPerModel = 4
+  const requestTimeoutMs = 90000
 
-  let response
-  let result
-  const maxAttempts = 3
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    try {
-      response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: requestBody,
-        signal: AbortSignal.timeout(120000),
-      })
-      const responseText = await response.text()
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+  const isRetryableNetworkError = error =>
+    error.name === 'TimeoutError' ||
+    error.name === 'AbortError' ||
+    error.cause?.code === 'UND_ERR_HEADERS_TIMEOUT' ||
+    error.cause?.code === 'UND_ERR_CONNECT_TIMEOUT' ||
+    error.cause?.code === 'UND_ERR_SOCKET' ||
+    error.message === 'fetch failed'
+
+  async function requestWithModel(model) {
+    const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/' +
+      model + ':generateContent?key=' + encodeURIComponent(apiKey)
+    const requestBody = JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.2, maxOutputTokens: 6000 },
+    })
+
+    for (let attempt = 1; attempt <= maxAttemptsPerModel; attempt++) {
       try {
-        result = JSON.parse(responseText)
-      } catch {
-        throw new Error('Gemini returned a non-JSON response (HTTP ' + response.status + ').')
-      }
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: requestBody,
+          signal: AbortSignal.timeout(requestTimeoutMs),
+        })
+        const responseText = await response.text()
+        let result
+        try {
+          result = JSON.parse(responseText)
+        } catch {
+          throw new Error('Gemini returned a non-JSON response (HTTP ' + response.status + ').')
+        }
 
-      if (response.ok) break
+        if (response.ok) {
+          const report = (result.candidates?.[0]?.content?.parts || [])
+            .map(part => part.text || '').join('').trim()
+          if (!report) throw new Error('Gemini returned an empty recommendation report.')
+          return { model, report }
+        }
 
-      const apiError = new Error('Gemini API failed: ' + (result.error?.message || response.status))
-      const retryable = response.status === 429 || response.status >= 500
-      if (!retryable || attempt === maxAttempts) throw apiError
-      console.warn('Gemini API returned HTTP ' + response.status + '; retrying (' + (attempt + 1) + '/' + maxAttempts + ').')
-    } catch (error) {
-      const retryable = error.name === 'TimeoutError' || error.name === 'AbortError' ||
-        error.cause?.code === 'UND_ERR_HEADERS_TIMEOUT' ||
-        error.cause?.code === 'UND_ERR_CONNECT_TIMEOUT' ||
-        error.cause?.code === 'UND_ERR_SOCKET' ||
-        error.message === 'fetch failed'
-      if (!retryable || attempt === maxAttempts) {
-        throw new Error('Gemini request failed after ' + attempt + ' attempt(s): ' + error.message)
+        const apiMessage = result.error?.message || response.statusText || 'HTTP ' + response.status
+        const retryable = response.status === 429 || response.status >= 500
+        const error = new Error('HTTP ' + response.status + ': ' + apiMessage)
+        if (!retryable || attempt === maxAttemptsPerModel) throw error
+
+        const retryAfterHeader = response.headers.get('retry-after')
+        const retryAfterMs = retryAfterHeader
+          ? (Number.isFinite(Number(retryAfterHeader))
+              ? Number(retryAfterHeader) * 1000
+              : Math.max(0, Date.parse(retryAfterHeader) - Date.now()))
+          : 0
+        const backoffMs = 10000 * (2 ** (attempt - 1))
+        const delayMs = Math.min(60000, Math.max(backoffMs, retryAfterMs))
+        console.warn(
+          'Gemini ' + model + ' returned HTTP ' + response.status +
+          '; retrying in ' + Math.round(delayMs / 1000) + 's (' +
+          (attempt + 1) + '/' + maxAttemptsPerModel + ').'
+        )
+        await sleep(delayMs)
+      } catch (error) {
+        const retryable = isRetryableNetworkError(error)
+        if (!retryable || attempt === maxAttemptsPerModel) throw error
+        const delayMs = 10000 * (2 ** (attempt - 1))
+        console.warn(
+          'Gemini ' + model + ' attempt ' + attempt + ' failed: ' +
+          error.message + '; retrying in ' + Math.round(delayMs / 1000) + 's.'
+        )
+        await sleep(delayMs)
       }
-      console.warn('Gemini request attempt ' + attempt + ' failed: ' + error.message + '; retrying.')
     }
-
-    const delayMs = 3000 * (2 ** (attempt - 1))
-    await new Promise(resolve => setTimeout(resolve, delayMs))
+    throw new Error('Gemini model ' + model + ' exhausted its retry attempts.')
   }
 
-  if (!response?.ok) throw new Error('Gemini API request did not succeed after retries.')
-  const report = (result.candidates?.[0]?.content?.parts || []).map(part => part.text || '').join('').trim()
-  if (!report) throw new Error('Gemini returned an empty recommendation report.')
-  await fs.writeFile('gemini-seo-recommendations.md', '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\nGenerated: ' + new Date().toISOString() + '\n\n' + report + '\n')
-  await fs.writeFile('gemini-seo-recommendations.json', JSON.stringify({ generatedAt: new Date().toISOString(), model: 'gemini-3.8-flash', report }, null, 2))
-  console.log('Gemini SEO recommendations generated.')
+  let generated
+  const modelErrors = []
+  for (const model of models) {
+    try {
+      console.log('Requesting Gemini recommendations with ' + model + '.')
+      generated = await requestWithModel(model)
+      break
+    } catch (error) {
+      modelErrors.push(model + ': ' + error.message)
+      console.warn('Gemini model ' + model + ' failed; ' +
+        (models[models.indexOf(model) + 1]
+          ? 'switching to ' + models[models.indexOf(model) + 1] + '.'
+          : 'no fallback models remain.'))
+    }
+  }
+
+  if (!generated) {
+    throw new Error('Gemini request failed on all configured models. ' + modelErrors.join(' | '))
+  }
+
+  await fs.writeFile(
+    'gemini-seo-recommendations.md',
+    '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\n' +
+      'Generated: ' + new Date().toISOString() + '\n' +
+      'Model: ' + generated.model + '\n\n' + generated.report + '\n'
+  )
+  await fs.writeFile(
+    'gemini-seo-recommendations.json',
+    JSON.stringify({
+      generatedAt: new Date().toISOString(),
+      model: generated.model,
+      report: generated.report,
+    }, null, 2)
+  )
+  console.log('Gemini SEO recommendations generated with ' + generated.model + '.')
 }
