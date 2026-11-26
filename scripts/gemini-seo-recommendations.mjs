@@ -59,7 +59,7 @@ Rules: Do not invent metrics, rankings, traffic, queries or problems. If data ha
 DATA:
 ${JSON.stringify(compact)}`
 
-  const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + encodeURIComponent(apiKey), {
+  const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=' + encodeURIComponent(apiKey), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
@@ -72,6 +72,6 @@ ${JSON.stringify(compact)}`
   const report = (result.candidates?.[0]?.content?.parts || []).map(part => part.text || '').join('').trim()
   if (!report) throw new Error('Gemini returned an empty recommendation report.')
   await fs.writeFile('gemini-seo-recommendations.md', '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\nGenerated: ' + new Date().toISOString() + '\n\n' + report + '\n')
-  await fs.writeFile('gemini-seo-recommendations.json', JSON.stringify({ generatedAt: new Date().toISOString(), model: 'gemini-2.5-flash', report }, null, 2))
+  await fs.writeFile('gemini-seo-recommendations.json', JSON.stringify({ generatedAt: new Date().toISOString(), model: 'gemini-3.8-flash', report }, null, 2))
   console.log('Gemini SEO recommendations generated.')
 }
