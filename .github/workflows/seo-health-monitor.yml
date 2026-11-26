@@ -39,6 +39,9 @@ jobs:
         env:
           SITE_URL: https://mediazhub.com
         run: node scripts/aeo-readiness-audit.mjs
+      - name: Generate prioritized SEO action plan
+        if: always()
+        run: node scripts/seo-action-plan.mjs
       - name: Save daily monitoring reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -51,5 +54,7 @@ jobs:
             seo-monitor-report.json
             aeo-readiness-report.md
             aeo-readiness-report.json
+            seo-action-plan.md
+            seo-action-plan.json
           if-no-files-found: warn
           retention-days: 30
