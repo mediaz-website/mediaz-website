@@ -16,7 +16,6 @@ export async function requestGroqFallback({
     temperature: 0.2,
     stream: false,
     ...(webSearch ? {
-      citation_options: 'enabled',
       tool_choice: 'required',
       tools: [{ type: 'browser_search' }],
       reasoning_effort: 'low',
@@ -47,12 +46,13 @@ export async function requestGroqFallback({
           ...(Array.isArray(message.executed_tools) ? message.executed_tools : []),
           ...(Array.isArray(data.executed_tools) ? data.executed_tools : []),
         ]
-        const browserTools = executedTools.filter(tool => /browser_search/i.test(tool.type || ''))
+        const browserTools = executedTools.filter(tool => /browser_search/i.test([tool.type, tool.name].filter(Boolean).join(' ')))
         const sourceMap = new Map()
         for (const tool of browserTools) {
           const results = [
             ...(Array.isArray(tool.browser_results) ? tool.browser_results : []),
             ...(Array.isArray(tool.search_results?.results) ? tool.search_results.results : []),
+            ...(Array.isArray(tool.search_results) ? tool.search_results : []),
           ]
           for (const item of results) {
             const uri = item.url || item.uri || ''
