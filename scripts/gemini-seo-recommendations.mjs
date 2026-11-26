@@ -1,9 +1,11 @@
 import fs from 'node:fs/promises'
+import { requestGroqFallback } from './groq-fallback.mjs'
 
 const apiKey = (process.env.GEMINI_API_KEY || '').trim()
+const groqApiKey = (process.env.GROQ_API_KEY || '').trim()
 const inputFiles = ['seo-audit-report.json', 'ga4-report.json']
-if (!apiKey) {
-  console.log('Gemini recommendations skipped: GEMINI_API_KEY is not configured.')
+if (!apiKey && !groqApiKey) {
+  console.log('AI recommendations skipped: neither GEMINI_API_KEY nor GROQ_API_KEY is configured.')
 } else {
   const inputs = {}
   for (const file of inputFiles) {
@@ -59,7 +61,7 @@ Rules: Do not invent metrics, rankings, traffic, queries or problems. If data ha
 DATA:
 ${JSON.stringify(compact)}`
 
-  const models = ['gemini-3.8-flash', 'gemini-3.5-flash-lite']
+  const models = apiKey ? ['gemini-3.8-flash', 'gemini-3.5-flash-lite'] : []
   const maxAttemptsPerModel = 4
   const requestTimeoutMs = 90000
 
@@ -152,10 +154,20 @@ ${JSON.stringify(compact)}`
     }
   }
 
+  if (!generated && groqApiKey) {
+    try {
+      console.log('Gemini unavailable; generating SEO/AEO recommendations with Groq fallback.')
+      generated = await requestGroqFallback({ apiKey: groqApiKey, prompt, maxCompletionTokens: 6000 })
+    } catch (error) {
+      modelErrors.push('Groq: ' + error.message)
+      console.warn('Groq SEO/AEO fallback failed:', error.message)
+    }
+  }
+
   if (!generated) {
     const generatedAt = new Date().toISOString()
     const reason = modelErrors.join(' | ')
-    await fs.writeFile('gemini-seo-recommendations.md', '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\nStatus: temporarily unavailable\n\nGemini API quota/rate limit prevented recommendations in this run. Existing technical SEO and analytics reports are still available.\n\nError: ' + reason + '\n')
+    await fs.writeFile('gemini-seo-recommendations.md', '# Mediazz Hub — AI SEO & AEO Recommendations\n\nStatus: temporarily unavailable\n\nGemini and Groq API requests were unavailable in this run. Existing technical SEO and analytics reports are still available.\n\nError: ' + reason + '\n')
     await fs.writeFile('gemini-seo-recommendations.json', JSON.stringify({ generatedAt, status: 'temporarily_unavailable', errors: modelErrors }, null, 2))
     console.warn('Gemini recommendations unavailable due to quota/rate limits; continuing the audit.')
   } else {
@@ -163,12 +175,12 @@ ${JSON.stringify(compact)}`
       'gemini-seo-recommendations.md',
       '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\n' +
         'Generated: ' + new Date().toISOString() + '\n' +
-        'Model: ' + generated.model + '\n\n' + generated.report + '\n'
+        'Provider/model: ' + generated.model + '\n\n' + generated.report + '\n'
     )
     await fs.writeFile(
       'gemini-seo-recommendations.json',
       JSON.stringify({ generatedAt: new Date().toISOString(), model: generated.model, report: generated.report }, null, 2)
     )
-    console.log('Gemini SEO recommendations generated with ' + generated.model + '.')
+    console.log('AI SEO/AEO recommendations generated with ' + generated.model + '.')
   }
 }
