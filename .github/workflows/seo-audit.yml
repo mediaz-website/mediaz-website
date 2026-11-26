@@ -2,6 +2,13 @@ name: Mediazz Hub SEO Audit
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/seo-audit.yml'
+      - 'scripts/groq-fallback.mjs'
+      - 'scripts/gemini-keyword-research.mjs'
+      - 'scripts/seo-audit.mjs'
   schedule:
     - cron: '30 3 * * 1'
 
