@@ -42,6 +42,8 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
         run: node scripts/ga4-report.mjs
+      - name: Generate prioritized SEO action plan
+        run: node scripts/seo-action-plan.mjs
       - name: Generate grounded keyword and competitor research
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -62,7 +64,7 @@ jobs:
             seo-monitor-report.md
             seo-monitor-report.json
             aeo-readiness-report.md
-            aeo-readiness-report.json
+            aeo-readiness-report.json\n            seo-action-plan.md\n            seo-action-plan.json
             ga4-report.md
             ga4-report.json
             keyword-research-report.md
