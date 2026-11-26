@@ -13,7 +13,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -35,6 +35,11 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
         run: node scripts/ga4-report.mjs
+      - name: Generate grounded keyword and competitor research
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SITE_URL: https://mediazhub.com
+        run: node scripts/gemini-keyword-research.mjs
       - name: Generate Gemini SEO and AEO recommendations
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -51,6 +56,8 @@ jobs:
             seo-monitor-report.json
             ga4-report.md
             ga4-report.json
+            keyword-research-report.md
+            keyword-research-report.json
             gemini-seo-recommendations.md
             gemini-seo-recommendations.json
           if-no-files-found: warn
