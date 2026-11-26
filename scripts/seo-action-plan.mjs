@@ -41,10 +41,10 @@ if (ga4 && (ga4.landingPageRows?.length || 0) === 0 && (ga4.eventRows?.length ||
   add('P2', 'analytics-data-quality', '', 'GA4 returned no landing-page or event rows for the 90-day report.', 'Check GA4 processing delay, property timezone, tag deployment and event configuration. Do not interpret this as proof of zero traffic.', 'manual_account_validation')
 }
 if (keywordResearch?.status === 'temporarily_unavailable') {
-  add('P2', 'keyword-research', '', 'Grounded keyword research was unavailable because the Gemini API quota/rate limit was reached.', 'Increase Gemini API quota or enable billing; the workflow will resume research automatically when quota is available.', 'manual_api_quota')
+  add('P2', 'keyword-research', '', 'Grounded keyword research was unavailable from both Gemini and Groq in this run.', 'Check Gemini quota and Groq API key/rate limits; research will resume automatically when either provider is available.', 'manual_api_quota')
 }
 if (geminiRecommendations?.status === 'temporarily_unavailable') {
-  add('P2', 'gemini-recommendations', '', 'Gemini SEO/AEO recommendations were unavailable because of API quota/rate limits.', 'Increase Gemini API quota or enable billing; technical and monitoring reports continue without this step.', 'manual_api_quota')
+  add('P2', 'gemini-recommendations', '', 'AI SEO/AEO recommendations were unavailable from both Gemini and Groq in this run.', 'Check Gemini quota and Groq API key/rate limits; technical and monitoring reports continue without this step.', 'manual_api_quota')
 }
 
 const summary = {

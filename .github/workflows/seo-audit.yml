@@ -42,17 +42,19 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
         run: node scripts/ga4-report.mjs
-      - name: Generate prioritized SEO action plan
-        run: node scripts/seo-action-plan.mjs
       - name: Generate grounded keyword and competitor research
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           SITE_URL: https://mediazhub.com
         run: node scripts/gemini-keyword-research.mjs
       - name: Generate Gemini SEO and AEO recommendations
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: node scripts/gemini-seo-recommendations.mjs
+      - name: Generate prioritized SEO action plan
+        run: node scripts/seo-action-plan.mjs
       - name: Save audit report
         if: always()
         uses: actions/upload-artifact@v4

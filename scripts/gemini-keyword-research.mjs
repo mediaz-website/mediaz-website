@@ -1,8 +1,10 @@
 import fs from 'node:fs/promises'
+import { requestGroqFallback } from './groq-fallback.mjs'
 
 const apiKey = (process.env.GEMINI_API_KEY || '').trim()
-if (!apiKey) {
-  console.log('Keyword research skipped: GEMINI_API_KEY is not configured.')
+const groqApiKey = (process.env.GROQ_API_KEY || '').trim()
+if (!apiKey && !groqApiKey) {
+  console.log('Keyword research skipped: neither GEMINI_API_KEY nor GROQ_API_KEY is configured.')
 } else {
   const site = (process.env.SITE_URL || 'https://mediazhub.com').replace(/\/+$/, '')
   const sitemapResponse = await fetch(site + '/sitemap.xml', { signal: AbortSignal.timeout(20000) })
@@ -27,7 +29,7 @@ if (!apiKey) {
 
   const prompt = `You are an SEO keyword strategist. Research the current search landscape for Mediazz Hub (https://mediazhub.com), an Indore-based creative media production house serving brands and businesses across India.
 
-Use Google Search grounding to investigate:
+Use live web/browser search to investigate. When using Gemini, use Google Search grounding; when using Groq fallback, use its built-in browser_search tool.
 - High-intent service keywords for commercial video production, product photography/video, brand shoots, ad shoots, reels/video production, creative media production, and AI media production.
 - Local intent around Indore and Madhya Pradesh, plus national India intent.
 - Search intent and buyer stage for each cluster.
@@ -46,7 +48,7 @@ Rules: Do not invent search volume, CPC, rankings, traffic, or competitor facts.
 Current website pages for context:
 ${JSON.stringify(pages)}`
 
-  const models = ['gemini-3.8-flash', 'gemini-3.5-flash-lite']
+  const models = apiKey ? ['gemini-3.8-flash', 'gemini-3.5-flash-lite'] : []
   const errors = []
   let result = null
   for (const model of models) {
@@ -77,10 +79,21 @@ ${JSON.stringify(pages)}`
       console.warn('Keyword research model failed:', model, error.message)
     }
   }
+  if (!result && groqApiKey) {
+    try {
+      console.log('Gemini keyword research unavailable; trying Groq browser-search fallback.')
+      const groqResult = await requestGroqFallback({ apiKey: groqApiKey, prompt, webSearch: true, maxCompletionTokens: 7000 })
+      result = { ...groqResult, sources: [], queries: [], suggestions: '' }
+    } catch (error) {
+      errors.push('Groq: ' + error.message)
+      console.warn('Groq grounded keyword research fallback failed:', error.message)
+    }
+  }
+
   if (!result) {
     const generatedAt = new Date().toISOString()
     const reason = errors.join(' | ')
-    await fs.writeFile('keyword-research-report.md', '# Mediazz Hub — Keyword & Competitor Research\n\nStatus: temporarily unavailable\n\nGemini API quota/rate limit prevented grounded research in this run. No keyword volume or competitor facts were invented.\n\nError: ' + reason + '\n')
+    await fs.writeFile('keyword-research-report.md', '# Mediazz Hub — Keyword & Competitor Research\n\nStatus: temporarily unavailable\n\nGemini and Groq search requests were unavailable in this run. No keyword volume or competitor facts were invented.\n\nError: ' + reason + '\n')
     await fs.writeFile('keyword-research-report.json', JSON.stringify({ generatedAt, status: 'temporarily_unavailable', errors }, null, 2))
     console.warn('Keyword research unavailable due to Gemini API quota/rate limits; continuing the SEO audit.')
   } else {
@@ -89,7 +102,7 @@ ${JSON.stringify(pages)}`
       '# Mediazz Hub — Keyword & Competitor Research',
       '',
       'Generated: ' + generatedAt,
-      'Model: ' + result.model,
+      'Provider/model: ' + result.model,
       '',
       result.report,
       '',
@@ -103,6 +116,6 @@ ${JSON.stringify(pages)}`
     if (result.suggestions) lines.push('## Google Search suggestions', '', result.suggestions)
     await fs.writeFile('keyword-research-report.md', lines.join('\n'))
     await fs.writeFile('keyword-research-report.json', JSON.stringify({ generatedAt, model: result.model, report: result.report, sources: result.sources, queries: result.queries, searchSuggestionsHtml: result.suggestions }, null, 2))
-    console.log('Keyword research report generated; grounded sources:', result.sources.length, 'search queries:', result.queries.length)
+    console.log('Keyword research report generated with ' + result.model + '; grounded sources:', result.sources.length, 'search queries:', result.queries.length)
   }
 }
