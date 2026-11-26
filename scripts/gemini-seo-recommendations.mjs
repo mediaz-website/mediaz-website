@@ -153,22 +153,22 @@ ${JSON.stringify(compact)}`
   }
 
   if (!generated) {
-    throw new Error('Gemini request failed on all configured models. ' + modelErrors.join(' | '))
+    const generatedAt = new Date().toISOString()
+    const reason = modelErrors.join(' | ')
+    await fs.writeFile('gemini-seo-recommendations.md', '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\nStatus: temporarily unavailable\n\nGemini API quota/rate limit prevented recommendations in this run. Existing technical SEO and analytics reports are still available.\n\nError: ' + reason + '\n')
+    await fs.writeFile('gemini-seo-recommendations.json', JSON.stringify({ generatedAt, status: 'temporarily_unavailable', errors: modelErrors }, null, 2))
+    console.warn('Gemini recommendations unavailable due to quota/rate limits; continuing the audit.')
+  } else {
+    await fs.writeFile(
+      'gemini-seo-recommendations.md',
+      '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\n' +
+        'Generated: ' + new Date().toISOString() + '\n' +
+        'Model: ' + generated.model + '\n\n' + generated.report + '\n'
+    )
+    await fs.writeFile(
+      'gemini-seo-recommendations.json',
+      JSON.stringify({ generatedAt: new Date().toISOString(), model: generated.model, report: generated.report }, null, 2)
+    )
+    console.log('Gemini SEO recommendations generated with ' + generated.model + '.')
   }
-
-  await fs.writeFile(
-    'gemini-seo-recommendations.md',
-    '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\n' +
-      'Generated: ' + new Date().toISOString() + '\n' +
-      'Model: ' + generated.model + '\n\n' + generated.report + '\n'
-  )
-  await fs.writeFile(
-    'gemini-seo-recommendations.json',
-    JSON.stringify({
-      generatedAt: new Date().toISOString(),
-      model: generated.model,
-      report: generated.report,
-    }, null, 2)
-  )
-  console.log('Gemini SEO recommendations generated with ' + generated.model + '.')
 }
