@@ -35,6 +35,10 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
         run: node scripts/ga4-report.mjs
+      - name: Run AEO readiness audit
+        env:
+          SITE_URL: https://mediazhub.com
+        run: node scripts/aeo-readiness-audit.mjs
       - name: Generate grounded keyword and competitor research
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
