@@ -24,7 +24,7 @@ jobs:
           SITE_URL: https://mediazhub.com
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: node scripts/seo-audit.mjs
-      - name: Generate Google Analytics 4 performance report
+      - name: Run SEO health, broken-link, schema and indexing monitoring\n        env:\n          SITE_URL: https://mediazhub.com\n        run: node scripts/seo-monitor.mjs\n      - name: Generate Google Analytics 4 performance report
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
