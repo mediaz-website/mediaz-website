@@ -5,10 +5,13 @@ async function readJson(path) {
   catch { return null }
 }
 
-const [audit, monitor, aeo] = await Promise.all([
+const [audit, monitor, aeo, ga4, keywordResearch, geminiRecommendations] = await Promise.all([
   readJson('seo-audit-report.json'),
   readJson('seo-monitor-report.json'),
   readJson('aeo-readiness-report.json'),
+  readJson('ga4-report.json'),
+  readJson('keyword-research-report.json'),
+  readJson('gemini-seo-recommendations.json'),
 ])
 const actions = []
 const add = (priority, category, url, issue, recommendedAction, approval = 'not_required_for_reporting') => {
@@ -33,6 +36,15 @@ for (const item of monitor?.findings || []) {
 }
 for (const item of aeo?.findings || []) {
   add('P2', 'aeo-readiness', item.url, item.signal + ': ' + item.detail, 'Review this AEO signal after the page content/rendered DOM is inspected; do not infer missing content from a client-rendered HTML shell.', 'content_update_deferred')
+}
+if (ga4 && (ga4.landingPageRows?.length || 0) === 0 && (ga4.eventRows?.length || 0) === 0) {
+  add('P2', 'analytics-data-quality', '', 'GA4 returned no landing-page or event rows for the 90-day report.', 'Check GA4 processing delay, property timezone, tag deployment and event configuration. Do not interpret this as proof of zero traffic.', 'manual_account_validation')
+}
+if (keywordResearch?.status === 'temporarily_unavailable') {
+  add('P2', 'keyword-research', '', 'Grounded keyword research was unavailable because the Gemini API quota/rate limit was reached.', 'Increase Gemini API quota or enable billing; the workflow will resume research automatically when quota is available.', 'manual_api_quota')
+}
+if (geminiRecommendations?.status === 'temporarily_unavailable') {
+  add('P2', 'gemini-recommendations', '', 'Gemini SEO/AEO recommendations were unavailable because of API quota/rate limits.', 'Increase Gemini API quota or enable billing; technical and monitoring reports continue without this step.', 'manual_api_quota')
 }
 
 const summary = {
