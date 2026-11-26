@@ -56,7 +56,7 @@ export async function requestGroqFallback({
           ]
           for (const item of results) {
             const uri = item.url || item.uri || ''
-            if (uri && /^https?:\\/\\//i.test(uri)) {
+            if (uri && /^https?:\/\//i.test(uri)) {
               sourceMap.set(uri, { title: item.title || uri, uri })
             }
           }
