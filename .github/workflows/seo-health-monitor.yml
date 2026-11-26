@@ -53,6 +53,8 @@ jobs:
             seo-monitor-report.md
             seo-monitor-report.json
             aeo-readiness-report.md
-            aeo-readiness-report.json\n            seo-action-plan.md\n            seo-action-plan.json
+            aeo-readiness-report.json
+            seo-action-plan.md
+            seo-action-plan.json
           if-no-files-found: warn
           retention-days: 30
