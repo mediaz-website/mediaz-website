@@ -2,6 +2,8 @@ name: Mediazz Hub SEO Audit
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
   schedule:
     - cron: '30 3 * * 1'
 
@@ -11,7 +13,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -24,7 +26,11 @@ jobs:
           SITE_URL: https://mediazhub.com
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
         run: node scripts/seo-audit.mjs
-      - name: Run SEO health, broken-link, schema and indexing monitoring\n        env:\n          SITE_URL: https://mediazhub.com\n        run: node scripts/seo-monitor.mjs\n      - name: Generate Google Analytics 4 performance report
+      - name: Run SEO health, broken-link, schema and indexing monitoring
+        env:
+          SITE_URL: https://mediazhub.com
+        run: node scripts/seo-monitor.mjs
+      - name: Generate Google Analytics 4 performance report
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
@@ -41,6 +47,8 @@ jobs:
           path: |
             seo-audit-report.md
             seo-audit-report.json
+            seo-monitor-report.md
+            seo-monitor-report.json
             ga4-report.md
             ga4-report.json
             gemini-seo-recommendations.md
