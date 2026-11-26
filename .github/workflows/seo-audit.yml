@@ -47,11 +47,13 @@ jobs:
       - name: Generate grounded keyword and competitor research
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           SITE_URL: https://mediazhub.com
         run: node scripts/gemini-keyword-research.mjs
       - name: Generate Gemini SEO and AEO recommendations
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: node scripts/gemini-seo-recommendations.mjs
       - name: Save audit report
         if: always()
