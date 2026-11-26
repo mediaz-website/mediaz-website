@@ -16,6 +16,7 @@ export async function requestGroqFallback({
     temperature: 0.2,
     stream: false,
     ...(webSearch ? {
+      citation_options: 'enabled',
       tool_choice: 'required',
       tools: [{ type: 'browser_search' }],
       reasoning_effort: 'low',
@@ -39,9 +40,44 @@ export async function requestGroqFallback({
       catch { throw new Error('Groq returned non-JSON response (HTTP ' + response.status + ').') }
 
       if (response.ok) {
-        const report = data.choices?.[0]?.message?.content?.trim()
+        const message = data.choices?.[0]?.message || {}
+        const report = message.content?.trim()
         if (!report) throw new Error('Groq returned an empty response.')
-        return { model: body.model, report }
+        const executedTools = [
+          ...(Array.isArray(message.executed_tools) ? message.executed_tools : []),
+          ...(Array.isArray(data.executed_tools) ? data.executed_tools : []),
+        ]
+        const browserTools = executedTools.filter(tool => /browser_search/i.test(tool.type || ''))
+        const sourceMap = new Map()
+        for (const tool of browserTools) {
+          const results = [
+            ...(Array.isArray(tool.browser_results) ? tool.browser_results : []),
+            ...(Array.isArray(tool.search_results?.results) ? tool.search_results.results : []),
+          ]
+          for (const item of results) {
+            const uri = item.url || item.uri || ''
+            if (uri && /^https?:\/\//i.test(uri)) {
+              sourceMap.set(uri, { title: item.title || uri, uri })
+            }
+          }
+        }
+        const queries = []
+        for (const tool of browserTools) {
+          try {
+            const args = typeof tool.arguments === 'string' ? JSON.parse(tool.arguments) : tool.arguments
+            const query = args?.query || args?.q || args?.search_query
+            if (query) queries.push(String(query))
+          } catch {}
+        }
+        return {
+          model: body.model,
+          report,
+          sources: [...sourceMap.values()],
+          queries: [...new Set(queries)],
+          searchPerformed: browserTools.length > 0,
+          searchToolExecutions: browserTools.length,
+          searchEvidenceCount: sourceMap.size,
+        }
       }
 
       const message = data.error?.message || response.statusText || 'HTTP ' + response.status
