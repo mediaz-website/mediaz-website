@@ -64,7 +64,9 @@ jobs:
             seo-monitor-report.md
             seo-monitor-report.json
             aeo-readiness-report.md
-            aeo-readiness-report.json\n            seo-action-plan.md\n            seo-action-plan.json
+            aeo-readiness-report.json
+            seo-action-plan.md
+            seo-action-plan.json
             ga4-report.md
             ga4-report.json
             keyword-research-report.md
