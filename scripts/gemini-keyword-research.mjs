@@ -103,7 +103,7 @@ ${JSON.stringify(pages)}`
       '',
     ]
     if (result.suggestions) lines.push('## Google Search suggestions', '', result.suggestions)
-    await fs.writeFile('keyword-research-report.md', lines.join('\\n'))
+    await fs.writeFile('keyword-research-report.md', lines.join('\n'))
     await fs.writeFile('keyword-research-report.json', JSON.stringify({ generatedAt, model: result.model, report: result.report, sources: result.sources, queries: result.queries, searchSuggestionsHtml: result.suggestions }, null, 2))
     console.log('Keyword research report generated; grounded sources:', result.sources.length, 'search queries:', result.queries.length)
   }
