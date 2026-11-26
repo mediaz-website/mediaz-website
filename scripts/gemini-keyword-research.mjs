@@ -114,13 +114,14 @@ ${JSON.stringify(pages)}`
       '',
     ]
     if (result.suggestions) lines.push('## Google Search suggestions', '', result.suggestions)
-    const searchVerified = result.searchPerformed === true || (result.sources.length > 0 && result.queries.length > 0)
     const verification = result.model?.startsWith('gemini-')
       ? (result.sources.length > 0 ? 'verified_google_search_grounding' : 'google_search_metadata_missing')
-      : (searchVerified ? 'verified_groq_browser_search' : 'unverified_no_browser_search_evidence')
+      : (result.searchPerformed && result.sources.length > 0
+        ? 'verified_groq_browser_search'
+        : (result.searchPerformed ? 'browser_search_executed_no_sources' : 'unverified_no_browser_search_evidence'))
     const reportStatus = { verification, searchPerformed: result.searchPerformed ?? (result.sources.length > 0), searchToolExecutions: result.searchToolExecutions || 0, sourceCount: result.sources.length, queryCount: result.queries.length }
     lines.splice(4, 0, 'Search verification: ' + verification, 'Search evidence: ' + reportStatus.sourceCount + ' sources; ' + reportStatus.queryCount + ' query records; browser search tool executions: ' + reportStatus.searchToolExecutions, '')
-    await fs.writeFile('keyword-research-report.md', lines.join('\\n'))
+    await fs.writeFile('keyword-research-report.md', lines.join('\n'))
     await fs.writeFile('keyword-research-report.json', JSON.stringify({ generatedAt, model: result.model, ...reportStatus, report: result.report, sources: result.sources, queries: result.queries, searchSuggestionsHtml: result.suggestions }, null, 2))
     console.log('Keyword research report generated with ' + result.model + '; search verification:', verification, 'sources:', result.sources.length, 'queries:', result.queries.length)
   }
