@@ -60,27 +60,27 @@ for (const url of urls) {
     const normalizedTypes = [...new Set(types)]
     for (const type of normalizedTypes) typeNames.add(type)
     const wordCount = strip(html).split(/\s+/).filter(Boolean).length
-    const hasFaq = normalizedTypes.includes('FAQPage') || faqHeadings.length > 0
-    const hasService = normalizedTypes.includes('Service')
+    const clientRenderedApp = /<div\s+id=["']root["']\s*>\s*<\/div>/i.test(html) && /type=["']module["'][^>]*src=/i.test(html)
     const signals = {
       hasTitle: Boolean(title),
       hasDescription: Boolean(description),
       hasCanonical: Boolean(canonical),
-      oneH1: h1.length === 1,
-      hasQuestionHeadings: faqHeadings.length > 0,
-      hasFaqSchema: normalizedTypes.includes('FAQPage'),
-      hasServiceSchema: hasService,
+      oneH1: clientRenderedApp ? null : h1.length === 1,
+      hasQuestionHeadings: clientRenderedApp ? null : faqHeadings.length > 0,
+      hasFaqSchema: normalizedTypes.includes('FAQPage') || (clientRenderedApp ? null : false),
+      hasServiceSchema: normalizedTypes.includes('Service') || (clientRenderedApp ? null : false),
       hasOrganizationSchema: normalizedTypes.includes('Organization') || normalizedTypes.includes('LocalBusiness'),
-      hasBreadcrumbSchema: normalizedTypes.includes('BreadcrumbList'),
+      hasBreadcrumbSchema: normalizedTypes.includes('BreadcrumbList') || (clientRenderedApp ? null : false),
       hasOpenGraph: Boolean(meta(html, 'og:title') || meta(html, 'og:description')),
-      hasEnoughVisibleText: wordCount >= 120,
-      hasAnswerParagraphs: paragraphs.some(p => p.split(/\s+/).length >= 15 && p.split(/\s+/).length <= 90),
+      hasEnoughVisibleText: clientRenderedApp ? null : wordCount >= 120,
+      hasAnswerParagraphs: clientRenderedApp ? null : paragraphs.some(p => p.split(/\s+/).length >= 15 && p.split(/\s+/).length <= 90),
     }
-    const score = Object.values(signals).filter(Boolean).length
-    const page = { url, status: response.status, title, description, h1, headings, paragraphCount: paragraphs.length, visibleWordCount: wordCount, schemaTypes: normalizedTypes, invalidJsonLd, signals, readinessIndicators: score + '/' + Object.keys(signals).length }
+    const knownSignals = Object.values(signals).filter(value => value !== null)
+    const score = knownSignals.filter(Boolean).length
+    const page = { url, status: response.status, clientRenderedApp, title, description, h1, headings, paragraphCount: paragraphs.length, visibleWordCount: wordCount, schemaTypes: normalizedTypes, invalidJsonLd, signals, readinessIndicators: score + '/' + knownSignals.length, unverifiedSignals: Object.entries(signals).filter(([, value]) => value === null).map(([key]) => key) }
     pages.push(page)
     for (const [key, value] of Object.entries(signals)) {
-      if (!value) findings.push({ url, signal: key, detail: 'Missing or not detected in the initial HTML.' })
+      if (value === false) findings.push({ url, signal: key, detail: 'Missing or not detected in the initial HTML.' })
     }
     if (invalidJsonLd) findings.push({ url, signal: 'invalidJsonLd', detail: invalidJsonLd + ' invalid JSON-LD block(s).' })
     if (!response.ok) findings.push({ url, signal: 'httpStatus', detail: 'HTTP ' + response.status })
@@ -91,9 +91,11 @@ for (const url of urls) {
 
 const summary = {
   pagesChecked: pages.length,
+  clientRenderedPages: pages.filter(page => page.clientRenderedApp).length,
   averageReadinessIndicators: pages.length
     ? Number((pages.reduce((sum, page) => sum + Number(page.readinessIndicators.split('/')[0]), 0) / pages.length).toFixed(1))
     : 0,
+  unverifiedPageSignals: pages.reduce((sum, page) => sum + page.unverifiedSignals.length, 0),
   schemaTypesFound: [...typeNames].sort(),
   pagesWithFaqSignals: pages.filter(page => page.signals.hasQuestionHeadings || page.signals.hasFaqSchema).length,
   pagesWithServiceSchema: pages.filter(page => page.signals.hasServiceSchema).length,
@@ -102,7 +104,7 @@ const summary = {
 const report = {
   generatedAt: new Date().toISOString(),
   site,
-  note: 'Readiness indicators are heuristic checks on fetched HTML, not Google ranking scores and not a measurement of AI-answer visibility.',
+  note: 'Readiness indicators are heuristic checks on fetched HTML, not Google ranking scores and not a measurement of AI-answer visibility. For client-rendered React pages, content and page-specific schema signals are marked unverified rather than missing because this static fetch does not execute JavaScript.',
   summary,
   pages,
   findings,
@@ -116,16 +118,18 @@ const lines = [
   '',
   '## Summary',
   '- Pages checked: ' + summary.pagesChecked,
-  '- Average readiness indicators: ' + summary.averageReadinessIndicators,
+  '- Client-rendered pages: ' + summary.clientRenderedPages,
+  '- Average readiness indicators (verified signals only): ' + summary.averageReadinessIndicators,
+  '- Unverified signals on client-rendered pages: ' + summary.unverifiedPageSignals,
   '- Schema types found: ' + (summary.schemaTypesFound.join(', ') || 'none'),
   '- Pages with FAQ/question signals: ' + summary.pagesWithFaqSignals,
   '- Pages with Service schema: ' + summary.pagesWithServiceSchema,
   '- Findings: ' + summary.findings,
   '',
   '## Page-level checks',
-  '| Page | HTTP | Indicators | Schema types | FAQ/question signals |',
-  '|---|---:|---:|---|---|',
-  ...pages.map(page => '| ' + page.url + ' | ' + page.status + ' | ' + page.readinessIndicators + ' | ' + (page.schemaTypes.join(', ') || 'none') + ' | ' + (page.signals.hasQuestionHeadings || page.signals.hasFaqSchema ? 'Yes' : 'No') + ' |'),
+  '| Page | HTTP | Indicators | Render mode | Schema types | FAQ/question signals |',
+  '|---|---:|---:|---|---|---|',
+  ...pages.map(page => '| ' + page.url + ' | ' + page.status + ' | ' + page.readinessIndicators + ' | ' + (page.clientRenderedApp ? 'React (unverified)' : 'HTML') + ' | ' + (page.schemaTypes.join(', ') || 'none detected in HTML') + ' | ' + (page.signals.hasQuestionHeadings === null || page.signals.hasFaqSchema === null ? 'Unverified' : page.signals.hasQuestionHeadings || page.signals.hasFaqSchema ? 'Yes' : 'No') + ' |'),
   '',
   '## Findings',
   ...(findings.length ? findings.map(x => '- ' + x.url + ' — **' + x.signal + '**: ' + x.detail) : ['- No missing signals detected by this heuristic audit.']),
