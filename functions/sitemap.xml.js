@@ -35,7 +35,8 @@ export async function onRequestGet({ env }) {
       const projects = await response.json()
       for (const project of projects) {
         const slug = typeof project.slug === 'string' ? project.slug.trim() : ''
-        if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) paths.push('/portfolio/' + slug)
+        // Exclude the known demo placeholder even if its Supabase record remains published.
+        if (slug !== 'test-project' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) paths.push('/portfolio/' + slug)
       }
     } catch (error) {
       console.error('Dynamic portfolio sitemap query failed; serving static URLs.', error)
