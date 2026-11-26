@@ -135,12 +135,44 @@ async function getSearchConsoleData() {
   )
   const queryData = JSON.parse(queryResult.text)
   if (!queryResult.response.ok) throw new Error('Search Analytics request failed: ' + queryResult.response.status + ' ' + (queryData.error?.message || ''))
+
+  // Validate whether an empty query/page result is simply a short-window issue.
+  const performanceEnd = new Date(end)
+  const performanceStart = new Date(performanceEnd)
+  performanceStart.setUTCDate(performanceStart.getUTCDate() - 89)
+  const performanceResult = await fetchText(
+    'https://searchconsole.googleapis.com/webmasters/v3/sites/' + encodeURIComponent(property) + '/searchAnalytics/query',
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        startDate: formatDate(performanceStart),
+        endDate: formatDate(performanceEnd),
+        dimensions: ['date'],
+        rowLimit: 1000,
+        type: 'web',
+      }),
+    },
+  )
+  const performanceData = JSON.parse(performanceResult.text)
+  if (!performanceResult.response.ok) throw new Error('90-day Search Analytics validation failed: ' + performanceResult.response.status + ' ' + (performanceData.error?.message || ''))
+  const performanceRows = performanceData.rows || []
+  const performance90d = {
+    startDate: formatDate(performanceStart),
+    endDate: formatDate(performanceEnd),
+    rows: performanceRows,
+    clicks: performanceRows.reduce((sum, row) => sum + (row.clicks || 0), 0),
+    impressions: performanceRows.reduce((sum, row) => sum + (row.impressions || 0), 0),
+  }
+  performance90d.status = performance90d.impressions > 0 ? 'data_found' : 'no_data_observed'
+
   return {
     status: 'connected',
     property,
     startDate: formatDate(start),
     endDate: formatDate(end),
     rows: queryData.rows || [],
+    performance90d,
     sitemaps: submittedSitemaps,
   }
 }
@@ -200,6 +232,7 @@ try {
   if (gsc.status === 'connected') {
     console.log('Google Search Console connected. Rows received:', gsc.rows.length)
     console.log('Submitted sitemaps:', gsc.sitemaps.length)
+    console.log('90-day Search Console validation:', gsc.performance90d?.status, 'clicks:', gsc.performance90d?.clicks, 'impressions:', gsc.performance90d?.impressions, 'daily rows:', gsc.performance90d?.rows?.length)
     gsc.urlInspections = []
     const inspectionToken = await getAccessTokenForInspection()
     for (const page of pageResults.slice(0, 20)) {
@@ -252,7 +285,11 @@ const lines = [
   ...(gsc.status === 'connected' ? [
     '- Property: ' + gsc.property,
     '- Date range: ' + gsc.startDate + ' to ' + gsc.endDate,
-    '- Search rows: ' + gsc.rows.length,
+    '- Search rows (query/page, 28-day window): ' + gsc.rows.length,
+    '- 90-day performance validation: ' + (gsc.performance90d?.status || 'not_run'),
+    '- 90-day clicks: ' + (gsc.performance90d?.clicks ?? 'n/a'),
+    '- 90-day impressions: ' + (gsc.performance90d?.impressions ?? 'n/a'),
+    '- 90-day daily data rows: ' + (gsc.performance90d?.rows?.length ?? 0),
     '',
     '| Query | Page | Clicks | Impressions | CTR | Position |',
     '|---|---|---:|---:|---:|---:|',
