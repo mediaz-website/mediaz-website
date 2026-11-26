@@ -173,7 +173,7 @@ ${JSON.stringify(compact)}`
   } else {
     await fs.writeFile(
       'gemini-seo-recommendations.md',
-      '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\n' +
+      '# Mediazz Hub — AI SEO & AEO Recommendations\n\n' +
         'Generated: ' + new Date().toISOString() + '\n' +
         'Provider/model: ' + generated.model + '\n\n' + generated.report + '\n'
     )
