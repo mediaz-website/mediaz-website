@@ -158,9 +158,9 @@ ${JSON.stringify(compact)}`
 
   await fs.writeFile(
     'gemini-seo-recommendations.md',
-    '# Mediazz Hub — Gemini SEO & AEO Recommendations\\n\\n' +
-      'Generated: ' + new Date().toISOString() + '\\n' +
-      'Model: ' + generated.model + '\\n\\n' + generated.report + '\\n'
+    '# Mediazz Hub — Gemini SEO & AEO Recommendations\n\n' +
+      'Generated: ' + new Date().toISOString() + '\n' +
+      'Model: ' + generated.model + '\n\n' + generated.report + '\n'
   )
   await fs.writeFile(
     'gemini-seo-recommendations.json',
@@ -171,5 +171,4 @@ ${JSON.stringify(compact)}`
     }, null, 2)
   )
   console.log('Gemini SEO recommendations generated with ' + generated.model + '.')
-}
 }
