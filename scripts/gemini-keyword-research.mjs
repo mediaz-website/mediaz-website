@@ -77,8 +77,6 @@ ${JSON.stringify(pages)}`
       console.warn('Keyword research model failed:', model, error.message)
     }
   }
-  if (!result) throw new Error('Keyword research failed on all models. ' + errors.join(' | '))
-
   if (!result) {
     const generatedAt = new Date().toISOString()
     const reason = errors.join(' | ')
