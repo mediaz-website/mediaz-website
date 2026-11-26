@@ -17,8 +17,12 @@ function tags(html, tag) {
     .map(x => strip(x[1])).filter(Boolean)
 }
 function meta(html, name) {
-  const tag = [...html.matchAll(/<meta\b[^>]*>/gi)].map(x => x[0]).find(x => new RegExp('(name|property)=["']' + name + '["']', 'i').test(x))
-  return tag?.match(/content=["']([^"']*)["']/i)?.[1] || ''
+  const candidates = [...html.matchAll(/<meta\b[^>]*>/gi)].map(x => x[0])
+  const tag = candidates.find(candidate => {
+    const key = candidate.match(/\b(?:name|property)\s*=\s*["']([^"']+)["']/i)?.[1]
+    return key?.toLowerCase() === name.toLowerCase()
+  })
+  return tag?.match(/\bcontent\s*=\s*["']([^"']*)["']/i)?.[1] || ''
 }
 function collectTypes(value, out = []) {
   if (!value || typeof value !== 'object') return out
