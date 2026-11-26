@@ -77,7 +77,34 @@ ${JSON.stringify(pages)}`
       console.warn('Keyword research model failed:', model, error.message)
     }
   }
-  if (!result) throw new Error('Keyword research failed on all models. ' + errors.join(' | '))
+  if (!result) {
+    const generatedAt = new Date().toISOString()
+    const reason = errors.join(' | ')
+    await fs.writeFile('keyword-research-report.md', '# Mediazz Hub — Keyword & Competitor Research\n\nStatus: temporarily unavailable\n\nGemini API quota/rate limit prevented grounded research in this run. No keyword volume or competitor facts were invented.\n\nError: ' + reason + '\n')
+    await fs.writeFile('keyword-research-report.json', JSON.stringify({ generatedAt, status: 'temporarily_unavailable', errors }, null, 2))
+    console.warn('Keyword research unavailable due to Gemini API quota/rate limits; continuing the SEO audit.')
+  } else {
+    const generatedAt = new Date().toISOString()
+    const lines = [
+      '# Mediazz Hub — Keyword & Competitor Research',
+      '',
+      'Generated: ' + generatedAt,
+      'Model: ' + result.model,
+      '',
+      result.report,
+      '',
+      '## Grounding sources',
+      ...(result.sources.length ? result.sources.map(x => '- [' + (x.title || x.uri) + '](' + x.uri + ')') : ['- No source links returned by grounding metadata.']),
+      '',
+      '## Google Search queries used',
+      ...(result.queries.length ? result.queries.map(x => '- ' + x) : ['- No query metadata returned.']),
+      '',
+    ]
+    if (result.suggestions) lines.push('## Google Search suggestions', '', result.suggestions)
+    await fs.writeFile('keyword-research-report.md', lines.join('\\n'))
+    await fs.writeFile('keyword-research-report.json', JSON.stringify({ generatedAt, model: result.model, report: result.report, sources: result.sources, queries: result.queries, searchSuggestionsHtml: result.suggestions }, null, 2))
+    console.log('Keyword research report generated; grounded sources:', result.sources.length, 'search queries:', result.queries.length)
+  }
 
   const generatedAt = new Date().toISOString()
   const lines = [
